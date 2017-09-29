@@ -49,13 +49,15 @@
       }
     }
   },
-  "_release": "09395977bc",
+  "version": "1.0.3",
+  "_release": "1.0.3",
   "_resolution": {
-    "type": "branch",
-    "branch": "master",
-    "commit": "09395977bcd1c3318000390451fcef8dfa686e36"
+    "type": "version",
+    "tag": "1.0.3",
+    "commit": "6a3a76a6a1e1505ba2394640bb8ab65320cc0500"
   },
   "_source": "https://github.com/fooloomanzoo/color-picker.git",
-  "_target": "master",
-  "_originalSource": "fooloomanzoo/color-picker"
+  "_target": "^1.0.3",
+  "_originalSource": "fooloomanzoo/color-picker",
+  "_direct": true
 }
