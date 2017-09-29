@@ -49,11 +49,11 @@
       }
     }
   },
-  "_release": "33c69badcf",
+  "_release": "09395977bc",
   "_resolution": {
     "type": "branch",
     "branch": "master",
-    "commit": "33c69badcfe92b2733b731003523953e81c13a3e"
+    "commit": "09395977bcd1c3318000390451fcef8dfa686e36"
   },
   "_source": "https://github.com/fooloomanzoo/color-picker.git",
   "_target": "master",
