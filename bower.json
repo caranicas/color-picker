@@ -22,7 +22,8 @@
     "polymer": "Polymer/polymer#1.9 - 2",
     "iron-overlay-behavior": "PolymerElements/iron-overlay-behavior",
     "input-picker-pattern": "fooloomanzoo/input-picker-pattern",
-    "number-input": "fooloomanzoo/number-input"
+    "number-input": "fooloomanzoo/number-input",
+    "color-picker": "fooloomanzoo/color-picker#master"
   },
   "devDependencies": {
     "webcomponentsjs": "webcomponents/webcomponentsjs",
