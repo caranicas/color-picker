@@ -18,27 +18,17 @@
   },
   "licence": "https://github.com/fooloomanzoo/input-picker-pattern/raw/master/LICENSE.txt",
   "dependencies": {
-    "polymer": "Polymer/polymer#1.9 - 2",
-    "iron-overlay-behavior": "PolymerElements/iron-overlay-behavior"
+    "polymer": "Polymer/polymer#2",
+    "iron-overlay-behavior": "PolymerElements/iron-overlay-behavior#2"
   },
-  "variants": {
-    "1.x": {
-      "dependencies": {
-        "polymer": "Polymer/polymer#^1.9"
-      },
-      "resolutions": {
-        "webcomponentsjs": "^0.7"
-      }
-    }
-  },
-  "version": "1.0.3",
-  "_release": "1.0.3",
+  "version": "2.3.4",
+  "_release": "2.3.4",
   "_resolution": {
     "type": "version",
-    "tag": "1.0.3",
-    "commit": "1e104f4b9867ace3a58970a9a6636faa0e7183de"
+    "tag": "2.3.4",
+    "commit": "80112b1680cc83ff898f9959464199786551d17d"
   },
   "_source": "https://github.com/fooloomanzoo/input-picker-pattern.git",
-  "_target": "*",
+  "_target": "2",
   "_originalSource": "fooloomanzoo/input-picker-pattern"
 }

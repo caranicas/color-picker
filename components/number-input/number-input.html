@@ -1,479 +1,374 @@
-<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../polymer/polymer.html">
 
-<!--
-  `number-input` is an element that can:
-  * prevent non numeric input
-  * guarantee **live** data to be valid
-  * pad a value with `0`, to a specific length
-  * size the input, according to it's length
+<link rel="import" href="../property-mixins/range-mixin.html">
+<link rel="import" href="../property-mixins/intl-number-format-mixin.html">
+<link rel="import" href="../input-picker-pattern/input-pattern.html">
 
-  Example:
-  ```html
-  <number-input step="2" min="-20" max="140" pad-length="2"></number-input>
-  ```
+<script>
+  /**
+   * mixin to create a number-input
+   *
+   * @appliesMixin IntlNumberFormatMixin
+   * @appliesMixin RangeMixin
+   * @appliesMixin InputPattern
+   *
+   * @mixinFunction
+   * @polymer
+   */
+  const NumberInputMixin = superClass => { // eslint-disable-line no-unused-vars
 
-  It sizes automatically. Use `key-up` and `key-down` to increment the value. If `step` is given, the value is a **multiple** of `step`.
-
-  ### Styling
-  Custom property                  | Description                            | Default
-  ---------------------------------|----------------------------------------|--------------------
-  `--number-input`                 | style of the input                     | {}
-  `--number-input-focus`           | style of the focussed and hovered input | {}
-  `--number-input-placeholder`     | style of the placeholder               | {}
-
-  ```css
-  :host {
-    --number-input-focus: {
-      background: rgba(0,0,0,.25);
-    };
-    --number-input-placeholder: {
-      color: pink;
-    };
-  }
-  ```
-  @polymer
-  @customElement
-
-  @group polyfill
-  @element number-input
-
-  @summary "input for numeric values"
-  @demo demo/index.html
--->
-
-<dom-module id="number-input">
-  <script>
-    class NumberInput extends Polymer.Element {
-
-      static get is() {
-        return 'number-input';
-      }
-
-      static get template() {
-        return `
-          ${this.styleTemplate}
-          ${this.contentTemplate}
-        `;
-      }
+    return class extends RangeMixin(InputPattern(IntlNumberFormatMixin(superClass))) {  // eslint-disable-line no-undef
 
       static get styleTemplate() {
         return `
-          <style>
-            :host {
-              display: block;
-              box-sizing: content-box;
-            }
-            --number-input {
-              @apply --input-style;
-            }
-            --number-input-focus {
-              @apply --input-focus;
-            }
-            #input {
-              font-family: inherit;
-              font-size: inherit;
-              font-weight: inherit;
-              @apply --number-input;
-            }
-            #input:hover,
-            #input:focus {
-              @apply --number-input-focus;
-            }
-            #input::placeholder {
-              @apply --number-input-placeholder;
-            }
-          </style>
+          ${super.styleTemplate || ''}
+          #minsize,
+          #size,
+          #input {
+            @apply --number-input;
+            margin: 0;
+            -moz-appearance: textfield;
+            appearance: textfield;
+          }
+          :host(:focus) #input,
+          :host(:hover) #input,
+          #input:hover,
+          #input:focus {
+            @apply --number-input-focus;
+          }
+          :host([invalid]) #input {
+            @apply --number-input-invalid;
+          }
+          :host([disabled]) #input {
+            @apply --number-input-disabled;
+          }
+          #input::-webkit-inner-spin-button,
+          #input::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+          }
+          #input::-webkit-input-placeholder,
+          #input::placeholder {
+            @apply --number-input-placeholder;
+          }
         `;
       }
 
-      static get contentTemplate() {
+      static get inputTemplate() {
         return `
           <input id="input"
-            type="tel"
+            type="[[type]]"
+            value="{{input::input}}"
+            step="[[step]]"
+            required$="[[required]]"
+            disabled$="[[disabled]]"
             placeholder="[[placeholder]]"
-            disabled="[[disabled]]"
-            on-focusin="_checkInput"
-            on-focusout="_checkInput"
-            on-blur="_checkInput"
-            on-input="_inputChanged"
-            on-keydown="_checkKeycode"
-            on-keyup="_stopIncrem">
+            spellcheck="false"
+            autocomplete="off">
         `;
       }
 
       static get properties() {
         return {
+
           /**
-           * minimal input
-           * @type {number}
+           * type of the input
            */
-          min: {
-            type: Number
+          type: {
+            type: String,
+            computed: '_computeType(formatNumber, alwaysSign)'
           },
-          /**
-           * maximal input
-           * @type {number}
-           */
-          max: {
-            type: Number
-          },
-          /**
-           * step for changing the input (referencing to `min` or `0`)
-           * @type {number}
-           */
-          step: {
-            type: Number,
-            value: 1
-          },
+
           /**
            * length to pad the string (with `0`) according to the total amount of numbers
-           * @type {number}
            */
           padLength: {
-            type: Number,
-            reflectToAttribute: true
+            type: Number
           },
+
           /**
-           * placeholder string
-           * @type {string}
+           * always put the sign at the beginning
            */
-          placeholder: {
-            type: String
-          },
-          /**
-           * disables the input
-           * @type {boolean}
-           */
-          disabled: {
-            type: Boolean
-          },
-          /**
-           * disable autosizing
-           * @type {boolean}
-           */
-          noAutoWidth: {
+          alwaysSign: {
             type: Boolean,
-            observer: '_noAutoWidthChanged'
+            observer: '_updateValue'
           },
+
           /**
-           * disable padding (auto-width still effected by `padLength`)
+           * enables auto padding
            * @type {boolean}
            */
-          noPadding: {
+          autoPadding: {
             type: Boolean
           },
+
           /**
-           * value of the input
-           * @type {number}
+           * start where to increment the value
            */
-          value: {
-            type: Number,
-            notify: true,
-            observer: '_valueChanged'
+          startAt: {
+            type: Number
           },
+
           /**
-           * value string of the input
-           * @type {string}
+           * minimum digits right to the decimal separator
            */
-          valueString: {
+          minimumFractionDigits: {
+            type: Number,
+            computed: '_computeMinimumFractionDigits(_step, min, max, numberStyle)',
+            notify: true
+          },
+
+          /**
+           * maximum digits right to the decimal separator
+           */
+          maximumFractionDigits: {
+            type: Number,
+            computed: '_computeMaximumFractionDigits(minimumFractionDigits, noClamp)',
+            notify: true
+          },
+
+          /**
+           * minimum digits left to the decimal separator to pad
+           */
+          minimumIntegerDigits: {
+            type: Number,
+            computed: '_computeMinimumIntegerDigits(autoPadding, padLength, default, startAt, min, max, _step, numberStyle)',
+            notify: true
+          },
+
+          /**
+           * defines the property that should be used for the value
+           */
+          propertyForValue: {
             type: String,
-            notify: true,
-            observer: '_valueStringChanged'
-          },
-          /**
-           * if true, the value does not overflow the maximum or underflow the minimum when incrementing
-           * @type {boolean}
-           */
-          saturate: {
-            type: Boolean
-          },
-          /**
-           * pad to precision
-           * @type {number}
-           */
-          _toFixed: {
-            type: Number,
-            computed: '_computeFixed(step)'
+            value: 'valueAsNumber'
           }
         }
       }
 
       static get observers() {
         return [
-          '_computeWidth(padLength, placeholder, min, max, step)'
+          '_computeMinWidth(formatNumber, startAt, min, max, minimumIntegerDigits, minimumFractionDigits, alwaysSign)',
+          '_updateValue(formatNumber)'
         ]
       }
 
-      _format(n, padLength, toFixed) {
-        n = Number(n);
-        let str = n.toFixed(toFixed !== undefined ? toFixed : (this._toFixed || 0));
-        // console.log(n, str);
-        let targetLength = (padLength || this.padLength || (this.placeholder && this.placeholder.length) || Math.log10(+n)) - str.replace(/\D/g, '').length;
-        const padString = '0';
-        if (targetLength < 0) {
-          return str;
-        } else {
-          if (n < 0) {
-            str = str.slice(1);
-          }
-          for (let i = 0; i < targetLength; i++) {
-            str = padString + str;
-          }
-          if (n < 0) {
-            str = '-' + str;
-          }
-          return str;
-        }
-      }
-
-      _computeFixed(step) {
-        if (!step) {
-          return 0;
-        }
-        const str = '' + step;
-        const pos = str.indexOf('.');
-        if (pos < 0) {
-          return 0;
-        }
-        return str.length - 1 - pos;
-      }
-
-      _checkInput() {
-        this._valueStringChanged(this.$.input.value, this.value);
-      }
-
-      _valueStringChanged(_value, _oldValue) {
-        _value = Number(_value);
-
-        const value = this._checkValue(_value, Number(_oldValue), this.min, this.max);
-        if (value !== _value) {
-          this.$.input.value = this.noPadding ? value : this._format(value);
-          this._valueString = this.$.input.value;
-          if (!this.noAutoWidth) {
-            let length = this.$.input.value.replace(/\D/g, '').length + 0.5*this.$.input.value.replace(/\d/g, '').length;
-            if (((Number.parseFloat(this.$.input.style.width) || 0) < length) || (this.padLength === undefined)) {
-              length = this.$.input.value.replace(/\D/g, '').length + (!(this.min < 0) && value >= 0 ? -0.5 : 0);
-              this._computeWidth(length, this.placeholder, this.min, this.max, this.step);
-            }
-          }
-          this._inputChanged();
-        }
-
-        this.value = value;
-      }
-
-      _valueChanged(value, oldValue) {
-        if (value === undefined) return;
-
-        value = this._checkValue(value, oldValue, this.min, this.max);
-
-        if (value !== this.value) {
-          this.value = value;
-          return;
-        }
-
-        this.$.input.value = this.noPadding ? value : this._format(value);
-        if (!this.noAutoWidth) {
-          let length = this.$.input.value.replace(/\D/g, '').length + 0.5*this.$.input.value.replace(/\d/g, '').length;
-          if (((Number.parseFloat(this.$.input.style.width) || 0) < length) || (this.padLength === undefined)) {
-            length = this.$.input.value.replace(/\D/g, '').length + (!(this.min < 0) && value >= 0 ? -0.5 : 0);
-            this._computeWidth(length, this.placeholder, this.min, this.max, this.step);
-          }
-        }
-        this._inputChanged();
-      }
-
-      _inputChanged() {
-      }
-
       _checkKeycode(e) {
-        if (!e.target) {
-          if (e && e.preventDefault) e.preventDefault();
-          return;
-        }
         // up or down key press
-        const step = this.step || 1;
-        const inc = (e.keyCode === 38) ? step : (e.keyCode === 40 ? -step : 0);
-        if (inc !== 0) {
-          this._startIncrem(inc);
-          return;
-        }
-
-        // enter
-        if (e.keyCode === 13) {
+        const step = (e.keyCode === 38) ? this._step : (e.keyCode === 40 ? -this._step : 0);
+        if (step !== 0) {
           this._checkInput();
+          setTimeout(this._increm.bind(this, this.valueAsNumber, +step), 0);
+          e.stopPropagation();
           return;
         }
 
-        // esc
-        if (e.keyCode === 27) {
-          this._checkInput();
-          this.blur();
-          return;
-        }
+        super._checkKeycode && super._checkKeycode(e);
       }
 
-      _startIncrem(step) {
-        this._stopIncrem();
-        this._increm(step);
-        this._activeJob = setInterval(() => {
-          this._increm(step);
-        }, 150);
-      }
-
-      _stopIncrem() {
-        if (this._activeJob) {
-          clearInterval(this._activeJob);
-        }
-      }
-
-      _increm(step) {
-        if (!step) return;
-
-        step = step || this.step || 1;
-        const value = this._safeAdd(Number(this.$.input.value) || this.value, step);
-        this.value = this._checkValue(value, this.value, this.min, this.max);
-      }
-
-      _checkStep(value, step, min, max) {
-        if (!step) {
-          return value;
-        }
-        if (min !== undefined) {
-          return this._safeAdd(this._safeMult(Math.round((value - min) / step), step), min);
-        }
-        if (max !== undefined) {
-          return this._safeAdd(this._safeMult(-Math.round((max - value) / step), step), max);
-        }
-        return this._safeAdd(this._safeMult(Math.round(value / step), step), 0);
-      }
-
-      _checkValue(value, oldValue, min, max) {
+      _increm(value, step) {
+        value = +this._safeAdd(value, step);
         if (isNaN(value)) {
-          if (!isNaN(oldValue)) {
-            return oldValue;
+          if (!isNaN(this.startAt)) {
+            this.valueAsNumber = +this.startAt;
+          } else if (!isNaN(this.default)) {
+            this.valueAsNumber = +this.default;
+          } else {
+            this.valueAsNumber = this.min < 0 ? 0 : this.min || 0;
           }
-          return min || max || 0;
-        }
-        const saturate = this.saturate;
-        if (min !== undefined && value <= min) {
-          if (saturate || max === undefined || oldValue !== min) {
-            return min;
-          }
-          return this._checkStep(max, this.step, min, max);
-        }
-        if (max !== undefined && value > max) {
-          max = this._checkStep(max, this.step, min, max);
-          if (saturate || min === undefined || max !== oldValue) {
-            return max;
-          }
-          return min;
-        }
-        return this._checkStep(value, this.step, min, max);
-      }
-
-      /**
-       * emulating handwritten multiplication
-       * @param  {[number]} a [factor]
-       * @param  {[number]} b [factor]
-       * @return {[type]}   [product]
-       */
-      _safeMult(a, b) {
-        a = '' + (a || 0);
-        b = '' + (b || 0);
-
-        const aDecimal = a.slice(a.indexOf('.')).length - 1;
-        const bDecimal = b.slice(b.indexOf('.')).length - 1;
-
-        const decimal = aDecimal + bDecimal;
-        const endSign = (a[0] === '-' ? b[0] !== '-' : b[0] === '-') ? '-' : '';
-
-        a = a.replace(/\D/g, '');
-        b = b.replace(/\D/g, '');
-
-        let whole = 0;
-        for (let i = 0; i < b.length; i++) {
-          whole += Math.pow(10, b.length - 1 - i) * Number(a) * Number(b[i]);
-        }
-        whole = this._format(whole, decimal, 0);
-        return Number(endSign + whole.slice(0, whole.length - decimal) + '.' + whole.slice(whole.length - decimal));
-      }
-
-      /**
-       * emulating handwritten addition
-       * @param  {[number]} a [summand]
-       * @param  {[number]} b [summand]
-       * @return {[type]}   [sum]
-       */
-      _safeAdd(a, b) {
-        a = '' + (a || 0);
-        b = '' + (b || 0);
-
-        const aDecimal = a.slice(a.indexOf('.')).length - 1;
-        const bDecimal = b.slice(b.indexOf('.')).length - 1;
-
-        const decimal = Math.max(aDecimal, bDecimal);
-
-        let whole = Math.round( Math.pow(10, decimal) * Number(a) +
-                                Math.pow(10, decimal) * Number(b) );
-        whole = this._format(whole, decimal, 0);
-        return Number(whole.slice(0, whole.length - decimal) + '.' + whole.slice(whole.length - decimal));
-      }
-
-      _computeWidth(padLength, placeholder, min, max, step) {
-        if (this.noAutoWidth) return;
-
-        let width;
-        // numbers
-        if (padLength && padLength > (width || 0)) {
-          width = padLength;
-        }
-        if (placeholder && placeholder.length > (width || 0)) {
-          width = placeholder.length;
-        }
-        let length;
-        if (min !== undefined && (length = ('' + min).replace(/\D/g, '').length) > (width || 0))
-            width = length;
-        if (max !== undefined && (length = ('' + max).replace(/\D/g, '').length) > (width || 0))
-            width = length;
-        if (step !== undefined && (length = ('' + step).replace(/\D/g, '').length) > (width || 0))
-            width = length;
-        // signs
-        if (width && (min === undefined || min < 0 || max < 0)) {
-          width += 0.5;
-        }
-        if (width && step && ('' + step).indexOf('.') !== -1) {
-          width += 0.5;
-        }
-        if (width !== undefined) {
-          // IE fix
-          if (navigator.userAgent.match(/Trident/g)) {
-            width += 1;
-          }
-          this.$.input.style.width = width + 'ch';
+        } else {
+          this.valueAsNumber = value;
         }
       }
 
-      _noAutoWidthChanged(noAutoWidth) {
-        if (!noAutoWidth) {
-          this._valueChanged(this.value);
+      _computeInvalid(required, value) {
+        this.invalid = required && isNaN(value);
+      }
+
+      _inputChanged(input) {
+        if (!input) {
+          if (!isNaN(this.default)) {
+            this.setProperties({
+              input: this.formatNumber(this.default),
+              valueAsNumber: +this.default
+            })
+          }
+          this._debouncedComputeWidth();
           return;
         }
-        this.$.input.style.width = '';
+        const value = this._checkValue(this.parseNumber(input), this.valueAsNumber);
+        input = this.formatNumber(value);
+
+        this.setProperties({
+          input: input,
+          valueAsNumber: value
+        });
+        if (this.autoResize) {
+          this._debouncedComputeWidth();
+        }
       }
 
-      /**
-       * focus the input
-       */
-      focus() {
-        this.$.input.focus();
+      _valueAsNumberChanged(value, oldValue) {
+        if (value === undefined) {
+          if (!isNaN(this.default)) {
+            this.valueAsNumber = this.default;
+          } else {
+            this.input = this.input = '';
+          }
+          return;
+        }
+
+        if (isNaN(oldValue)) {
+          value = this._checkValue(value);
+        } else {
+          value = this._checkValue(value, oldValue);
+        }
+
+        if (this.valueAsNumber !== value) {
+          this.valueAsNumber = value;
+          return;
+        }
+        this.input = this.input = this.formatNumber(value);
       }
 
-      /**
-       * focus the input
-       */
-      blur() {
-        this.$.input.blur();
+      _defaultChanged(def) {
+        if (isNaN(this.valueAsNumber) && !isNaN(def)) {
+          this.valueAsNumber = def;
+        }
+      }
+
+      _computeType() {
+        // maximize compatibility for mobile keyboards
+        if (this.decimalSeparator === '.') {
+          if (this.numberStyle === 'decimal' && !this.unit && !this.alwaysSign  && !this.padLength && !this.autoPadding) {
+            return 'number';
+          }
+          return 'tel';
+        }
+        return 'text';
+      }
+
+      _computeMinWidth() {
+        if (this._minWidthComputionJob) {
+          clearTimeout(this._minWidthComputionJob);
+          this._minWidthComputionJob = null;
+        }
+
+        this._minWidthComputionJob = setTimeout(() => {
+          const def = this.formatNumber(this.default || 0),
+            placeholder = this.placeholder || '',
+            startAt = this.formatNumber(this.startAt || 0),
+            min = this.formatNumber(this.min || 0),
+            max = this.formatNumber(this.max || 0),
+            minlength = this.formatNumber(Math.pow(10, Math.ceil(this.minlength || 1) - (this.numberStyle === 'percent' ? 3 : 1)));
+          const gen = (!this.alwaysSign && (this.min < 0 || this.max < 0) ? '-' : '') + this.formatNumber(Math.pow(10, (this.minimumIntegerDigits || 1) - 1) + Math.pow(10, -(this.minimumFractionDigits || 0)));
+          this._minWidthString = (this.noAutoWidth ? [minlength] : [max, min, def, startAt, gen, minlength]).reduce( (acc, curr) => {
+            return curr.length > acc.length ? curr : acc;
+          }, placeholder);
+        }, 0);
+      }
+
+      _computeMinimumIntegerDigits(autoPadding, padLength, def, startAt, min, max, step, numberStyle) {
+        if (numberStyle === 'percent') {
+          min = Math.round(min * 100);
+          max = Math.round(max * 100);
+          def = Math.round(def * 100);
+          step = Math.round(step * 100);
+          startAt = Math.round(startAt * 100);
+        } else {
+          min = Math.round(min);
+          max = Math.round(max);
+          def = Math.round(def);
+          step = Math.round(step);
+          startAt = Math.round(startAt);
+        }
+        min = '' + (Math.abs(min) || 0);
+        max = '' + (Math.abs(max) || 0);
+        def = '' + (Math.abs(def) || 0);
+        step = '' + (Math.abs(step) || 0);
+        startAt = '' + (Math.abs(startAt) || 0);
+
+        if (autoPadding) {
+          return Math.max((padLength || 1), startAt.length, step.length, def.length, min.length, max.length);
+        }
+        return padLength || 1;
+      }
+
+      _computeMinimumFractionDigits(step, min, max, numberStyle) {
+        if (numberStyle === 'percent') {
+          min = this._safeMult(min || 0, 100);
+          max = this._safeMult(max || 0, 100);
+          step = this._safeMult(step || 0.01, 100);
+        }
+
+        min = '' + (Math.abs(min) || '');
+        max = '' + (Math.abs(max) || '');
+        step = '' + step;
+
+        return ['0', step, min, max].reduce( (acc, curr) => {
+          const pos = curr.indexOf('.');
+          return Math.max((pos < 0) ? 0 : (curr.length - 1 - pos), acc);
+        });
+      }
+
+      _computeMaximumFractionDigits(minimumFractionDigits, noClamp) {
+        if (noClamp) {
+          return 20;
+        }
+        return minimumFractionDigits;
+      }
+
+    }
+  }
+  window.NumberInputMixin = NumberInputMixin;
+</script>
+
+<dom-module id="number-input">
+  <script>
+    /**
+     *  `number-input` is an element that can:
+     * * prevent non numeric input
+     * * guarantee **live**-data to be valid
+     * * pad a value with `0` (to a specific length)
+     * * size the input (according to it's length)
+     * * overflow to minimum or underflow to maximum
+     * * saturate to minimum or to maximum
+     * * display a specified unit and size the input
+     * * specify the decimal separator (the value will still be a Number object)
+     * * use percent-format
+     *
+     * Example:
+     * ```html
+     * <number-input step="2" min="-20" max="140" pad-length="2"></number-input>
+     * ```
+     *
+     * It sizes automatically. Use `key-up` and `key-down` to increment the value. If `step` is given, the value is a **multiple** of `step`.
+     *
+     *  Have a look at [input-picker-pattern#input-shared-style](https://github.com/fooloomanzoo/input-picker-pattern#input-shared-style) to see how to style the element.
+     *
+     * ```css
+     *  number-input {
+     *   --input-disabled-color: grey;
+     *   --input-focus-background: rgba(0,0,0,0.3);
+     *   --input-focus: {
+     *     font-weight: bold;
+     *   };
+     *   --input-placeholder: {
+     *     color: pink;
+     *   };
+     * }
+     * ```
+     * @polymer
+     * @customElement
+     *
+     * @appliesMixin NumberInputMixin
+     *
+     * @demo demo/index.html
+     * @demo demo/form.html Form Demo
+     **/
+    class NumberInput extends NumberInputMixin(Polymer.Element) {  // eslint-disable-line no-undef
+
+      static get is() {
+        return 'number-input';
       }
     }
     window.customElements.define(NumberInput.is, NumberInput);

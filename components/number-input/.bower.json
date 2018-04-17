@@ -9,6 +9,7 @@
     "webcomponents",
     "polymer",
     "number",
+    "integer",
     "input",
     "step"
   ],
@@ -18,25 +19,26 @@
   },
   "license": "MIT",
   "dependencies": {
-    "polymer": "Polymer/polymer#1.9 - 2"
+    "polymer": "Polymer/polymer#2",
+    "property-mixins": "fooloomanzoo/property-mixins#2",
+    "text-input": "fooloomanzoo/text-input#2",
+    "input-picker-pattern": "fooloomanzoo/input-picker-pattern#2"
   },
   "devDependencies": {
     "webcomponentsjs": "webcomponents/webcomponentsjs",
-    "iron-component-page": "PolymerElements/iron-component-page#^3.0.1",
-    "iron-flex-layout": "PolymerElements/iron-flex-layout#^2.0.0",
-    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0"
+    "iron-component-page": "PolymerElements/iron-component-page",
+    "iron-flex-layout": "PolymerElements/iron-flex-layout",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers",
+    "iron-form": "PolymerElements/iron-form"
   },
-  "resolutions": {
-    "webcomponentsjs": "^1.0.0"
-  },
-  "version": "1.1.8",
-  "_release": "1.1.8",
+  "version": "2.3.8",
+  "_release": "2.3.8",
   "_resolution": {
     "type": "version",
-    "tag": "1.1.8",
-    "commit": "542f3ff663973900c9df0ce5c5e9ee1c7bdb8c28"
+    "tag": "2.3.8",
+    "commit": "79ef1de6dccad79b07b7cb0c71f272dfeb2a9f6f"
   },
   "_source": "https://github.com/fooloomanzoo/number-input.git",
-  "_target": "*",
+  "_target": "2",
   "_originalSource": "fooloomanzoo/number-input"
 }
