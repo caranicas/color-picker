@@ -31,11 +31,11 @@
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers",
     "iron-form": "PolymerElements/iron-form"
   },
-  "_release": "5fe7b9ff38",
+  "_release": "f7ae7c9ef5",
   "_resolution": {
     "type": "branch",
     "branch": "master",
-    "commit": "5fe7b9ff3871aaa5c68de242fe6f7a1a3fd72065"
+    "commit": "f7ae7c9ef58d8a3c0a63825d0f7980b54e5c0d82"
   },
   "_source": "https://github.com/fooloomanzoo/color-picker.git",
   "_target": "master",
