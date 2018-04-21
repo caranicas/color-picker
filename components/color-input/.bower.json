@@ -32,12 +32,12 @@
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers",
     "iron-form": "PolymerElements/iron-form"
   },
-  "version": "2.1.4",
-  "_release": "2.1.4",
+  "version": "2.1.5",
+  "_release": "2.1.5",
   "_resolution": {
     "type": "version",
-    "tag": "2.1.4",
-    "commit": "81c74aed1f50d0b83e5db5fea8782bca281e0186"
+    "tag": "2.1.5",
+    "commit": "6dee818393c4785c0e56c212952a03c439e8382b"
   },
   "_source": "https://github.com/fooloomanzoo/color-input.git",
   "_target": "2",

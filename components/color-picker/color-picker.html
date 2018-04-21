@@ -52,7 +52,7 @@
           height: 100%;
           width: 100%;
         }
-        #formats {
+        #buttons #formats {
           font-size: 0.9em;
           --inner-input-color: var(--input-picker-color, currentColor);
           margin-right: var(--input-picker-padding);
@@ -127,31 +127,48 @@
           value: 'colorString'
         },
 
-        _recentcolorheight: Number,
+        _recentcolorheight: {
+          type: Number
+        },
 
-        _recentcolorwidth: Number
+        _recentcolorwidth: {
+          type: Number
+        }
+      }
+    }
+
+    ready() {
+      super.ready();
+      if (this.$.recentColor) {
+        this._recentcolorcontext = this.$.recentColor.getContext("2d");
       }
     }
 
     redraw() {
       super.redraw();
-      this._drawBadge(this._badgecontext, this.colorString, this._badgewidth, this._badgeheight);
-      this._drawBadge(this._recentcolorcontext, this.propertyForValue === 'colorString' ? this.confirmedValue : this.colorString, this._recentcolorwidth, this._recentcolorheight);
+      this._drawConfimedColorBadge(this.propertyForValue === 'colorString' ? this.confirmedValue : this.colorString, this._recentcolorwidth, this._recentcolorheight);
     }
 
     _resizeBadge() {
-      super._resizeBadge();
-      if (this._recentcolorcontext === undefined) {
-        this._recentcolorcontext = this.$.recentColor.getContext("2d");
+      let toSet = {};
+      if (this.$.colorBadge) {
+        const box = this.$.colorBadge.getBoundingClientRect();
+        toSet._badgewidth = Math.ceil(box.width) || 28;
+        toSet._badgeheight = Math.ceil(box.height) || 28;
       }
-      if (this._badgecontext === undefined) {
-        this._badgecontext = this.$.badge.getContext("2d");
+      if (this.$.alphaBadge && this.$.saturationBadge) {
+        const sliderwidth = Math.round(this.$.alphaBadge.getBoundingClientRect().width);
+        const saturationRect = this.$.saturationBadge.getBoundingClientRect();
+        toSet._saturationwidth = (Math.ceil(saturationRect.width) || 184);
+        toSet._saturationheight = (Math.ceil(saturationRect.height) || 184);
+        toSet._sliderwidth = (sliderwidth || 16);
       }
-      const recentcolorRect = this.$.recentColorBadge.getBoundingClientRect();
-      this.setProperties({
-        _recentcolorwidth: Math.ceil(recentcolorRect.width) || 28,
-        _recentcolorheight: Math.ceil(recentcolorRect.height) || 28
-      });
+      if (this.$.recentColorBadge) {
+        const recentcolorRect = this.$.recentColorBadge.getBoundingClientRect();
+        toSet._recentcolorwidth = Math.ceil(recentcolorRect.width) || 28;
+        toSet._recentcolorheight = Math.ceil(recentcolorRect.height) || 28;
+      }
+      this.setProperties(toSet);
     }
 
     _resetValues() {
@@ -162,7 +179,7 @@
     }
 
     _confirmedValueChanged(confirmedValue) {
-      this._drawBadge(this._recentcolorcontext, this.propertyForValue === 'colorString' ? confirmedValue : this.colorString, this._recentcolorwidth, this._recentcolorheight);
+      this._drawConfimedColorBadge(this.propertyForValue === 'colorString' ? confirmedValue : this.colorString, this._recentcolorwidth, this._recentcolorheight);
       if (confirmedValue === undefined) {
         this._resetConfirmedValues();
         return;
@@ -170,19 +187,28 @@
       this.value = confirmedValue;
     }
 
+    _drawConfimedColorBadge(value, width, height) {
+      this._drawBadge(this._recentcolorcontext, value, width, height);
+    }
+
     _addCancelOnClickListener() {
       // prevent when clicking on the picker that it is closes
       // NOTE: different than input-picker-pattern, using polymer.gestures to prevent 'track' to cancel picker
       if (!this.noCancelOnOutsideClick) {
         Polymer.Gestures.addListener(document, 'tap', this.cancel, false);
-        this.addEventListener('click', this._stopPropagation, false);
+        this.addEventListener('tap', this._stopPropagation, false);
       }
     }
 
     _removeCancelOnClickListener() {
     // NOTE: different than input-picker-pattern
       Polymer.Gestures.removeListener(document, 'tap', this.cancel, false);
-      this.removeEventListener('click', this._stopPropagation, false);
+      this.removeEventListener('tap', this._stopPropagation, false);
+    }
+
+    _stopPropagation(e) {
+      e && e.stopPropagation && e.stopPropagation();
+      e && e.detail && e.detail.sourceEvent && e.detail.sourceEvent.stopPropagation && e.detail.sourceEvent.stopPropagation();
     }
 
     open() {
@@ -203,11 +229,24 @@
 <dom-module id="color-picker">
   <script>
   /**
-   *  `color-picker` is a picker for color for **[Polymer](https://github.com/Polymer/polymer)** that can use the native input, too. If the **native** picker is choosen and is not supported, this element uses the **polyfill** datetime-picker. The `<calendar-element>` and the `<time-element>` will come in place if the native picker is not available or is not explicitly wanted. The `value` represents the selected `hex-color` and `alpha` the opacity of the color. `css-value` will give you directly the css-string.
+   *  `color-picker` is a picker for color for **[Polymer](https://github.com/Polymer/polymer)** that can use the native input, too. If the **native** picker is choosen and is not supported, this element uses the **polyfill** datetime-picker. The `<calendar-element>` and the `<time-element>` will come in place if the native picker is not available or is not explicitly wanted. `css-value` will give you directly the css-string.
    *
    *  ```html
    *    <color-picker value="{{value}}"></color-picker>
    *  ```
+   *
+   * Custom property | Description | Default
+   * ----------------|-------------|----------
+   * `--transparency-pattern` | background pattern for the transparency layer | linear-gradient(45deg, rgba(0,0,0,0.15) 25%, transparent 25%, transparent 75%, rgba(0,0,0,0.15) 75%, rgba(0,0,0,0.15)), linear-gradient(45deg, rgba(0,0,0,0.15) 25%, transparent 25%, transparent 75%, rgba(0,0,0,0.15) 75%, rgba(0,0,0,0.15)))
+   * `--transparency-pattern-size` | size transparency pattern | 12px
+   * `--color-element-badge-radius` | border-radius of the badge | --input-picker-border-radius, 6px
+   * `--color-element-height` | height of the selector badge and the alpha- and the hue-slider| 184px
+   * `--color-element-width` | width of the selector badge | 184px
+   * `--color-slider-width` | width of the alpha- and the hue-slider | 16px
+   * `--color-slider-padding` | padding of the alpha- and the hue-slider | 2px
+   * `--color-pin-radius` | radius of the color pin | 3px
+   * `--color-selector-mix-blend-mode` | mix-blend-mode of the selectors (sliders and color pin) | exclusion
+   * `--color-element` | mixin applied to the color element | {}
    *
    *  Have a look at `<color-element>` and [input-picker-pattern#input-shared-style](https://github.com/fooloomanzoo/input-picker-pattern#input-shared-style) to see the used style-properties.
    *
