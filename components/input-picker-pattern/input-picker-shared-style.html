@@ -6,31 +6,27 @@
       :host {
         font-family: inherit;
         font-size: inherit;
+        outline: none;
         -webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;
         -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
         position: relative;
         box-sizing: content-box;
-
         --input-picker-color: #dfdfdf;
-        --input-picker-background: #252525;
+        --input-picker-background: #222;
         --input-picker-border-radius: 0.5em;
         --input-picker-padding: 0.3em;
         --input-picker-box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 1px 8px 0 rgba(0, 0, 0, 0.12), 0 3px 3px -2px rgba(0, 0, 0, 0.4);
-
         --input-icon-border-radius: 0.3em;
         --input-icon-padding: 0.5em;
         --input-icon-height: 1em;
         --input-icon-width: 1em;
         --input-icon-background: transparent;
-
         --input-cursor: pointer;
-
         --inner-input-border-width: thin;
-        --inner-input-padding: 1px;
-        --inner-input-border-radius: 3px;
+        --inner-input-padding: 0;
+        --inner-input-border-radius: 0.2em;
         --inner-input-focus-color: #f1f1f1;
         --inner-input-focus-background: var(--primary-color, #394FE8);
-
         --input-disabled: {
           font-weight: lighter;
         };
@@ -40,10 +36,11 @@
       select {
         -moz-appearance: none;
         -webkit-appearance: none;
-        appearance: none;
         text-align-last: var(--input-align, center);
         background-image: none;
-        border: var(--inner-input-border-width, thin) solid var(--inner-input-border-color, transparent);
+        border-width: var(--inner-input-border-width, thin);
+        border-style: solid;
+        border-color: var(--inner-input-border-color, transparent);
       }
 
       button:focus,
@@ -108,6 +105,11 @@
         border-color: transparent !important;
         @apply --input-focus;
         outline: none;
+      }
+
+      .icon[disabled] {
+        pointer-events: none;
+        opacity: var(--input-disabled-opacity, 0.75);
       }
 
       #picker,

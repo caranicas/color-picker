@@ -1,6 +1,9 @@
-<link rel="import" href="range-mixin.html">
+<link rel="import" href="../polymer/lib/utils/mixin.html">
+<link rel="import" href="number-utilities.html">
 
 <script>
+  const knownLocaleNumberFormatOptions = new Map();
+
   /**
    * Mixin that provides intl-format-locale for numbers and computes some separation strings for usage (only `latn`-numeral-system is possible).
    *
@@ -10,9 +13,17 @@
    * @param {Object} superClass class to extend
    * @return {Object} extended class
    */
-  const IntlNumberFormatMixin = superClass => { // eslint-disable-line no-unused-vars no-undef
+  const IntlNumberFormatMixin = function(superClass) { // eslint-disable-line no-unused-vars no-undef
 
     return class extends superClass {
+
+      constructor() {
+        super();
+        /**
+         * Regular Expression for non numeric signs
+         */
+        this._regExpNotInNumber = /[^\d\-+.e]/g;
+      }
 
       static get properties() {
         return {
@@ -21,7 +32,6 @@
            */
           locale: {
             type: String,
-            notify: true,
             value: window.navigator.language
           },
 
@@ -30,7 +40,6 @@
            */
           decimalSeparator: {
             type: String,
-            notify: true,
             readOnly: true
           },
 
@@ -39,7 +48,6 @@
            */
           groupingSeparator: {
             type: String,
-            notify: true,
             readOnly: true
           },
 
@@ -86,7 +94,7 @@
           },
 
           /**
-           * the separator to separate value and unit
+           * the separator to separate value and unit (default: '\u202F')
            */
           unitSeparator: {
             type: String,
@@ -106,8 +114,7 @@
            */
           numberStyle: {
             type: String,
-            value: 'decimal',
-            notify: true
+            value: 'decimal'
           },
 
           /**
@@ -144,7 +151,7 @@
            */
           formatNumber: {
             type: Function,
-            computed: '_computeFormatNumber(locale, _numberOptions, unit)',
+            computed: '_computeFormatNumber(locale, _numberOptions, unit, unitSeparator, alwaysSign)',
             notify: true
           },
 
@@ -153,17 +160,8 @@
            */
           parseNumber: {
             type: Function,
-            computed: '_computeParseNumber(decimalSeparator, numberStyle, useGrouping)',
+            computed: '_computeParseNumber(decimalSeparator, groupingSeparator, _numberOptions)',
             notify: true
-          },
-
-          /**
-           * Regular Expression for non numeric signs
-           */
-          _regExpNotInNumber: {
-            type: RegExp,
-            value: /[^\d\-+.e]/g,
-            readOnly: true
           }
         }
       }
@@ -205,33 +203,37 @@
           return;
         }
 
-        // decimal separator
-        const numberString = (0.5).toLocaleString(locale, {
-          minimumIntergerDigits: 1,
-          minimumFractionsDigits: 1
-        });
-        const decimalSeparator = numberString[1];
+        if (!knownLocaleNumberFormatOptions.has(locale)) {
+          // decimal separator
+          const numberString = (0.5).toLocaleString(locale, {
+            minimumIntergerDigits: 1,
+            minimumFractionsDigits: 1
+          });
+          const decimalSeparator = numberString[1];
 
-        // grouping separator
-        const nogroupingString = (1000000).toLocaleString(locale, {
-          useGrouping: false
-        });
-        const groupingString = (1000000).toLocaleString(locale, {
-          useGrouping: true
-        });
+          // grouping separator
+          const nogroupingString = (1000000).toLocaleString(locale, {
+            useGrouping: false
+          });
+          const groupingString = (1000000).toLocaleString(locale, {
+            useGrouping: true
+          });
 
-        let groupingSeparator;
-        for (let i = 0; i < nogroupingString.length; i++) {
-          if (groupingString[i] !== nogroupingString[i]) {
-            groupingSeparator = groupingString[i];
-            break;
+          let groupingSeparator;
+          for (let i = 0; i < nogroupingString.length; i++) {
+            if (groupingString[i] !== nogroupingString[i]) {
+              groupingSeparator = groupingString[i];
+              break;
+            }
           }
+
+          knownLocaleNumberFormatOptions.set(locale, {
+            decimalSeparator: decimalSeparator,
+            groupingSeparator: groupingSeparator
+          });
         }
 
-        this.setProperties({
-          decimalSeparator: decimalSeparator,
-          groupingSeparator: groupingSeparator
-        }, true);
+        this.setProperties(knownLocaleNumberFormatOptions.get(locale), true);
       }
 
       _computeNumberOptions(minimumIntegerDigits, minimumFractionDigits, maximumFractionDigits, minimumSignificantDigits, maximumSignificantDigits, useGrouping, style, currency, currencyDisplay) {
@@ -241,68 +243,162 @@
           useGrouping: Boolean(useGrouping),
           style: style || 'decimal'
         }
-        if (currency !== undefined) {
-          options.currency = currency;
+
+        if (style === 'currency') {
+          if (currency) {
+            options.currency = currency;
+            if (currencyDisplay && ['symbol', 'code', 'name'].indexOf(this.currencyDisplay) !== -1) {
+              options.currencyDisplay = currencyDisplay;
+            } else {
+              options.currencyDisplay = new Intl.NumberFormat(this.locale, {
+                style: 'currency',
+                currency: this.currency
+              }).resolvedOptions().currencyDisplay || 'symbol';;
+            }
+          } else {
+            console.warn('No currency is given. Using number style: \'decimal\'.');
+            options.style = 'decimal';
+          }
         }
-        if (currencyDisplay !== undefined) {
-          options.currencyDisplay = currencyDisplay;
+        if (!isNaN(minimumFractionDigits)) {
+          options.minimumFractionDigits = minimumFractionDigits >= 0 ? minimumFractionDigits : 0;
+          if (!isNaN(maximumFractionDigits)) {
+            options.maximumFractionDigits = Math.max(options.minimumFractionDigits, maximumFractionDigits);
+          } else {
+            options.maximumFractionDigits = 20;
+          }
+        } else if (!isNaN(maximumFractionDigits)) {
+          options.maximumFractionDigits = maximumFractionDigits >= 0 ? maximumFractionDigits : 20;
         }
-        if (maximumFractionDigits !== undefined) {
-          options.maximumFractionDigits = maximumFractionDigits < minimumFractionDigits ? minimumFractionDigits : maximumFractionDigits;
-        }
-        if (minimumSignificantDigits !== undefined) {
-          options.minimumSignificantDigits = minimumSignificantDigits;
-        }
-        if (maximumSignificantDigits !== undefined) {
-          options.maximumSignificantDigits = maximumSignificantDigits < minimumSignificantDigits ? minimumSignificantDigits : maximumSignificantDigits;
+        if (!isNaN(minimumSignificantDigits)) {
+          options.minimumSignificantDigits = minimumSignificantDigits >= 1 ? minimumSignificantDigits : 1;
+          if (!isNaN(maximumSignificantDigits)) {
+            options.maximumSignificantDigits = Math.max(options.minimumSignificantDigits, maximumSignificantDigits);
+          }
+        } else if (!isNaN(maximumSignificantDigits)) {
+          options.maximumSignificantDigits = maximumSignificantDigits >= 1 ? maximumSignificantDigits : 21;
         }
         return options;
       }
 
-      _computeFormatNumber(locale, numberOptions, unit) {
-        if (numberOptions && numberOptions.style === 'currency' && !numberOptions.currency) {
-          console.warn('No currency is given. Using number style: \'decimal\'.');
-          numberOptions.style = 'decimal';
-        }
+      _computeFormatNumber(locale, numberOptions, unit, unitSeparator, alwaysSign) {
         if (numberOptions && numberOptions.style !== 'decimal') {
           unit = '';
         }
         const format = new Intl.NumberFormat(locale, numberOptions).format;
         if (unit) {
-          return (n) => {
-            return ((this.alwaysSign && n >= 0) ? '+' : '') + format(n) + this.unitSeparator + unit;
+          if (alwaysSign) {
+            return function(n) {
+              if (isNaN(n)) return '';
+              return `${n > 0 ? '+' : (n < 0 ? '' : (numberUtilities.isNegative0(n) ? '-' : '+'))}${format(n)}${unitSeparator}${unit}`;
+            }
+          }
+          return function(n) {
+            if (isNaN(n)) return '';
+            return `${numberUtilities.isNegative0(n) ? '-' : ''}${format(n)}${unitSeparator}${unit}`;
           }
         }
-        return (n) => {
-          return ((this.alwaysSign && n >= 0) ? '+' : '') + format(n);
+        if (alwaysSign) {
+          return function(n) {
+            if (isNaN(n)) return '';
+            return `${n > 0 ? '+' : (n < 0 ? '' : (numberUtilities.isNegative0(n) ? '-' : '+'))}${format(n)}`;
+          }
+        }
+        return function(n) {
+          if (isNaN(n)) return '';
+          return `${numberUtilities.isNegative0(n) ? '-' : ''}${format(n)}`;
         }
       }
 
-      _computeParseNumber(decimalSeparator, numberStyle, useGrouping) {
-        const regExpGrouping = new RegExp('[' + (this.groupingSeparator || '') + ']', 'g');
-        if (numberStyle === 'percent') {
-          if (useGrouping) {
-            return (input) => {
-              return window._numberUtilities._safeMult(input.replace(regExpGrouping, '').replace(decimalSeparator, '.'), 0.01);
+      _computeParseNumber(decimalSeparator, groupingSeparator, numberOptions) {
+        const regExpGrouping = new RegExp(`[${(groupingSeparator || '')}]`, 'g');
+        const regExpNotInNumber = this._regExpNotInNumber;
+
+        let translateInput;
+        if (numberOptions.maximumFractionDigits === 0) {
+          if (numberOptions.style === 'currency') {
+            if (numberOptions.useGrouping) {
+              translateInput = function(input) {
+                return parseInt(input.replace(regExpGrouping, '').replace(regExpNotInNumber, ''));
+              }
+            } else {
+              translateInput = function(input) {
+                return parseInt(input.replace(regExpNotInNumber, ''));
+              }
+            }
+          } else if (numberOptions.style === 'percent') {
+            if (numberOptions.useGrouping) {
+              translateInput = function(input) {
+                return numberUtilities.safeMult(parseInt(input.replace(regExpGrouping, '')), 0.01);
+              }
+            } else {
+              translateInput = function(input) {
+                return numberUtilities.safeMult(parseInt(input), 0.01);
+              }
             }
           } else {
-            return (input) => {
-              return window._numberUtilities._safeMult(parseFloat(input.replace(decimalSeparator, '.')), 0.01);
+            if (numberOptions.useGrouping) {
+              translateInput = function(input) {
+                return parseInt(input.replace(regExpGrouping, ''));
+              }
+            } else {
+              translateInput = function(input) {
+                return parseInt(input);
+              }
+            }
+          }
+        } else {
+          if (numberOptions.style === 'currency') {
+            if (numberOptions.useGrouping) {
+              translateInput = function(input) {
+                return parseFloat(input.replace(regExpGrouping, '').replace(decimalSeparator, '.').replace(regExpNotInNumber, ''));
+              }
+            } else {
+              translateInput = function(input) {
+                return parseFloat(input.replace(decimalSeparator, '.').replace(regExpNotInNumber, ''));
+              }
+            }
+          } else if (numberOptions.style === 'percent') {
+            if (numberOptions.useGrouping) {
+              translateInput = function(input) {
+                return numberUtilities.safeMult(parseFloat(input.replace(regExpGrouping, '').replace(decimalSeparator, '.')), 0.01);
+              }
+            } else {
+              translateInput = function(input) {
+                return numberUtilities.safeMult(parseFloat(input.replace(decimalSeparator, '.')), 0.01);
+              }
+            }
+          } else {
+            if (numberOptions.useGrouping) {
+              translateInput = function(input) {
+                return parseFloat(input.replace(regExpGrouping, '').replace(decimalSeparator, '.'));
+              }
+            } else {
+              translateInput = function(input) {
+                return parseFloat(input.replace(decimalSeparator, '.'));
+              }
             }
           }
         }
-        if (useGrouping) {
-          return (input) => {
-            return parseFloat(input.replace(regExpGrouping, '').replace(decimalSeparator, '.').replace(this._regExpNotInNumber, ''));
-          }
-        } else {
-          return (input) => {
-            return parseFloat(input.replace(decimalSeparator, '.').replace(this._regExpNotInNumber, ''));
+
+        const parse = function(input) {
+          switch (typeof input) {
+            case 'number':
+              return input;
+            case 'string':
+              if (input.length === 0) return;
+              return translateInput(input);
+            case 'object':
+              if (input !== null && input.valueOf) {
+                return parse(input.valueOf());
+              }
           }
         }
+
+        return parse;
       }
     }
   }
 
-  window.IntlNumberFormatMixin = IntlNumberFormatMixin;
+  window.IntlNumberFormatMixin = Polymer.dedupingMixin(IntlNumberFormatMixin);
 </script>

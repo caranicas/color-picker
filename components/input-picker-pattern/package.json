@@ -1,6 +1,6 @@
 {
   "name": "@fooloomanzoo/input-picker-pattern",
-  "version": "2.3.8",
+  "version": "2.3.9",
   "authors": [
     "Johannes Brautzsch <fooloomanzoo>"
   ],
@@ -18,8 +18,11 @@
   "scripts": {
     "postinstall": "bower install",
     "prepublish": "npm run build && git add . && git commit -m \"publish new version\" && npm version patch && git push",
-    "build": "git pull && bower update -f && polymer analyze > analysis.json",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "git pull && bower update && npm run analyze",
+    "start": "npm run analyze && polymer serve -o",
+    "analyze": "polymer analyze > analysis.json",
+    "test": "polymer test",
+    "test:p": "polymer test -p --config-file=wct.p.conf.js"
   },
   "repository": {
     "type": "git",
@@ -27,11 +30,15 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@polymer/polymer": "^2",
-    "@polymer/iron-overlay-behavior": "*"
+    "@polymer/polymer": "^2.6.1",
+    "@polymer/iron-overlay-behavior": "^2"
   },
   "devDependencies": {
-    "@webcomponents/webcomponentsjs": "*",
-    "@polymer/iron-form": "*"
+    "web-component-tester": "^6.5.0",
+    "@webcomponents/webcomponentsjs": "^1",
+    "@polymer/iron-component-page": "^3",
+    "@polymer/iron-flex-layout": "^2",
+    "@polymer/iron-demo-helpers": "^2",
+    "@polymer/iron-form": "^2"
   }
 }

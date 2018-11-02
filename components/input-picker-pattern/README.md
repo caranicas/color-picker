@@ -50,7 +50,7 @@ Custom property                     | Description                               
 `--input-disabled-color`            | text-color of the disabled input              | inherit
 `--input-disabled-background`       | background of the disabled input              | transparent
 `--input-disabled-font-style`       | font-style of the disabled elements           | oblique
-`--input-disabled-opacity`          | opacity of the disabled input                 | 0.9
+`--input-disabled-opacity`          | opacity of the disabled input                 | 0.75
 `--input-placeholder-opacity`       | opacity of the placeholder                    | 0.75
 `--input-placeholder-align`         | text-align of the placeholder                 | center
 `--input-selection-color`           | text-color of the selected text               | inherit
@@ -70,23 +70,23 @@ Custom property                     | Description                               
 `--inner-input-border-width`   | border-width of the inner input element  | thin
 `--inner-input-border-style`   | border-style of the inner input element  | dotted
 `--inner-input-border-color`   | border-color of the inner input element  | transparent
-`--inner-input-padding`        | padding of the inner input element       | 0
-`--inner-input-border-radius`  | border-radius of the inner input element | 0.1em
+`--inner-input-padding`        | padding of the inner input element       | 0.15em
+`--inner-input-border-radius`  | border-radius of the inner input element | 0.2em
 `--inner-input-focus-color`    | text-color of the focused and hovered inner input element | currentColor
 `--inner-input-focus-background`   | background of the focused and hovered inner input element | rgba(0, 0, 0, 0.1)
 `--inner-input-focus-border-style` | border-style of the focused and hovered inner input element | dotted
 `--inner-input-focus-border-color` | border-color of the focused and hovered inner input element | rgba(0,0,0,0.1)
 `--inner-input-invalid-color`      | text-color of the invalid inner input element | inherit
-`--inner-input-invalid-background` | background of the invalid inner input element | rgba(0, 0, 0, 0.1)
+`--inner-input-invalid-background` | background of the invalid inner input element | rgba(255,255,255,0.5)
 `--inner-input-invalid-border-style` | border-style of the invalid inner input element | dotted
-`--inner-input-invalid-border-color` | border-color of the invalid inner input element | rgba(0, 0, 0, 0.25)
+`--inner-input-invalid-border-color` | border-color of the invalid inner input element | rgba(255,0,0,0.25)
 
 
 #### input-picker-shared-style
 Custom property                   | Description                                  | Default
 ----------------------------------|----------------------------------------------|--------------------
 `--input-picker-color`            | text-color of the picker                     | #dfdfdf
-`--input-picker-background`       | background of the picker                     | #252525
+`--input-picker-background`       | background of the picker                     | #222
 `--input-picker-padding`          | padding of the picker                        | 0.3em
 `--input-picker-border-radius`    | border-radius                                | 0.5em
 `--input-picker-box-shadow`       | box-shadow                                   | 0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 1px 8px 0 rgba(0, 0, 0, 0.12), 0 3px 3px -2px rgba(0, 0, 0, 0.4)
@@ -110,12 +110,19 @@ Custom property                   | Default
 `--input-disabled`                | { font-weight: lighter; }
 
 
-#### drop-down-tip-style
-Custom property                   | Description                                  | Default
-----------------------------------|----------------------------------------------|--------------------
---dropdown-tip-size               | dimensions of the tip of the dropdown        | 6px
---dropdown-tip-gap                | gap to the outside of the tip                | 12px
---dropdown-tip-background         | background of the tip of the dropdown        | --input-picker-background, transparent
+#### dropdown-style
+Custom property                       | Description                                                      | Default
+--------------------------------------|------------------------------------------------------------------|--------------------
+--dropdown-transition-duration        | transition duration for changing opacity when opening or closing | 250ms
+--dropdown-transition-timing-function | dimensions of the tip of the dropdown                            | cubic-bezier(0.6, 1, 0.2, 1)
+--dropdown-background                 | background of the dropdown                                       | --input-picker-background, transparent
+
+#### dropdown-tip-style
+Custom property                   | Description                                   | Default
+----------------------------------|-----------------------------------------------|--------------------
+--dropdown-tip-size               | dimensions of the tip of the dropdown         | 6px
+--dropdown-tip-gap                | gap to the outside of the tip                 | 12px
+--dropdown-background             | background of the of the dropdown and the tip | --input-picker-background, transparent
 
 
 #### overlays

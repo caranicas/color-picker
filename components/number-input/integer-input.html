@@ -1,4 +1,5 @@
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymer/lib/utils/mixin.html">
 <link rel="import" href="number-input.html">
 
 <script>
@@ -10,62 +11,34 @@
    * @mixinFunction
    * @polymer
    */
-  const IntegerInputMixin = superClass => { // eslint-disable-line no-unused-vars
+  const IntegerInputMixin = function(superClass) { // eslint-disable-line no-unused-vars
 
     return class extends NumberInputMixin(superClass) { // eslint-disable-line no-undef
 
       static get properties() {
         return {
-
           /**
-           * The formatting style to use. Is always `decimal` for `integer-input`.
+           * step for changing the input (referencing to `min` or `0`)
+           * @type {number}
            */
-          numberStyle: {
-            type: String,
-            value: 'decimal',
+          step: {
+            type: Number,
+            value: 1,
+            observer: '_stepChanged'
+          },
+          /**
+           * The maximum number of fraction digits to use
+           */
+          maximumFractionDigits: {
+            type: Number,
             readOnly: true,
-            notify: true
+            value: 0
           }
         }
-      }
-
-      _stepChanged(step, stepMod) {
-        step = step || 0;
-        if (step !== Math.abs(step)) {
-          this.step = Math.abs(step);
-          return;
-        }
-        this._step = Math.floor(window._numberUtilities._safeMult(step, stepMod || 1));
-        this._updateValue();
       }
 
       _computeMinimumFractionDigits() {
         return 0;
-      }
-
-      _computeMaximumFractionDigits() {
-        return 0;
-      }
-
-      _computeParseNumber(decimalSeparator, numberStyle, useGrouping) {
-        if (useGrouping) {
-          const regExpGrouping = new RegExp('[' + (this.groupingSeparator || '') + ']', 'g');
-          return (input) => {
-            return parseInt(input.replace(regExpGrouping, ''));
-          }
-        } else {
-          return (input) => {
-            return parseInt(input);
-          }
-        }
-      }
-
-      _computeType() {
-        // maximize compatibility for mobile keyboards
-        if (!this.unit && !this.alwaysSign && !this.padLength && !this.autoPadding) {
-          return 'number';
-        }
-        return 'tel';
       }
 
       _safeAdd(a, b) {
@@ -78,7 +51,7 @@
     }
   }
 
-  window.IntegerInputMixin = IntegerInputMixin;
+  window.IntegerInputMixin = Polymer.dedupingMixin(IntegerInputMixin);
 </script>
 
 <dom-module id="integer-input">

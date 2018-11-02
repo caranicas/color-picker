@@ -1,3 +1,4 @@
+<link rel="import" href="../polymer/lib/utils/mixin.html">
 <link rel="import" href="../polymer/lib/mixins/gesture-event-listeners.html">
 <link rel="import" href="input-picker-shared-style.html">
 <link rel="import" href="dropdown-tip-style.html">
@@ -7,14 +8,28 @@
   /**
    * mixin to extend an element with a test for an expected input type and implement a polyfill, when wanted or needed
    *
+   * @appliesMixin Polymer.GestureEventListeners
    * @appliesMixin FormElementMixin
    *
    * @mixinFunction
    * @polymer
    */
-  const InputPickerPattern = (superClass) => { // eslint-disable-line no-unused-vars
+  const InputPickerPattern = function(superClass) { // eslint-disable-line no-unused-vars
 
     return class extends Polymer.GestureEventListeners(FormElementMixin(superClass)) { // eslint-disable-line no-undef
+
+      constructor() {
+        super();
+        this._onPickerTransitionEnd = this._onPickerTransitionEnd.bind(this);
+        this._checkKeycode = this._checkKeycode.bind(this);
+        this._stopPropagation = this._stopPropagation.bind(this);
+        this.confirm = this.confirm.bind(this);
+        this.cancel = this.cancel.bind(this);
+        this.open = this.open.bind(this);
+        this.close = this.close.bind(this);
+        this.toggle = this.toggle.bind(this);
+      }
+
       /**
        * the expected input type, that should be polyfilled, if not available
        * @type {string}
@@ -28,10 +43,9 @@
        * @type {string}
        */
       static get hasNative() {
-        const inputDate = document.createElement('input');
-        inputDate.setAttribute('type', `${this.expectedNativeInputType}`);
-        this._hasNative = inputDate.type === `${this.expectedNativeInputType}`;
-        return this._hasNative;
+        const testInput = document.createElement('input');
+        testInput.setAttribute('type', `${this.expectedNativeInputType}`);
+        return this._hasNative = (testInput.type === `${this.expectedNativeInputType}`);
       }
 
       static get template() {
@@ -48,7 +62,7 @@
        * @type {string}
        */
       static get styleToInclude() {
-        return `${super.styleToInclude || ''} input-picker-shared-style dropdown-tip-style`;
+        return `input-picker-shared-style dropdown-tip-style ${super.styleToInclude || ''}`;
       }
 
       /**
@@ -60,7 +74,6 @@
           ${super.styleTemplate || ''}
           :host {
             display: inline-flex;
-            align-items: center;
             position: relative;
           }
           #picker #buttons {
@@ -81,10 +94,20 @@
       static get nativeTemplate() {
         return `
           ${this.nativeInputTemplate}
-          <div hidden$="[[native]]" style="position:relative;">
-            ${this.polyfillTemplate}
-          </div>
+          ${this.polyfillTemplate}
         `
+      }
+
+      /**
+       * template for native input element
+       * @type {string}
+       */
+      static get nativeInputTemplate() {
+        return `
+          <template is="dom-if" if="[[_computeShouldNative(native)]]" restamp>
+            <input class="native" type="${this.expectedNativeInputType}" disabled$="[[disabled]]" readonly="[[disabled]]" required="[[required]]" value="{{confirmedValue::input}}">
+          </template>
+        `;
       }
 
       /**
@@ -93,11 +116,25 @@
        */
       static get polyfillTemplate() {
         return `
-          <div id="input" on-click="open">
-            ${this.inputTemplate}
+          <div id="input" on-tap="open" hidden$="[[_computeShouldNative(native)]]">
+            ${this.inputTemplate || ''}
           </div>
           ${this.pickerTemplate}
         `;
+      }
+
+      /**
+       * template for the picker
+       * @type {string}
+       */
+      static get pickerTemplate() {
+        return `
+          <div id="picker" class="dropdown" tabindex="-1" hidden$="[[_computeShouldNative(native)]]">
+            ${super.pickerTemplate || ''}
+            <div id="buttons">
+              ${this.buttonTemplate}
+            <div>
+          </div>`;
       }
 
       /**
@@ -107,8 +144,8 @@
       static get buttonTemplate() {
         return `
           ${super.buttonTemplate || ''}
-          <button class="icon confirm" hidden$="[[disabled]]" on-click="confirm" on-keydown="_stopPropagation">${this._iconConfirmTemplate}</button>
-          <button class="icon cancel" on-click="cancel" on-keydown="_stopPropagation" hidden$="[[autoConfirm]]">${this._iconCloseTemplate}</button>
+          <button id="confirm" class="icon" hidden$="[[disabled]]" on-tap="confirm" on-keydown="_stopPropagation">${this._iconConfirmTemplate}</button>
+          <button id="cancel" class="icon" on-tap="cancel" on-keydown="_stopPropagation" hidden$="[[autoConfirm]]">${this._iconCloseTemplate}</button>
         `;
       }
 
@@ -118,37 +155,6 @@
 
       static get _iconConfirmTemplate() {
         return '<svg viewBox="0 0 24 24"><g><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></g></svg>';
-      }
-
-      /**
-       * template for native input element
-       * @type {string}
-       */
-      static get nativeInputTemplate() {
-        return `
-          <input class="native" type="${this.expectedNativeInputType}" hidden$="[[!native]]" disabled$="[[disabled]]" readonly="[[disabled]]" required="[[required]]" value="{{${this.nativeInputBinding || this.expectedNativeInputType}::input}}">
-        `;
-      }
-
-      /**
-       * template for the replacement of the native input elements
-       * @type {string}
-       */
-      static get inputTemplate() {
-        return `${super.inputTemplate || ''}`;
-      }
-
-      /**
-       * template for the picker
-       * @type {string}
-       */
-      static get pickerTemplate() {
-        return `
-          <div id="picker" class="dropdown">
-            <div id="buttons">
-              ${this.buttonTemplate}
-            <div>
-          </div>`;
       }
 
       static get properties() {
@@ -213,7 +219,7 @@
            */
           autoConfirm: {
             type: Boolean,
-            value: false
+            observer: '_autoConfirmChanged'
           },
 
           /**
@@ -233,9 +239,9 @@
           },
 
           /**
-           * Set to `true` to keep multiple pickers open. (will only work as expected when e.g. `noCancelOnOutsideClick` is set to true)
+           * Set to `true` to disable closing the dropdown when opening another picker.
            */
-          keepMultiplePickersOpen: {
+          noCloseOnPickerOpened: {
             type: Boolean,
             value: false
           },
@@ -270,20 +276,18 @@
 
       static get observers() {
         return [
-          '_valueChanged(value, autoConfirm)',
           '_confirmedValueChanged(confirmedValue)',
-          '_computeInvalid(required, confirmedValue)'
+          '_openedChanged(opened)'
         ];
       }
 
       connectedCallback() {
         super.connectedCallback();
-        this._onPickerTransitionEnd = this._onPickerTransitionEnd.bind(this);
-        this._checkKeycode = this._checkKeycode.bind(this);
-        this._stopPropagation = this._stopPropagation.bind(this);
-        this.cancel = this.cancel.bind(this);
         this._addPickerTransitionEndListener();
         this._addKeyListener();
+        if (this._isSet(this.value)) {
+          this._setConfirmedValue();
+        }
       }
 
       disconnectedCallback() {
@@ -292,11 +296,15 @@
         this._removeKeyListener();
       }
 
+      _computeShouldNative(native) {
+        return this._hasNative && native;
+      }
+
       _addPickerTransitionEndListener() {
         if (!this.opened) {
-          // enshure display style for the picker, for ignoring the tabindex of the picker elements
+          // enshure display style for the picker, so that the tabindex of the inner elements will be ignored
           this.$.picker.style.visibility = 'hidden';
-          this.$.picker.style.display = 'hidden';
+          this.$.picker.style.display = 'none';
         }
         this.$.picker.addEventListener('transitionend', this._onPickerTransitionEnd, false);
       }
@@ -305,35 +313,35 @@
         this.$.picker.removeEventListener('transitionend', this._onPickerTransitionEnd, false);
       }
 
-      _onPickerTransitionEnd() {
+      _onPickerTransitionEnd(e) {
         if (!this.opened) {
-          this.$.picker.style.visibility = 'hidden';
-          this.$.picker.style.display = 'hidden';
+          const node = (e.path && e.path[0]) || e.target;
+          if (node === this.$.picker) {
+            // only end visibility if source event was emitted from the picker
+            this.$.picker.style.visibility = 'hidden';
+            this.$.picker.style.display = 'none';
+          }
         }
       }
 
       _addCancelOnClickListener() {
+        Polymer.Gestures.addListener(document, 'tap', this.cancel, false);
+        Polymer.Gestures.setTouchAction(this, 'auto');
         // prevent when clicking on the picker that it is closes
-        if (!this.noCancelOnOutsideClick) {
-          Polymer.Gestures.addListener(document, 'tap', this.cancel, false);
-          Polymer.Gestures.setTouchAction(this, 'auto');
-          this.addEventListener('tap', this._stopPropagation, false);
-        }
+        Polymer.Gestures.addListener(this, 'tap', this._stopPropagation, false);
       }
 
       _removeCancelOnClickListener() {
         Polymer.Gestures.removeListener(document, 'tap', this.cancel, false);
-        this.removeEventListener('tap', this._stopPropagation, false);
+        Polymer.Gestures.removeListener(this, 'tap', this._stopPropagation, false);
       }
 
-      _addKeepPickersOpenListener() {
-        if (!this.keepMultiplePickersOpen) {
-          document.addEventListener('input-picker-opened', this.cancel, false);
-        }
+      _addCloseOnPickerOpenedListener() {
+        document.addEventListener('input-picker-opened', this.close, false);
       }
 
-      _removeKeepPickersOpenListener() {
-        document.removeEventListener('input-picker-opened', this.cancel, false);
+      _removeCloseOnPickerOpenedListener() {
+        document.removeEventListener('input-picker-opened', this.close, false);
       }
 
       _stopPropagation(e) {
@@ -342,12 +350,10 @@
       }
 
       _addKeyListener() {
-        super._addKeyListener && super._addKeyListener();
         this.addEventListener('keydown', this._checkKeycode, false);
       }
 
       _removeKeyListener() {
-        super._removeKeyListener && super._removeKeyListener();
         this.removeEventListener('keydown', this._checkKeycode, false);
       }
 
@@ -355,7 +361,6 @@
         if (this.nativeOnMobile === undefined) {
           return;
         }
-
         const ua = window.navigator.userAgent,
           isMobile = new RegExp(this.mobileUserAgentTestString, 'i').test(ua);
         if (isMobile === true) {
@@ -387,82 +392,73 @@
           }
           return;
         }
-        if (super._checkKeycode) {
-          super._checkKeycode(e);
+      }
+
+      _openedChanged(opened) {
+        if (!(this._computeShouldNative(this.native))) {
+          if (opened) {
+            this.$.picker.style.display = '';
+            this.$.picker.style.visibility = '';
+            // dispatch `input-picker-opened`-Event
+            this.dispatchEvent(new (CustomEvent || Event)('input-picker-opened', { bubbles: true, detail: this }));
+            // add outside click listener if needed
+            if (!this.noCancelOnOutsideClick) {
+              this._addCancelOnClickListener();
+            }
+            // add document listener for other picker opening if needed
+            if (!this.noCloseOnPickerOpened) {
+              this._addCloseOnPickerOpenedListener();
+            }
+            // this.$.picker.focus();
+          } else {
+            // dispatch `input-picker-closed`-Event
+            this.dispatchEvent(new (CustomEvent || Event)('input-picker-closed', { bubbles: true, detail: this }));
+            // remove outside click listener if needed
+            this._removeCancelOnClickListener();
+            this._removeCloseOnPickerOpenedListener();
+          }
         }
+      }
+
+      validate() {
+        if (this.valueIsSet) {
+          this._setConfirmedValue();
+        } else if (this._isSet(this.confirmedValue)) {
+          this._resetValue();
+        }
+        return super.validate();
       }
 
       /**
        * open the picker
        */
       open(e) {
-        if (e && e.stopPropagation) {
-          e.stopPropagation();
-        }
-        this.$.picker.style.display = '';
-        this.$.picker.style.visibility = '';
-        if (super.open) {
-          super.open();
-        }
-        if (!this.opened) {
-          this.dispatchEvent(new (CustomEvent || Event)('input-picker-opened', { bubbles: true, detail: this }));
-          setTimeout(() => {
-            this._addCancelOnClickListener();
-            this._addKeepPickersOpenListener();
-          })
-        }
+        this._stopPropagation(e);
         this.opened = true;
       }
 
       /**
        * close the picker
-       * @param  {[type]} e Event
        */
-      close(e) {
-        if (e && e.stopPropagation) {
-          e.stopPropagation();
-        }
-        this._removeCancelOnClickListener();
-        this._removeKeepPickersOpenListener();
-        if (super.close) {
-          super.close();
-        }
-        setTimeout( () => {
-          this.opened = false;
-          this.dispatchEvent(new (CustomEvent || Event)('input-picker-closed', { bubbles: true, detail: this }));
-        })
+      close() {
+        this.opened = false;
       }
 
       /**
        * toggle the picker
-       * @param  {[type]} e Event
        */
-      toggle(e) {
-        if (e && e.stopPropagation) {
-          e.stopPropagation();
-        }
-        if (super.toggle) {
-          super.toggle();
-        }
+      toggle() {
         this.opened = !this.opened;
       }
 
       /**
        * confirms the input
-       * @param  {[type]} e Event
        */
       confirm(e) {
-        if (e && e.stopPropagation) {
-          e.stopPropagation();
+        this._stopPropagation(e);
+        if (!this.disabled) {
+          this._setConfirmedValue();
         }
-        if (this.disabled) {
-          this.cancel();
-          return;
-        }
-        if (super.confirm) {
-          super.confirm();
-        }
-        this._setConfirmedValues();
         this.close();
       }
 
@@ -470,77 +466,65 @@
        * cancels the input
        * @param  {[type]} e Event
        */
-      cancel(e) {
-        if (e && e.stopPropagation) {
-          e.stopPropagation();
+      cancel() {
+        if (!this.disabled) {
+          if (this.autoConfirm) {
+            this.confirm();
+          } else {
+            this._resetValue();
+          }
         }
-        if (super.cancel) {
-          super.cancel();
-        }
-        if (this.autoConfirm) {
-          this.confirm();
-        }
-
-        this._resetValues();
         this.close();
       }
 
       _valueChanged(value) {
-        if (value === undefined) {
-          this._resetConfirmedValues();
-          return; // return, if resseting, so that the picker is not itself resetted
-        }
-        if (this.autoConfirm || (this._hasNative && this.native)) {
-          setTimeout(() => {
-            this._setConfirmedValues();
-          }, 0);
+        super._valueChanged(value);
+        if (this.autoConfirm) {
+          this._setConfirmedValue();
         }
       }
 
       _confirmedValueChanged(confirmedValue) {
-        if (confirmedValue === undefined) {
-          this._resetConfirmedValues();
-          return;
+        if (this._isSet(confirmedValue) === false) {
+          this.reset(confirmedValue);
+        } else {
+          this.value = confirmedValue;
         }
-        this.value = confirmedValue;
       }
 
-      validate() {
+      /**
+       * reset confirmedValue and value
+       * @param {Number} value value to set
+       */
+      reset(value) {
+        this.setProperties({
+          value: this.default || value,
+          confirmedValue: this.default || value
+        })
+      }
+
+      _setConfirmedValue() {
+        this.confirmedValue = this.value;
+      }
+
+      _resetValue() {
         this.value = this.confirmedValue;
-        return super.validate();
       }
 
-      _setConfirmedValues() {
-        this.setProperties({
-          confirmedValue: this.value
-        })
-      }
-
-      _resetConfirmedValues() {
-        this.setProperties({
-          value: undefined,
-          confirmedValue: undefined
-        })
-      }
-
-      _resetValues() {
-        this.setProperties({
-          value: this.confirmedValue
-        })
+      _autoConfirmChanged(autoConfirm) {
+        if (autoConfirm && this._isSet(this.value)) {
+          this._setConfirmedValue();
+        }
       }
 
       _defaultChanged(def) {
         super._defaultChanged(def);
-        if (def) {
-          setTimeout( () => {
-            if (this.value !== undefined) {
-              this._setConfirmedValues();
-            }
-          }, 0);
+        if (this._isSet(this.value)) {
+          this._setConfirmedValue();
         }
       }
     }
   }
 
-  window.InputPickerPattern = InputPickerPattern;
+  window.InputPickerPattern = Polymer.dedupingMixin(InputPickerPattern);
 </script>

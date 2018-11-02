@@ -8,135 +8,53 @@
       "properties": [
         {
           "name": "hex",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "Hex-color",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 21,
+              "line": 47,
               "column": 10
             },
             "end": {
-              "line": 25,
+              "line": 51,
               "column": 11
             }
           },
           "metadata": {
             "polymer": {
               "notify": true,
-              "observer": "\"_hexChanged\""
+              "observer": "\"_hexChanged\"",
+              "attributeType": "String"
             }
           }
         },
         {
           "name": "r",
-          "type": "number",
+          "type": "number | null | undefined",
           "description": "Red",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 29,
+              "line": 56,
               "column": 10
             },
             "end": {
-              "line": 32,
+              "line": 59,
               "column": 11
             }
           },
           "metadata": {
             "polymer": {
-              "notify": true
+              "notify": true,
+              "attributeType": "Number"
             }
           }
         },
         {
           "name": "g",
-          "type": "number",
+          "type": "number | null | undefined",
           "description": "Green",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 36,
-              "column": 10
-            },
-            "end": {
-              "line": 39,
-              "column": 11
-            }
-          },
-          "metadata": {
-            "polymer": {
-              "notify": true
-            }
-          }
-        },
-        {
-          "name": "b",
-          "type": "number",
-          "description": "Blue",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 43,
-              "column": 10
-            },
-            "end": {
-              "line": 46,
-              "column": 11
-            }
-          },
-          "metadata": {
-            "polymer": {
-              "notify": true
-            }
-          }
-        },
-        {
-          "name": "h",
-          "type": "number",
-          "description": "Hue",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 50,
-              "column": 10
-            },
-            "end": {
-              "line": 53,
-              "column": 11
-            }
-          },
-          "metadata": {
-            "polymer": {
-              "notify": true
-            }
-          }
-        },
-        {
-          "name": "s",
-          "type": "number",
-          "description": "Saturation (hsl)",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 57,
-              "column": 10
-            },
-            "end": {
-              "line": 60,
-              "column": 11
-            }
-          },
-          "metadata": {
-            "polymer": {
-              "notify": true
-            }
-          }
-        },
-        {
-          "name": "l",
-          "type": "number",
-          "description": "Lightness",
           "privacy": "public",
           "sourceRange": {
             "start": {
@@ -150,79 +68,81 @@
           },
           "metadata": {
             "polymer": {
-              "notify": true
+              "notify": true,
+              "attributeType": "Number"
             }
           }
         },
         {
-          "name": "alpha",
-          "type": "number",
-          "description": "Alpha",
+          "name": "b",
+          "type": "number | null | undefined",
+          "description": "Blue",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 71,
+              "line": 72,
               "column": 10
             },
             "end": {
-              "line": 76,
+              "line": 75,
               "column": 11
             }
           },
           "metadata": {
             "polymer": {
               "notify": true,
-              "observer": "\"_alphaChanged\""
+              "attributeType": "Number"
             }
-          },
-          "defaultValue": "1"
+          }
         },
         {
-          "name": "alphaMode",
-          "type": "boolean",
-          "description": "if true, colorString has alpha",
+          "name": "h",
+          "type": "number | null | undefined",
+          "description": "Hue",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 81,
+              "line": 80,
               "column": 10
             },
             "end": {
-              "line": 85,
+              "line": 83,
               "column": 11
             }
           },
           "metadata": {
             "polymer": {
               "notify": true,
-              "observer": "\"_alphaModeChanged\""
+              "attributeType": "Number"
             }
           }
         },
         {
-          "name": "hslPrecision",
-          "type": "number",
-          "description": "Precision of hsl-colorStrings, if the format is 'hsl' (for saturation and lightness it is applied according to their percentage colorString)",
+          "name": "s",
+          "type": "number | null | undefined",
+          "description": "Saturation (hsl)",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 89,
+              "line": 88,
               "column": 10
             },
             "end": {
-              "line": 92,
+              "line": 91,
               "column": 11
             }
           },
           "metadata": {
-            "polymer": {}
-          },
-          "defaultValue": "0"
+            "polymer": {
+              "notify": true,
+              "attributeType": "Number"
+            }
+          }
         },
         {
-          "name": "format",
-          "type": "string",
-          "description": "format of the colorString (possible colorStrings: 'rgb', 'hex', 'hsl', 'auto')",
+          "name": "l",
+          "type": "number | null | undefined",
+          "description": "Lightness",
           "privacy": "public",
           "sourceRange": {
             "start": {
@@ -230,26 +150,25 @@
               "column": 10
             },
             "end": {
-              "line": 101,
+              "line": 99,
               "column": 11
             }
           },
           "metadata": {
             "polymer": {
               "notify": true,
-              "observer": "\"_formatChanged\""
+              "attributeType": "Number"
             }
-          },
-          "defaultValue": "\"auto\""
+          }
         },
         {
-          "name": "colorString",
-          "type": "string",
-          "description": "hex-color",
+          "name": "alpha",
+          "type": "number | null | undefined",
+          "description": "Alpha",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 105,
+              "line": 104,
               "column": 10
             },
             "end": {
@@ -260,211 +179,240 @@
           "metadata": {
             "polymer": {
               "notify": true,
-              "observer": "\"_colorStringChanged\""
+              "observer": "\"_alphaChanged\"",
+              "attributeType": "Number"
+            }
+          },
+          "defaultValue": "1"
+        },
+        {
+          "name": "alphaMode",
+          "type": "boolean | null | undefined",
+          "description": "if true, colorString has alpha",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 114,
+              "column": 10
+            },
+            "end": {
+              "line": 118,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true,
+              "observer": "\"_alphaModeChanged\"",
+              "attributeType": "Boolean"
             }
           }
         },
         {
-          "name": "_validateHex",
-          "type": "RegExp",
-          "description": "",
-          "privacy": "protected",
+          "name": "hslPrecision",
+          "type": "number | null | undefined",
+          "description": "Precision of hsl-colorStrings, if the format is 'hsl' (for saturation and lightness it is applied according to their percentage colorString)",
+          "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 111,
+              "line": 122,
               "column": 10
             },
             "end": {
-              "line": 115,
+              "line": 125,
               "column": 11
             }
           },
           "metadata": {
             "polymer": {
-              "readOnly": true
+              "attributeType": "Number"
             }
           },
-          "defaultValue": "{}"
+          "defaultValue": "0"
         },
         {
-          "name": "_validateRgb",
-          "type": "RegExp",
-          "description": "",
-          "privacy": "protected",
+          "name": "format",
+          "type": "string | null | undefined",
+          "description": "format of the colorString (possible colorStrings: 'rgb', 'hex', 'hsl', 'auto')",
+          "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 117,
+              "line": 130,
               "column": 10
             },
             "end": {
-              "line": 121,
+              "line": 135,
               "column": 11
             }
           },
           "metadata": {
             "polymer": {
-              "readOnly": true
+              "notify": true,
+              "observer": "\"_formatChanged\"",
+              "attributeType": "String"
             }
           },
-          "defaultValue": "{}"
+          "defaultValue": "\"auto\""
         },
         {
-          "name": "_validateHsl",
-          "type": "RegExp",
-          "description": "",
-          "privacy": "protected",
+          "name": "fixedFormat",
+          "type": "boolean | null | undefined",
+          "description": "format is locked and does not switch according to the colorString",
+          "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 123,
+              "line": 140,
               "column": 10
             },
             "end": {
-              "line": 127,
+              "line": 142,
               "column": 11
             }
           },
           "metadata": {
             "polymer": {
-              "readOnly": true
+              "attributeType": "Boolean"
             }
-          },
-          "defaultValue": "{}"
+          }
         },
         {
-          "name": "_validatePercent",
-          "type": "RegExp",
-          "description": "",
+          "name": "_hexAlphaSupported",
+          "type": "boolean | null | undefined",
+          "description": "if true, hex alpha is supported by the browser",
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 129,
+              "line": 147,
               "column": 10
             },
             "end": {
-              "line": 133,
+              "line": 150,
               "column": 11
             }
           },
           "metadata": {
             "polymer": {
-              "readOnly": true
+              "readOnly": true,
+              "attributeType": "Boolean"
+            }
+          }
+        },
+        {
+          "name": "colorString",
+          "type": "string | null | undefined",
+          "description": "value as color-string",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 155,
+              "column": 10
+            },
+            "end": {
+              "line": 159,
+              "column": 11
             }
           },
-          "defaultValue": "{}"
+          "metadata": {
+            "polymer": {
+              "notify": true,
+              "observer": "\"_colorStringChanged\"",
+              "attributeType": "String"
+            }
+          }
         }
       ],
       "methods": [
         {
-          "name": "connectedCallback",
+          "name": "ready",
           "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 170,
+              "column": 6
+            },
+            "end": {
+              "line": 173,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "randomColor",
+          "description": "generate random color",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 145,
+              "line": 178,
               "column": 6
             },
             "end": {
-              "line": 163,
+              "line": 181,
               "column": 7
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "resetColor",
+          "description": "reset all color properties",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 186,
+              "column": 6
+            },
+            "end": {
+              "line": 199,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_createTestCanvas",
-          "description": "",
+          "description": "creates a canvas for testing a color string and browser capabilities",
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 165,
+              "line": 204,
               "column": 6
             },
             "end": {
-              "line": 177,
+              "line": 216,
               "column": 7
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_testColor",
-          "description": "",
+          "description": "test a color string in local browser environment",
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 179,
+              "line": 221,
               "column": 6
             },
             "end": {
-              "line": 194,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "value"
-            }
-          ]
-        },
-        {
-          "name": "_alphaModeChanged",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 196,
-              "column": 6
-            },
-            "end": {
-              "line": 200,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "alphaMode"
-            }
-          ]
-        },
-        {
-          "name": "_formatChanged",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 202,
-              "column": 6
-            },
-            "end": {
-              "line": 215,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "format"
-            },
-            {
-              "name": "oldFormat"
-            }
-          ]
-        },
-        {
-          "name": "_colorStringChanged",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 217,
-              "column": 6
-            },
-            "end": {
-              "line": 309,
+              "line": 239,
               "column": 7
             }
           },
@@ -476,62 +424,70 @@
           ]
         },
         {
-          "name": "_debouncedSetValue",
+          "name": "_colorStringChanged",
           "description": "",
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 311,
+              "line": 241,
               "column": 6
             },
             "end": {
-              "line": 317,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "params": []
-        },
-        {
-          "name": "_setValue",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 319,
-              "column": 6
-            },
-            "end": {
-              "line": 360,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "params": []
-        },
-        {
-          "name": "_alphaChanged",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 362,
-              "column": 6
-            },
-            "end": {
-              "line": 387,
+              "line": 332,
               "column": 7
             }
           },
           "metadata": {},
           "params": [
             {
-              "name": "alpha"
+              "name": "colorString"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_computeColorString",
+          "description": "compute color string",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 342,
+              "column": 6
+            },
+            "end": {
+              "line": 416,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "rgb",
+              "type": "rgbObject",
+              "description": "The rgb object"
             },
             {
-              "name": "oldAlpha"
+              "name": "hsl",
+              "type": "hslObject",
+              "description": "The hsl object"
+            },
+            {
+              "name": "hex",
+              "type": "String",
+              "description": "The hex string"
+            },
+            {
+              "name": "oldColor",
+              "type": "String",
+              "description": "The old color string before setting"
             }
-          ]
+          ],
+          "return": {
+            "type": "[type]",
+            "desc": "The computed color string"
+          }
         },
         {
           "name": "_hexChanged",
@@ -539,11 +495,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 389,
+              "line": 418,
               "column": 6
             },
             "end": {
-              "line": 408,
+              "line": 438,
               "column": 7
             }
           },
@@ -552,7 +508,10 @@
             {
               "name": "hex"
             }
-          ]
+          ],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_rgbChanged",
@@ -560,11 +519,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 410,
+              "line": 440,
               "column": 6
             },
             "end": {
-              "line": 459,
+              "line": 484,
               "column": 7
             }
           },
@@ -579,7 +538,10 @@
             {
               "name": "b"
             }
-          ]
+          ],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_hslChanged",
@@ -587,11 +549,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 461,
+              "line": 486,
               "column": 6
             },
             "end": {
-              "line": 502,
+              "line": 529,
               "column": 7
             }
           },
@@ -606,114 +568,199 @@
             {
               "name": "l"
             }
-          ]
-        },
-        {
-          "name": "random",
-          "description": "generate random color",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 507,
-              "column": 6
-            },
-            "end": {
-              "line": 509,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "params": []
-        },
-        {
-          "name": "randomRgb",
-          "description": "generate random rgb-color",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 515,
-              "column": 6
-            },
-            "end": {
-              "line": 521,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "params": [],
+          ],
           "return": {
-            "type": "object",
-            "desc": "rgb-color object"
+            "type": "void"
           }
         },
         {
-          "name": "randomHsl",
-          "description": "generate random hsl-color",
-          "privacy": "public",
+          "name": "_formatChanged",
+          "description": "",
+          "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 527,
+              "line": 531,
               "column": 6
             },
             "end": {
-              "line": 533,
+              "line": 547,
               "column": 7
             }
           },
           "metadata": {},
-          "params": [],
+          "params": [
+            {
+              "name": "format"
+            },
+            {
+              "name": "oldFormat"
+            }
+          ],
           "return": {
-            "type": "object",
-            "desc": "rgb-color object"
+            "type": "void"
+          }
+        },
+        {
+          "name": "_alphaChanged",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 549,
+              "column": 6
+            },
+            "end": {
+              "line": 571,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "alpha"
+            },
+            {
+              "name": "oldAlpha"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_alphaModeChanged",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 573,
+              "column": 6
+            },
+            "end": {
+              "line": 577,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "alphaMode"
+            }
+          ],
+          "return": {
+            "type": "void"
           }
         },
         {
           "name": "hexToRgb",
-          "description": "",
+          "description": "convert hex to rgb",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 535,
+              "line": 584,
               "column": 6
             },
             "end": {
-              "line": 549,
+              "line": 597,
               "column": 7
             }
           },
           "metadata": {},
           "params": [
             {
-              "name": "hex"
+              "name": "hex",
+              "type": "String",
+              "description": "The hex string without alpha"
             }
-          ]
+          ],
+          "return": {
+            "type": "rgbObject",
+            "desc": "the rgb object"
+          }
         },
         {
           "name": "rgbToHex",
-          "description": "",
+          "description": "convert hex to rgb",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 551,
+              "line": 604,
               "column": 6
             },
             "end": {
-              "line": 556,
+              "line": 609,
               "column": 7
             }
           },
           "metadata": {},
           "params": [
             {
-              "name": "r"
-            },
-            {
-              "name": "g"
-            },
-            {
-              "name": "b"
+              "name": "rgb"
             }
-          ]
+          ],
+          "return": {
+            "type": "rgbObject",
+            "desc": "the rgb object"
+          }
+        },
+        {
+          "name": "rgbToHsl",
+          "description": "convert rgb to hsl (the values are not rounded)",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 617,
+              "column": 6
+            },
+            "end": {
+              "line": 653,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "rgb",
+              "type": "rgbObject",
+              "description": "rgb object"
+            },
+            {
+              "name": "defaultH",
+              "type": "Number",
+              "description": "hue to set if saturation is 0"
+            }
+          ],
+          "return": {
+            "type": "hslObject",
+            "desc": "hsl object"
+          }
+        },
+        {
+          "name": "hslToRgb",
+          "description": "convert hsl to rgb (the values are not rounded)",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 660,
+              "column": 6
+            },
+            "end": {
+              "line": 671,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "hsl",
+              "type": "hslObject",
+              "description": "hsl object"
+            }
+          ],
+          "return": {
+            "type": "rgbObject",
+            "desc": "rgb object"
+          }
         },
         {
           "name": "_componentToHex",
@@ -721,11 +768,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 558,
+              "line": 673,
               "column": 6
             },
             "end": {
-              "line": 565,
+              "line": 680,
               "column": 7
             }
           },
@@ -742,11 +789,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 567,
+              "line": 682,
               "column": 6
             },
             "end": {
-              "line": 573,
+              "line": 688,
               "column": 7
             }
           },
@@ -766,11 +813,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 575,
+              "line": 690,
               "column": 6
             },
             "end": {
-              "line": 579,
+              "line": 694,
               "column": 7
             }
           },
@@ -785,43 +832,16 @@
           ]
         },
         {
-          "name": "hslToRgb",
+          "name": "_hueToComponent",
           "description": "",
-          "privacy": "public",
+          "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 581,
+              "line": 696,
               "column": 6
             },
             "end": {
-              "line": 592,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "h"
-            },
-            {
-              "name": "s"
-            },
-            {
-              "name": "l"
-            }
-          ]
-        },
-        {
-          "name": "hueToComponent",
-          "description": "",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 594,
-              "column": 6
-            },
-            "end": {
-              "line": 601,
+              "line": 703,
               "column": 7
             }
           },
@@ -839,105 +859,115 @@
           ]
         },
         {
-          "name": "rgbToHsl",
-          "description": "",
-          "privacy": "public",
+          "name": "_normalizeRgb",
+          "description": "normalize rgb values",
+          "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 603,
-              "column": 6
+              "line": 710,
+              "column": 5
             },
             "end": {
-              "line": 638,
-              "column": 7
+              "line": 715,
+              "column": 6
             }
           },
           "metadata": {},
           "params": [
             {
-              "name": "r"
-            },
-            {
-              "name": "g"
-            },
-            {
-              "name": "b"
+              "name": "rgb",
+              "type": "rgbObject",
+              "description": "The rgb-object of which the values should be normalized"
             }
-          ]
+          ],
+          "return": {
+            "type": "rgbObject",
+            "desc": "The normalized rgb-object."
+          }
         },
         {
-          "name": "_resetColor",
-          "description": "",
+          "name": "_normalizeHsl",
+          "description": "normalize hsl values",
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 640,
-              "column": 6
+              "line": 722,
+              "column": 5
             },
             "end": {
-              "line": 652,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "params": []
-        },
-        {
-          "name": "_mathMod",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 654,
+              "line": 727,
               "column": 6
-            },
-            "end": {
-              "line": 656,
-              "column": 7
             }
           },
           "metadata": {},
           "params": [
             {
-              "name": "dividend"
-            },
-            {
-              "name": "divisor"
+              "name": "hsl"
             }
-          ]
+          ],
+          "return": {
+            "type": "hslObject",
+            "desc": "The normalized hsl-object."
+          }
         },
         {
-          "name": "_normalizedClamp",
-          "description": "",
+          "name": "_randomRgb",
+          "description": "generate random rgb-color",
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 658,
-              "column": 6
+              "line": 733,
+              "column": 5
             },
             "end": {
-              "line": 660,
-              "column": 7
+              "line": 739,
+              "column": 6
             }
           },
           "metadata": {},
-          "params": [
-            {
-              "name": "n"
+          "params": [],
+          "return": {
+            "type": "rgbObject",
+            "desc": "rgb-color object"
+          }
+        },
+        {
+          "name": "_randomHsl",
+          "description": "generate random hsl-color",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 745,
+              "column": 5
+            },
+            "end": {
+              "line": 751,
+              "column": 6
             }
-          ]
+          },
+          "metadata": {},
+          "params": [],
+          "return": {
+            "type": "hslObject",
+            "desc": "hsl-color object"
+          }
         }
       ],
       "staticMethods": [],
-      "demos": [],
+      "demos": [
+        {
+          "url": "demo/color-demo.html",
+          "description": ""
+        }
+      ],
       "metadata": {},
       "sourceRange": {
         "start": {
-          "line": 7,
+          "line": 26,
           "column": 2
         },
         "end": {
-          "line": 662,
+          "line": 753,
           "column": 3
         }
       },
@@ -949,100 +979,36 @@
           "description": "Hex-color",
           "sourceRange": {
             "start": {
-              "line": 21,
+              "line": 47,
               "column": 10
             },
             "end": {
-              "line": 25,
+              "line": 51,
               "column": 11
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         },
         {
           "name": "r",
           "description": "Red",
           "sourceRange": {
             "start": {
-              "line": 29,
+              "line": 56,
               "column": 10
             },
             "end": {
-              "line": 32,
+              "line": 59,
               "column": 11
             }
           },
           "metadata": {},
-          "type": "number"
+          "type": "number | null | undefined"
         },
         {
           "name": "g",
           "description": "Green",
-          "sourceRange": {
-            "start": {
-              "line": 36,
-              "column": 10
-            },
-            "end": {
-              "line": 39,
-              "column": 11
-            }
-          },
-          "metadata": {},
-          "type": "number"
-        },
-        {
-          "name": "b",
-          "description": "Blue",
-          "sourceRange": {
-            "start": {
-              "line": 43,
-              "column": 10
-            },
-            "end": {
-              "line": 46,
-              "column": 11
-            }
-          },
-          "metadata": {},
-          "type": "number"
-        },
-        {
-          "name": "h",
-          "description": "Hue",
-          "sourceRange": {
-            "start": {
-              "line": 50,
-              "column": 10
-            },
-            "end": {
-              "line": 53,
-              "column": 11
-            }
-          },
-          "metadata": {},
-          "type": "number"
-        },
-        {
-          "name": "s",
-          "description": "Saturation (hsl)",
-          "sourceRange": {
-            "start": {
-              "line": 57,
-              "column": 10
-            },
-            "end": {
-              "line": 60,
-              "column": 11
-            }
-          },
-          "metadata": {},
-          "type": "number"
-        },
-        {
-          "name": "l",
-          "description": "Lightness",
           "sourceRange": {
             "start": {
               "line": 64,
@@ -1054,78 +1020,78 @@
             }
           },
           "metadata": {},
-          "type": "number"
+          "type": "number | null | undefined"
         },
         {
-          "name": "alpha",
-          "description": "Alpha",
+          "name": "b",
+          "description": "Blue",
           "sourceRange": {
             "start": {
-              "line": 71,
+              "line": 72,
               "column": 10
             },
             "end": {
-              "line": 76,
+              "line": 75,
               "column": 11
             }
           },
           "metadata": {},
-          "type": "number"
+          "type": "number | null | undefined"
         },
         {
-          "name": "alpha-mode",
-          "description": "if true, colorString has alpha",
+          "name": "h",
+          "description": "Hue",
           "sourceRange": {
             "start": {
-              "line": 81,
+              "line": 80,
               "column": 10
             },
             "end": {
-              "line": 85,
+              "line": 83,
               "column": 11
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "number | null | undefined"
         },
         {
-          "name": "hsl-precision",
-          "description": "Precision of hsl-colorStrings, if the format is 'hsl' (for saturation and lightness it is applied according to their percentage colorString)",
+          "name": "s",
+          "description": "Saturation (hsl)",
           "sourceRange": {
             "start": {
-              "line": 89,
+              "line": 88,
               "column": 10
             },
             "end": {
-              "line": 92,
+              "line": 91,
               "column": 11
             }
           },
           "metadata": {},
-          "type": "number"
+          "type": "number | null | undefined"
         },
         {
-          "name": "format",
-          "description": "format of the colorString (possible colorStrings: 'rgb', 'hex', 'hsl', 'auto')",
+          "name": "l",
+          "description": "Lightness",
           "sourceRange": {
             "start": {
               "line": 96,
               "column": 10
             },
             "end": {
-              "line": 101,
+              "line": 99,
               "column": 11
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "number | null | undefined"
         },
         {
-          "name": "color-string",
-          "description": "hex-color",
+          "name": "alpha",
+          "description": "Alpha",
           "sourceRange": {
             "start": {
-              "line": 105,
+              "line": 104,
               "column": 10
             },
             "end": {
@@ -1134,7 +1100,87 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "number | null | undefined"
+        },
+        {
+          "name": "alpha-mode",
+          "description": "if true, colorString has alpha",
+          "sourceRange": {
+            "start": {
+              "line": 114,
+              "column": 10
+            },
+            "end": {
+              "line": 118,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "boolean | null | undefined"
+        },
+        {
+          "name": "hsl-precision",
+          "description": "Precision of hsl-colorStrings, if the format is 'hsl' (for saturation and lightness it is applied according to their percentage colorString)",
+          "sourceRange": {
+            "start": {
+              "line": 122,
+              "column": 10
+            },
+            "end": {
+              "line": 125,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "number | null | undefined"
+        },
+        {
+          "name": "format",
+          "description": "format of the colorString (possible colorStrings: 'rgb', 'hex', 'hsl', 'auto')",
+          "sourceRange": {
+            "start": {
+              "line": 130,
+              "column": 10
+            },
+            "end": {
+              "line": 135,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "fixed-format",
+          "description": "format is locked and does not switch according to the colorString",
+          "sourceRange": {
+            "start": {
+              "line": 140,
+              "column": 10
+            },
+            "end": {
+              "line": 142,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "boolean | null | undefined"
+        },
+        {
+          "name": "color-string",
+          "description": "value as color-string",
+          "sourceRange": {
+            "start": {
+              "line": 155,
+              "column": 10
+            },
+            "end": {
+              "line": 159,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
         }
       ],
       "events": [],
@@ -1151,7 +1197,7 @@
       "properties": [
         {
           "name": "locale",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "The current locale",
           "privacy": "public",
           "sourceRange": {
@@ -1160,13 +1206,13 @@
               "column": 10
             },
             "end": {
-              "line": 23,
+              "line": 22,
               "column": 11
             }
           },
           "metadata": {
             "polymer": {
-              "notify": true
+              "attributeType": "String"
             }
           }
         },
@@ -1177,18 +1223,18 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 29,
+              "line": 28,
               "column": 10
             },
             "end": {
-              "line": 33,
+              "line": 31,
               "column": 11
             }
           },
           "metadata": {
             "polymer": {
-              "notify": true,
-              "readOnly": true
+              "readOnly": true,
+              "attributeType": "String"
             }
           }
         },
@@ -1199,18 +1245,18 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 39,
+              "line": 37,
               "column": 10
             },
             "end": {
-              "line": 43,
+              "line": 40,
               "column": 11
             }
           },
           "metadata": {
             "polymer": {
-              "notify": true,
-              "readOnly": true
+              "readOnly": true,
+              "attributeType": "String"
             }
           }
         },
@@ -1221,64 +1267,88 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 49,
+              "line": 46,
               "column": 10
             },
             "end": {
-              "line": 53,
+              "line": 49,
               "column": 11
             }
           },
           "metadata": {
             "polymer": {
-              "notify": true,
-              "readOnly": true
+              "readOnly": true,
+              "attributeType": "String"
             }
           }
         },
         {
           "name": "amString",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "locale representation of 'AM'",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 58,
+              "line": 54,
               "column": 10
             },
             "end": {
-              "line": 62,
+              "line": 57,
               "column": 11
             }
           },
           "metadata": {
             "polymer": {
-              "notify": true,
-              "readOnly": true
+              "readOnly": true,
+              "attributeType": "String"
             }
           }
         },
         {
           "name": "pmString",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "locale representation of 'PM'",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 67,
+              "line": 62,
               "column": 10
             },
             "end": {
-              "line": 71,
+              "line": 65,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true,
+              "attributeType": "String"
+            }
+          }
+        },
+        {
+          "name": "dateOrder",
+          "type": "Object | null | undefined",
+          "description": "order of date-parts",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 70,
+              "column": 10
+            },
+            "end": {
+              "line": 81,
               "column": 11
             }
           },
           "metadata": {
             "polymer": {
               "notify": true,
-              "readOnly": true
+              "readOnly": true,
+              "attributeType": "Object"
             }
-          }
+          },
+          "defaultValue": "{\"parts\":[],\"timeFirst\":false,\"dateFirst\":true}"
         }
       ],
       "methods": [
@@ -1288,11 +1358,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 81,
+              "line": 91,
               "column": 6
             },
             "end": {
-              "line": 205,
+              "line": 279,
               "column": 7
             }
           },
@@ -1301,7 +1371,10 @@
             {
               "name": "locale"
             }
-          ]
+          ],
+          "return": {
+            "type": "void"
+          }
         }
       ],
       "staticMethods": [],
@@ -1313,7 +1386,7 @@
           "column": 2
         },
         "end": {
-          "line": 207,
+          "line": 281,
           "column": 3
         }
       },
@@ -1329,23 +1402,23 @@
               "column": 10
             },
             "end": {
-              "line": 23,
+              "line": 22,
               "column": 11
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         },
         {
           "name": "decimal-separator",
           "description": "locale separator for local decimal values",
           "sourceRange": {
             "start": {
-              "line": 29,
+              "line": 28,
               "column": 10
             },
             "end": {
-              "line": 33,
+              "line": 31,
               "column": 11
             }
           },
@@ -1357,11 +1430,11 @@
           "description": "Separator for local date values (date-string is still in ISO-Format)",
           "sourceRange": {
             "start": {
-              "line": 39,
+              "line": 37,
               "column": 10
             },
             "end": {
-              "line": 43,
+              "line": 40,
               "column": 11
             }
           },
@@ -1373,11 +1446,11 @@
           "description": "Separator for local time values (time-string is still in ISO-Format)",
           "sourceRange": {
             "start": {
-              "line": 49,
+              "line": 46,
               "column": 10
             },
             "end": {
-              "line": 53,
+              "line": 49,
               "column": 11
             }
           },
@@ -1389,32 +1462,48 @@
           "description": "locale representation of 'AM'",
           "sourceRange": {
             "start": {
-              "line": 58,
+              "line": 54,
               "column": 10
             },
             "end": {
-              "line": 62,
+              "line": 57,
               "column": 11
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         },
         {
           "name": "pm-string",
           "description": "locale representation of 'PM'",
           "sourceRange": {
             "start": {
-              "line": 67,
+              "line": 62,
               "column": 10
             },
             "end": {
-              "line": 71,
+              "line": 65,
               "column": 11
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "date-order",
+          "description": "order of date-parts",
+          "sourceRange": {
+            "start": {
+              "line": 70,
+              "column": 10
+            },
+            "end": {
+              "line": 81,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "Object | null | undefined"
         }
       ],
       "events": [],
@@ -1431,7 +1520,7 @@
       "properties": [
         {
           "name": "locale",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "The current locale",
           "privacy": "public",
           "sourceRange": {
@@ -1441,13 +1530,13 @@
               "column": 10
             },
             "end": {
-              "line": 23,
+              "line": 22,
               "column": 11
             }
           },
           "metadata": {
             "polymer": {
-              "notify": true
+              "attributeType": "String"
             }
           },
           "inheritedFrom": "IntlDatetimeFormatMixin"
@@ -1460,18 +1549,18 @@
           "sourceRange": {
             "file": "intl-datetime-format-mixin.html",
             "start": {
-              "line": 29,
+              "line": 28,
               "column": 10
             },
             "end": {
-              "line": 33,
+              "line": 31,
               "column": 11
             }
           },
           "metadata": {
             "polymer": {
-              "notify": true,
-              "readOnly": true
+              "readOnly": true,
+              "attributeType": "String"
             }
           },
           "inheritedFrom": "IntlDatetimeFormatMixin"
@@ -1484,18 +1573,18 @@
           "sourceRange": {
             "file": "intl-datetime-format-mixin.html",
             "start": {
-              "line": 39,
+              "line": 37,
               "column": 10
             },
             "end": {
-              "line": 43,
+              "line": 40,
               "column": 11
             }
           },
           "metadata": {
             "polymer": {
-              "notify": true,
-              "readOnly": true
+              "readOnly": true,
+              "attributeType": "String"
             }
           },
           "inheritedFrom": "IntlDatetimeFormatMixin"
@@ -1508,137 +1597,100 @@
           "sourceRange": {
             "file": "intl-datetime-format-mixin.html",
             "start": {
-              "line": 49,
+              "line": 46,
               "column": 10
             },
             "end": {
-              "line": 53,
+              "line": 49,
               "column": 11
             }
           },
           "metadata": {
             "polymer": {
-              "notify": true,
-              "readOnly": true
+              "readOnly": true,
+              "attributeType": "String"
             }
           },
           "inheritedFrom": "IntlDatetimeFormatMixin"
         },
         {
           "name": "amString",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "locale representation of 'AM'",
           "privacy": "public",
           "sourceRange": {
             "file": "intl-datetime-format-mixin.html",
             "start": {
-              "line": 58,
+              "line": 54,
               "column": 10
             },
             "end": {
-              "line": 62,
+              "line": 57,
               "column": 11
             }
           },
           "metadata": {
             "polymer": {
-              "notify": true,
-              "readOnly": true
+              "readOnly": true,
+              "attributeType": "String"
             }
           },
           "inheritedFrom": "IntlDatetimeFormatMixin"
         },
         {
           "name": "pmString",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "locale representation of 'PM'",
           "privacy": "public",
           "sourceRange": {
             "file": "intl-datetime-format-mixin.html",
             "start": {
-              "line": 67,
+              "line": 62,
               "column": 10
             },
             "end": {
-              "line": 71,
+              "line": 65,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true,
+              "attributeType": "String"
+            }
+          },
+          "inheritedFrom": "IntlDatetimeFormatMixin"
+        },
+        {
+          "name": "dateOrder",
+          "type": "Object | null | undefined",
+          "description": "order of date-parts",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "intl-datetime-format-mixin.html",
+            "start": {
+              "line": 70,
+              "column": 10
+            },
+            "end": {
+              "line": 81,
               "column": 11
             }
           },
           "metadata": {
             "polymer": {
               "notify": true,
-              "readOnly": true
+              "readOnly": true,
+              "attributeType": "Object"
             }
           },
+          "defaultValue": "{\"parts\":[],\"timeFirst\":false,\"dateFirst\":true}",
           "inheritedFrom": "IntlDatetimeFormatMixin"
         },
         {
           "name": "year",
-          "type": "number",
+          "type": "number | null | undefined",
           "description": "The year of the selected date",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 22,
-              "column": 10
-            },
-            "end": {
-              "line": 25,
-              "column": 11
-            }
-          },
-          "metadata": {
-            "polymer": {
-              "notify": true
-            }
-          }
-        },
-        {
-          "name": "month",
-          "type": "number",
-          "description": "The month of the selected date (starts with 1)",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 30,
-              "column": 10
-            },
-            "end": {
-              "line": 33,
-              "column": 11
-            }
-          },
-          "metadata": {
-            "polymer": {
-              "notify": true
-            }
-          }
-        },
-        {
-          "name": "day",
-          "type": "number",
-          "description": "The day of the selected date",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 38,
-              "column": 10
-            },
-            "end": {
-              "line": 41,
-              "column": 11
-            }
-          },
-          "metadata": {
-            "polymer": {
-              "notify": true
-            }
-          }
-        },
-        {
-          "name": "hour",
-          "type": "number",
-          "description": "The hour of the selected time",
           "privacy": "public",
           "sourceRange": {
             "start": {
@@ -1652,7 +1704,74 @@
           },
           "metadata": {
             "polymer": {
-              "notify": true
+              "notify": true,
+              "attributeType": "Number"
+            }
+          }
+        },
+        {
+          "name": "month",
+          "type": "number | null | undefined",
+          "description": "The month of the selected date (starts with 1)",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 54,
+              "column": 10
+            },
+            "end": {
+              "line": 57,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true,
+              "attributeType": "Number"
+            }
+          }
+        },
+        {
+          "name": "day",
+          "type": "number | null | undefined",
+          "description": "The day of the selected date",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 62,
+              "column": 10
+            },
+            "end": {
+              "line": 65,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true,
+              "attributeType": "Number"
+            }
+          }
+        },
+        {
+          "name": "hour",
+          "type": "number | null | undefined",
+          "description": "The hour of the selected time",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 70,
+              "column": 10
+            },
+            "end": {
+              "line": 73,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true,
+              "attributeType": "Number"
             }
           }
         },
@@ -1663,18 +1782,19 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 55,
+              "line": 79,
               "column": 10
             },
             "end": {
-              "line": 59,
+              "line": 83,
               "column": 11
             }
           },
           "metadata": {
             "polymer": {
               "notify": true,
-              "observer": "\"_hour12Changed\""
+              "observer": "\"_hour12Changed\"",
+              "attributeType": "Number"
             }
           }
         },
@@ -1685,71 +1805,7 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 65,
-              "column": 10
-            },
-            "end": {
-              "line": 69,
-              "column": 11
-            }
-          },
-          "metadata": {
-            "polymer": {
-              "notify": true,
-              "observer": "\"_isAmChanged\""
-            }
-          }
-        },
-        {
-          "name": "minute",
-          "type": "number",
-          "description": "The minute of the selected time",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 74,
-              "column": 10
-            },
-            "end": {
-              "line": 77,
-              "column": 11
-            }
-          },
-          "metadata": {
-            "polymer": {
-              "notify": true
-            }
-          }
-        },
-        {
-          "name": "second",
-          "type": "number",
-          "description": "The second of the selected time",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 82,
-              "column": 10
-            },
-            "end": {
-              "line": 85,
-              "column": 11
-            }
-          },
-          "metadata": {
-            "polymer": {
-              "notify": true
-            }
-          }
-        },
-        {
-          "name": "millisecond",
-          "type": "number",
-          "description": "The millisecond of the selected time",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 90,
+              "line": 89,
               "column": 10
             },
             "end": {
@@ -1759,14 +1815,16 @@
           },
           "metadata": {
             "polymer": {
-              "notify": true
+              "notify": true,
+              "observer": "\"_isAmChanged\"",
+              "attributeType": "Boolean"
             }
           }
         },
         {
-          "name": "datetime",
-          "type": "string",
-          "description": "the selected date and time (format: iso8601)",
+          "name": "minute",
+          "type": "number | null | undefined",
+          "description": "The minute of the selected time",
           "privacy": "public",
           "sourceRange": {
             "start": {
@@ -1780,14 +1838,15 @@
           },
           "metadata": {
             "polymer": {
-              "notify": true
+              "notify": true,
+              "attributeType": "Number"
             }
           }
         },
         {
-          "name": "date",
-          "type": "string",
-          "description": "the selected date (format: iso8601)",
+          "name": "second",
+          "type": "number | null | undefined",
+          "description": "The second of the selected time",
           "privacy": "public",
           "sourceRange": {
             "start": {
@@ -1801,14 +1860,15 @@
           },
           "metadata": {
             "polymer": {
-              "notify": true
+              "notify": true,
+              "attributeType": "Number"
             }
           }
         },
         {
-          "name": "time",
-          "type": "string",
-          "description": "the selected time (format: iso8601)",
+          "name": "millisecond",
+          "type": "number | null | undefined",
+          "description": "The millisecond of the selected time",
           "privacy": "public",
           "sourceRange": {
             "start": {
@@ -1822,14 +1882,15 @@
           },
           "metadata": {
             "polymer": {
-              "notify": true
+              "notify": true,
+              "attributeType": "Number"
             }
           }
         },
         {
-          "name": "valueAsDate",
-          "type": "Date",
-          "description": "The date-object of the selected date",
+          "name": "datetime",
+          "type": "string | null | undefined",
+          "description": "the selected date and time (format: iso8601)",
           "privacy": "public",
           "sourceRange": {
             "start": {
@@ -1837,99 +1898,214 @@
               "column": 10
             },
             "end": {
-              "line": 126,
+              "line": 125,
               "column": 11
             }
           },
           "metadata": {
             "polymer": {
               "notify": true,
-              "observer": "\"_valueAsDateChanged\""
+              "attributeType": "String"
+            }
+          }
+        },
+        {
+          "name": "date",
+          "type": "string | null | undefined",
+          "description": "the selected date (format: iso8601)",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 130,
+              "column": 10
+            },
+            "end": {
+              "line": 133,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true,
+              "attributeType": "String"
+            }
+          }
+        },
+        {
+          "name": "time",
+          "type": "string | null | undefined",
+          "description": "the selected time (format: iso8601)",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 138,
+              "column": 10
+            },
+            "end": {
+              "line": 141,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true,
+              "attributeType": "String"
+            }
+          }
+        },
+        {
+          "name": "valueAsDate",
+          "type": "Date | null | undefined",
+          "description": "The date-object of the selected date",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 146,
+              "column": 10
+            },
+            "end": {
+              "line": 150,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true,
+              "observer": "\"_valueAsDateChanged\"",
+              "attributeType": "Date"
             }
           }
         },
         {
           "name": "valueAsNumber",
-          "type": "number",
+          "type": "number | null | undefined",
           "description": "The value of the selected date",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 131,
+              "line": 155,
               "column": 10
             },
             "end": {
-              "line": 135,
+              "line": 159,
               "column": 11
             }
           },
           "metadata": {
             "polymer": {
               "notify": true,
-              "observer": "\"_valueAsNumberChanged\""
+              "observer": "\"_valueAsNumberChanged\"",
+              "attributeType": "Number"
             }
           }
         },
         {
           "name": "default",
-          "type": "Object",
+          "type": "Object | null | undefined",
           "description": "The default value of the input, could be a number, a date-object or an iso-string in time, date or datetime-notation",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 140,
+              "line": 164,
               "column": 10
             },
             "end": {
-              "line": 142,
+              "line": 167,
               "column": 11
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "observer": "\"_defaultChanged\"",
+              "attributeType": "Object"
+            }
           }
         },
         {
           "name": "min",
-          "type": "Object",
+          "type": "Object | null | undefined",
           "description": "The minimal date, could be a number, a date-object or an iso-string in time, date or datetime-notation",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 147,
+              "line": 172,
               "column": 10
             },
             "end": {
-              "line": 151,
+              "line": 176,
               "column": 11
             }
           },
           "metadata": {
             "polymer": {
               "notify": true,
-              "observer": "\"_minChanged\""
+              "observer": "\"_minChanged\"",
+              "attributeType": "Object"
+            }
+          }
+        },
+        {
+          "name": "_minValue",
+          "type": "number | null | undefined",
+          "description": "value if the minimum date",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 181,
+              "column": 10
+            },
+            "end": {
+              "line": 183,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Number"
             }
           }
         },
         {
           "name": "max",
-          "type": "Object",
+          "type": "Object | null | undefined",
           "description": "The maximal date, could be a number, a date-object or an iso-string in time, date or datetime-notation",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 156,
+              "line": 188,
               "column": 10
             },
             "end": {
-              "line": 160,
+              "line": 192,
               "column": 11
             }
           },
           "metadata": {
             "polymer": {
               "notify": true,
-              "observer": "\"_maxChanged\""
+              "observer": "\"_maxChanged\"",
+              "attributeType": "Object"
+            }
+          }
+        },
+        {
+          "name": "_maxValue",
+          "type": "number | null | undefined",
+          "description": "value if the maximum date",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 197,
+              "column": 10
+            },
+            "end": {
+              "line": 199,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Number"
             }
           }
         },
@@ -1940,191 +2116,75 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 166,
+              "line": 205,
               "column": 10
             },
             "end": {
-              "line": 170,
+              "line": 209,
               "column": 11
             }
           },
           "metadata": {
             "polymer": {
-              "notify": true
+              "notify": true,
+              "attributeType": "Boolean"
             }
           }
         },
         {
           "name": "clamp",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "Clamp datetime to a property\npossible values:'month', 'day', 'hour', 'minute', 'second', 'millisecond'",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 176,
+              "line": 215,
               "column": 10
             },
             "end": {
-              "line": 179,
+              "line": 219,
               "column": 11
             }
           },
           "metadata": {
             "polymer": {
-              "notify": true
+              "notify": true,
+              "observer": "\"_clampChanged\"",
+              "attributeType": "String"
             }
           }
         },
         {
           "name": "timezone",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "The timezone offset in '±hh:mm' format",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 184,
+              "line": 224,
               "column": 10
             },
             "end": {
-              "line": 188,
+              "line": 228,
               "column": 11
             }
           },
           "metadata": {
             "polymer": {
               "notify": true,
-              "observer": "\"_timezoneChanged\""
+              "observer": "\"_timezoneChanged\"",
+              "attributeType": "String"
             }
           }
         },
         {
-          "name": "_timezoneOffset",
-          "type": "number",
-          "description": "The offset minute of the set timezone",
-          "privacy": "protected",
+          "name": "offsetMinutes",
+          "type": "number | null | undefined",
+          "description": "The offset minutes of the set timezone",
+          "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 193,
-              "column": 10
-            },
-            "end": {
-              "line": 197,
-              "column": 11
-            }
-          },
-          "metadata": {
-            "polymer": {
-              "notify": true,
-              "observer": "\"_timezoneOffsetChanged\""
-            }
-          }
-        },
-        {
-          "name": "_timeZoneHours",
-          "type": "number",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 199,
-              "column": 10
-            },
-            "end": {
-              "line": 201,
-              "column": 11
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          }
-        },
-        {
-          "name": "_timeZoneMinutes",
-          "type": "number",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 203,
-              "column": 10
-            },
-            "end": {
-              "line": 205,
-              "column": 11
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          }
-        },
-        {
-          "name": "_recentLocalTimezoneOffset",
-          "type": "number",
-          "description": "The offset minute of the current datetime",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 210,
-              "column": 10
-            },
-            "end": {
-              "line": 212,
-              "column": 11
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          }
-        },
-        {
-          "name": "_maxDayOfMonth",
-          "type": "number",
-          "description": "exclusive max day of month",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 218,
-              "column": 10
-            },
-            "end": {
-              "line": 221,
-              "column": 11
-            }
-          },
-          "metadata": {
-            "polymer": {
-              "readOnly": true
-            }
-          }
-        },
-        {
-          "name": "_regexpDatetime",
-          "type": "RegExp",
-          "description": "Regular Expression for datetime-string",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 226,
-              "column": 10
-            },
-            "end": {
-              "line": 229,
-              "column": 11
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          },
-          "defaultValue": "{}"
-        },
-        {
-          "name": "_regexpTimezone",
-          "type": "RegExp",
-          "description": "Regular Expression for datetime-string",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 234,
+              "line": 233,
               "column": 10
             },
             "end": {
@@ -2133,18 +2193,42 @@
             }
           },
           "metadata": {
-            "polymer": {}
-          },
-          "defaultValue": "{}"
+            "polymer": {
+              "notify": true,
+              "observer": "\"_offsetMinutesChanged\"",
+              "attributeType": "Number"
+            }
+          }
         },
         {
-          "name": "_dateLocked",
-          "type": "boolean",
-          "description": "lock to date and ignore time",
+          "name": "_timeZoneHours",
+          "type": "number | null | undefined",
+          "description": "",
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 242,
+              "line": 239,
+              "column": 10
+            },
+            "end": {
+              "line": 241,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Number"
+            }
+          }
+        },
+        {
+          "name": "_timeZoneMinutes",
+          "type": "number | null | undefined",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 243,
               "column": 10
             },
             "end": {
@@ -2154,14 +2238,14 @@
           },
           "metadata": {
             "polymer": {
-              "readOnly": true
+              "attributeType": "Number"
             }
           }
         },
         {
-          "name": "_timeOnly",
-          "type": "boolean",
-          "description": "perspective starts at 0 (1970-01-01)",
+          "name": "_recentLocalTimezoneOffset",
+          "type": "number | null | undefined",
+          "description": "The offset minute of the current datetime",
           "privacy": "protected",
           "sourceRange": {
             "start": {
@@ -2169,33 +2253,57 @@
               "column": 10
             },
             "end": {
-              "line": 253,
-              "column": 11
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          },
-          "defaultValue": "false"
-        },
-        {
-          "name": "dateOrder",
-          "type": "Object",
-          "description": "order of date-parts",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 258,
-              "column": 10
-            },
-            "end": {
-              "line": 270,
+              "line": 252,
               "column": 11
             }
           },
           "metadata": {
             "polymer": {
-              "notify": true
+              "attributeType": "Number"
+            }
+          }
+        },
+        {
+          "name": "_timeOnly",
+          "type": "boolean | null | undefined",
+          "description": "if true perspective starts at 0 (1970-01-01)",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 257,
+              "column": 10
+            },
+            "end": {
+              "line": 260,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Boolean"
+            }
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "_dateLocked",
+          "type": "boolean | null | undefined",
+          "description": "if true, time will be `00:00:00.000`",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 265,
+              "column": 10
+            },
+            "end": {
+              "line": 268,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true,
+              "attributeType": "Boolean"
             }
           }
         }
@@ -2206,12 +2314,13 @@
           "description": "",
           "privacy": "protected",
           "sourceRange": {
+            "file": "intl-datetime-format-mixin.html",
             "start": {
-              "line": 875,
+              "line": 91,
               "column": 6
             },
             "end": {
-              "line": 970,
+              "line": 279,
               "column": 7
             }
           },
@@ -2220,26 +2329,36 @@
             {
               "name": "locale"
             }
-          ]
+          ],
+          "return": {
+            "type": "void"
+          },
+          "inheritedFrom": "IntlDatetimeFormatMixin"
         },
         {
-          "name": "_defaultChanged",
-          "description": "",
+          "name": "_shouldPropertyChange",
+          "description": "overwritten of polymer to handle -0",
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 284,
+              "line": 33,
               "column": 6
             },
             "end": {
-              "line": 292,
+              "line": 39,
               "column": 7
             }
           },
           "metadata": {},
           "params": [
             {
-              "name": "def"
+              "name": "property"
+            },
+            {
+              "name": "value"
+            },
+            {
+              "name": "old"
             }
           ]
         },
@@ -2249,55 +2368,144 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 297,
+              "line": 285,
               "column": 6
             },
             "end": {
-              "line": 313,
+              "line": 301,
               "column": 7
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
-          "name": "_computeDatetime",
-          "description": "",
-          "privacy": "protected",
+          "name": "setDate",
+          "description": "sets date to all necessary properties",
+          "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 315,
+              "line": 307,
               "column": 6
             },
             "end": {
-              "line": 386,
+              "line": 364,
               "column": 7
             }
           },
           "metadata": {},
           "params": [
             {
-              "name": "year"
-            },
-            {
-              "name": "month"
-            },
-            {
-              "name": "day"
-            },
-            {
-              "name": "hour"
-            },
-            {
-              "name": "minute"
-            },
-            {
-              "name": "second"
-            },
-            {
-              "name": "millisecond"
+              "name": "d",
+              "type": "Date",
+              "description": "[the date to set]"
             }
-          ]
+          ],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "resetDate",
+          "description": "resets the date (if `default` is set, it will be used for the new value)",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 370,
+              "column": 6
+            },
+            "end": {
+              "line": 403,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "e",
+              "type": "Event",
+              "description": "[a causing event will not propagated]"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_defaultChanged",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 405,
+              "column": 6
+            },
+            "end": {
+              "line": 412,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "def"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_computeDatetime",
+          "description": "compute date by date properties",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 424,
+              "column": 6
+            },
+            "end": {
+              "line": 490,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "year",
+              "type": "number"
+            },
+            {
+              "name": "month",
+              "type": "number"
+            },
+            {
+              "name": "day",
+              "type": "number"
+            },
+            {
+              "name": "hour",
+              "type": "number"
+            },
+            {
+              "name": "minute",
+              "type": "number"
+            },
+            {
+              "name": "second",
+              "type": "number"
+            },
+            {
+              "name": "millisecond",
+              "type": "number"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_dateTimeChanged",
@@ -2305,11 +2513,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 388,
+              "line": 492,
               "column": 6
             },
             "end": {
-              "line": 406,
+              "line": 519,
               "column": 7
             }
           },
@@ -2321,7 +2529,10 @@
             {
               "name": "time"
             }
-          ]
+          ],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_datetimeChanged",
@@ -2329,11 +2540,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 408,
+              "line": 521,
               "column": 6
             },
             "end": {
-              "line": 449,
+              "line": 563,
               "column": 7
             }
           },
@@ -2342,7 +2553,10 @@
             {
               "name": "datetime"
             }
-          ]
+          ],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_valueAsNumberChanged",
@@ -2350,11 +2564,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 451,
+              "line": 565,
               "column": 6
             },
             "end": {
-              "line": 461,
+              "line": 571,
               "column": 7
             }
           },
@@ -2363,7 +2577,10 @@
             {
               "name": "value"
             }
-          ]
+          ],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_valueAsDateChanged",
@@ -2371,11 +2588,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 463,
+              "line": 573,
               "column": 6
             },
             "end": {
-              "line": 475,
+              "line": 584,
               "column": 7
             }
           },
@@ -2384,61 +2601,22 @@
             {
               "name": "d"
             }
-          ]
-        },
-        {
-          "name": "_setDate",
-          "description": "sets date to all necessary properties",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 480,
-              "column": 6
-            },
-            "end": {
-              "line": 532,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "d"
-            }
-          ]
-        },
-        {
-          "name": "_resetDate",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 534,
-              "column": 6
-            },
-            "end": {
-              "line": 567,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "e"
-            }
-          ]
+          ],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_fromDatetime",
-          "description": "",
+          "description": "compute a date object",
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 569,
+              "line": 591,
               "column": 6
             },
             "end": {
-              "line": 598,
+              "line": 632,
               "column": 7
             }
           },
@@ -2446,244 +2624,157 @@
           "params": [
             {
               "name": "datetime"
-            }
-          ]
-        },
-        {
-          "name": "_minChanged",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 600,
-              "column": 6
             },
-            "end": {
-              "line": 617,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "params": [
             {
-              "name": "min"
+              "name": "offsetMinutes"
             }
-          ]
-        },
-        {
-          "name": "_maxChanged",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 619,
-              "column": 6
-            },
-            "end": {
-              "line": 636,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "max"
-            }
-          ]
+          ],
+          "return": {
+            "type": "Date",
+            "desc": "date"
+          }
         },
         {
           "name": "_checkThreshold",
-          "description": "",
+          "description": "test date object against thresholds",
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 638,
+              "line": 639,
               "column": 6
             },
             "end": {
-              "line": 646,
+              "line": 650,
               "column": 7
             }
           },
           "metadata": {},
           "params": [
             {
-              "name": "d"
+              "name": "d",
+              "type": "Date"
             }
-          ]
+          ],
+          "return": {
+            "type": "Date",
+            "desc": "ether the threshold when the date is exceeding or the date object itself"
+          }
         },
         {
           "name": "_toDate",
-          "description": "",
+          "description": "get date string from a date object",
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 648,
+              "line": 657,
               "column": 6
             },
             "end": {
-              "line": 654,
+              "line": 663,
               "column": 7
             }
           },
           "metadata": {},
           "params": [
             {
-              "name": "d"
+              "name": "d",
+              "type": "Date",
+              "description": "the Date to serialize"
             }
-          ]
-        },
-        {
-          "name": "_toUTCDate",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 656,
-              "column": 6
-            },
-            "end": {
-              "line": 662,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "d"
-            }
-          ]
-        },
-        {
-          "name": "__toDate",
-          "description": "",
-          "privacy": "private",
-          "sourceRange": {
-            "start": {
-              "line": 664,
-              "column": 6
-            },
-            "end": {
-              "line": 666,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "year"
-            },
-            {
-              "name": "month"
-            },
-            {
-              "name": "day"
-            }
-          ]
+          ],
+          "return": {
+            "type": "String",
+            "desc": "date string"
+          }
         },
         {
           "name": "_toTime",
-          "description": "",
+          "description": "get UTC time string from a date object",
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 668,
+              "line": 670,
               "column": 6
             },
             "end": {
-              "line": 673,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "d"
-            }
-          ]
-        },
-        {
-          "name": "_toUTCTime",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
               "line": 675,
-              "column": 6
-            },
-            "end": {
-              "line": 680,
               "column": 7
             }
           },
           "metadata": {},
           "params": [
             {
-              "name": "d"
+              "name": "d",
+              "type": "Date",
+              "description": "the Date to serialize"
             }
-          ]
+          ],
+          "return": {
+            "type": "String",
+            "desc": "date string"
+          }
         },
         {
-          "name": "__toTime",
-          "description": "",
-          "privacy": "private",
+          "name": "_toUTCDate",
+          "description": "get UTC date string from a date object",
+          "privacy": "protected",
           "sourceRange": {
             "start": {
               "line": 682,
               "column": 6
             },
             "end": {
-              "line": 684,
+              "line": 688,
               "column": 7
             }
           },
           "metadata": {},
           "params": [
             {
-              "name": "hour"
-            },
-            {
-              "name": "minute"
-            },
-            {
-              "name": "second"
-            },
-            {
-              "name": "millisecond"
+              "name": "d",
+              "type": "Date",
+              "description": "the Date to serialize"
             }
-          ]
+          ],
+          "return": {
+            "type": "String",
+            "desc": "date string"
+          }
         },
         {
-          "name": "_clamp",
-          "description": "",
+          "name": "_toUTCTime",
+          "description": "get UTC time string from a date object",
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 686,
+              "line": 695,
               "column": 6
             },
             "end": {
-              "line": 703,
+              "line": 700,
               "column": 7
             }
           },
           "metadata": {},
           "params": [
             {
-              "name": "d"
-            },
-            {
-              "name": "clamp"
+              "name": "d",
+              "type": "Date",
+              "description": "the Date to serialize"
             }
-          ]
+          ],
+          "return": {
+            "type": "String",
+            "desc": "time string"
+          }
         },
         {
-          "name": "_pad",
-          "description": "",
-          "privacy": "protected",
+          "name": "__toDate",
+          "description": "get date string from date components",
+          "privacy": "private",
           "sourceRange": {
             "start": {
-              "line": 705,
+              "line": 709,
               "column": 6
             },
             "end": {
@@ -2694,64 +2785,64 @@
           "metadata": {},
           "params": [
             {
-              "name": "n"
+              "name": "year",
+              "type": "Number"
             },
             {
-              "name": "padLength"
+              "name": "month",
+              "type": "Number"
+            },
+            {
+              "name": "day",
+              "type": "Number"
             }
-          ]
+          ],
+          "return": {
+            "type": "String",
+            "desc": "date string"
+          }
         },
         {
-          "name": "_hour12Changed",
-          "description": "`hour12` is the hour in hour12-format, that starts is minimal 1 and maximal 12, midnight is at 12am and noon is 12pm",
-          "privacy": "protected",
+          "name": "__toTime",
+          "description": "get time string from date components",
+          "privacy": "private",
           "sourceRange": {
             "start": {
-              "line": 716,
+              "line": 721,
               "column": 6
             },
             "end": {
-              "line": 720,
+              "line": 723,
               "column": 7
             }
           },
           "metadata": {},
           "params": [
             {
-              "name": "hour12"
+              "name": "hour",
+              "type": "Number"
             },
             {
-              "name": "old"
+              "name": "minute",
+              "type": "Number"
+            },
+            {
+              "name": "second",
+              "type": "Number"
+            },
+            {
+              "name": "millisecond",
+              "type": "Number"
             }
-          ]
+          ],
+          "return": {
+            "type": "String",
+            "desc": "time string"
+          }
         },
         {
-          "name": "_isAmChanged",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 722,
-              "column": 6
-            },
-            "end": {
-              "line": 726,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "isAm"
-            },
-            {
-              "name": "old"
-            }
-          ]
-        },
-        {
-          "name": "_ifClamped",
-          "description": "clamp to date component",
+          "name": "_clampUTC",
+          "description": "clamp UTC values",
           "privacy": "protected",
           "sourceRange": {
             "start": {
@@ -2759,7 +2850,98 @@
               "column": 6
             },
             "end": {
-              "line": 736,
+              "line": 748,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "d",
+              "type": "Date",
+              "description": "the Date to clamp"
+            },
+            {
+              "name": "clamp",
+              "type": "String",
+              "description": "the date component to clamp"
+            }
+          ],
+          "return": {
+            "type": "Date",
+            "desc": "the clamped date"
+          }
+        },
+        {
+          "name": "_pad",
+          "description": "pad a string with 0",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 756,
+              "column": 6
+            },
+            "end": {
+              "line": 762,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "n",
+              "type": "Number",
+              "description": "number to pad"
+            },
+            {
+              "name": "padLength",
+              "type": "Number",
+              "description": "total length of strings"
+            }
+          ],
+          "return": {
+            "type": "String",
+            "desc": "padded string"
+          }
+        },
+        {
+          "name": "_ifClamped",
+          "description": "clamp to date component",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 767,
+              "column": 6
+            },
+            "end": {
+              "line": 771,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "clamp"
+            },
+            {
+              "name": "comp"
+            },
+            {
+              "name": "hidden"
+            }
+          ]
+        },
+        {
+          "name": "_ifNotClamped",
+          "description": "clamp to date component",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 775,
+              "column": 6
+            },
+            "end": {
+              "line": 777,
               "column": 7
             }
           },
@@ -2778,45 +2960,196 @@
         },
         {
           "name": "_checkDefaultTimezone",
-          "description": "",
+          "description": "set the default timezone if needed",
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 738,
+              "line": 783,
               "column": 6
             },
             "end": {
-              "line": 751,
+              "line": 796,
               "column": 7
             }
           },
           "metadata": {},
           "params": [
             {
-              "name": "d"
+              "name": "d",
+              "type": "Date"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_computeTimezoneShift",
+          "description": "correct a timezone shift when date changes from winter to summertime (locally)",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 802,
+              "column": 6
+            },
+            "end": {
+              "line": 811,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "d",
+              "type": "Date"
             }
           ]
         },
         {
-          "name": "_correctTimezoneShift",
+          "name": "_clampChanged",
           "description": "",
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 753,
+              "line": 813,
               "column": 6
             },
             "end": {
-              "line": 763,
+              "line": 821,
               "column": 7
             }
           },
           "metadata": {},
           "params": [
             {
-              "name": "d"
+              "name": "clamp"
             }
-          ]
+          ],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_minChanged",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 823,
+              "column": 6
+            },
+            "end": {
+              "line": 840,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "min"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_maxChanged",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 842,
+              "column": 6
+            },
+            "end": {
+              "line": 859,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "max"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_minMaxValueChanged",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 861,
+              "column": 6
+            },
+            "end": {
+              "line": 865,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_hour12Changed",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 867,
+              "column": 6
+            },
+            "end": {
+              "line": 873,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "hour12"
+            },
+            {
+              "name": "old"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_isAmChanged",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 875,
+              "column": 6
+            },
+            "end": {
+              "line": 879,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "isAm"
+            },
+            {
+              "name": "old"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_timezoneChanged",
@@ -2824,11 +3157,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 765,
+              "line": 881,
               "column": 6
             },
             "end": {
-              "line": 791,
+              "line": 904,
               "column": 7
             }
           },
@@ -2840,19 +3173,22 @@
             {
               "name": "oldValue"
             }
-          ]
+          ],
+          "return": {
+            "type": "void"
+          }
         },
         {
-          "name": "_timezoneOffsetChanged",
+          "name": "_offsetMinutesChanged",
           "description": "",
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 793,
+              "line": 906,
               "column": 6
             },
             "end": {
-              "line": 802,
+              "line": 916,
               "column": 7
             }
           },
@@ -2861,7 +3197,10 @@
             {
               "name": "offsetMinutes"
             }
-          ]
+          ],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_timeZoneHoursMinutesChanged",
@@ -2869,11 +3208,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 804,
+              "line": 918,
               "column": 6
             },
             "end": {
-              "line": 820,
+              "line": 937,
               "column": 7
             }
           },
@@ -2885,85 +3224,113 @@
             {
               "name": "minute"
             }
-          ]
+          ],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_computeTimezone",
-          "description": "",
+          "description": "compute the timezone properties from given offset minutes",
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 822,
+              "line": 952,
               "column": 6
             },
             "end": {
-              "line": 841,
+              "line": 974,
               "column": 7
             }
           },
           "metadata": {},
           "params": [
             {
-              "name": "offsetMinutes"
+              "name": "offsetMinutes",
+              "type": "Number",
+              "description": "The offset minutes"
             }
-          ]
+          ],
+          "return": {
+            "type": "TimeZoneProperties",
+            "desc": "The timezone properties"
+          }
         },
         {
           "name": "_computeTimezoneOffset",
-          "description": "",
+          "description": "compute the timezone properties from a given timezone-string",
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 843,
+              "line": 981,
               "column": 6
             },
             "end": {
-              "line": 863,
+              "line": 1011,
               "column": 7
             }
           },
           "metadata": {},
           "params": [
             {
-              "name": "timezone"
+              "name": "timezone",
+              "type": "String",
+              "description": "The timezone-string"
             }
-          ]
+          ],
+          "return": {
+            "type": "TimeZoneProperties",
+            "desc": "The timezone properties"
+          }
         },
         {
           "name": "_computeMaxDayOfMonth",
-          "description": "",
+          "description": "compute the last day of a month in a year",
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 865,
+              "line": 1019,
               "column": 6
             },
             "end": {
-              "line": 873,
+              "line": 1027,
               "column": 7
             }
           },
           "metadata": {},
           "params": [
             {
-              "name": "year"
+              "name": "year",
+              "type": "Number",
+              "description": "the year"
             },
             {
-              "name": "month"
+              "name": "month",
+              "type": "Number",
+              "description": "the month"
             }
-          ]
+          ],
+          "return": {
+            "type": "Number",
+            "desc": "the last day of the month"
+          }
         }
       ],
       "staticMethods": [],
-      "demos": [],
+      "demos": [
+        {
+          "url": "demo/datetime-demo.html",
+          "description": ""
+        }
+      ],
       "metadata": {},
       "sourceRange": {
         "start": {
-          "line": 12,
+          "line": 14,
           "column": 2
         },
         "end": {
-          "line": 972,
+          "line": 1029,
           "column": 3
         }
       },
@@ -2980,12 +3347,12 @@
               "column": 10
             },
             "end": {
-              "line": 23,
+              "line": 22,
               "column": 11
             }
           },
           "metadata": {},
-          "type": "string",
+          "type": "string | null | undefined",
           "inheritedFrom": "IntlDatetimeFormatMixin"
         },
         {
@@ -2994,11 +3361,11 @@
           "sourceRange": {
             "file": "intl-datetime-format-mixin.html",
             "start": {
-              "line": 29,
+              "line": 28,
               "column": 10
             },
             "end": {
-              "line": 33,
+              "line": 31,
               "column": 11
             }
           },
@@ -3012,11 +3379,11 @@
           "sourceRange": {
             "file": "intl-datetime-format-mixin.html",
             "start": {
-              "line": 39,
+              "line": 37,
               "column": 10
             },
             "end": {
-              "line": 43,
+              "line": 40,
               "column": 11
             }
           },
@@ -3030,11 +3397,11 @@
           "sourceRange": {
             "file": "intl-datetime-format-mixin.html",
             "start": {
-              "line": 49,
+              "line": 46,
               "column": 10
             },
             "end": {
-              "line": 53,
+              "line": 49,
               "column": 11
             }
           },
@@ -3048,16 +3415,16 @@
           "sourceRange": {
             "file": "intl-datetime-format-mixin.html",
             "start": {
-              "line": 58,
+              "line": 54,
               "column": 10
             },
             "end": {
-              "line": 62,
+              "line": 57,
               "column": 11
             }
           },
           "metadata": {},
-          "type": "string",
+          "type": "string | null | undefined",
           "inheritedFrom": "IntlDatetimeFormatMixin"
         },
         {
@@ -3066,69 +3433,39 @@
           "sourceRange": {
             "file": "intl-datetime-format-mixin.html",
             "start": {
-              "line": 67,
+              "line": 62,
               "column": 10
             },
             "end": {
-              "line": 71,
+              "line": 65,
               "column": 11
             }
           },
           "metadata": {},
-          "type": "string",
+          "type": "string | null | undefined",
+          "inheritedFrom": "IntlDatetimeFormatMixin"
+        },
+        {
+          "name": "date-order",
+          "description": "order of date-parts",
+          "sourceRange": {
+            "file": "intl-datetime-format-mixin.html",
+            "start": {
+              "line": 70,
+              "column": 10
+            },
+            "end": {
+              "line": 81,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "Object | null | undefined",
           "inheritedFrom": "IntlDatetimeFormatMixin"
         },
         {
           "name": "year",
           "description": "The year of the selected date",
-          "sourceRange": {
-            "start": {
-              "line": 22,
-              "column": 10
-            },
-            "end": {
-              "line": 25,
-              "column": 11
-            }
-          },
-          "metadata": {},
-          "type": "number"
-        },
-        {
-          "name": "month",
-          "description": "The month of the selected date (starts with 1)",
-          "sourceRange": {
-            "start": {
-              "line": 30,
-              "column": 10
-            },
-            "end": {
-              "line": 33,
-              "column": 11
-            }
-          },
-          "metadata": {},
-          "type": "number"
-        },
-        {
-          "name": "day",
-          "description": "The day of the selected date",
-          "sourceRange": {
-            "start": {
-              "line": 38,
-              "column": 10
-            },
-            "end": {
-              "line": 41,
-              "column": 11
-            }
-          },
-          "metadata": {},
-          "type": "number"
-        },
-        {
-          "name": "hour",
-          "description": "The hour of the selected time",
           "sourceRange": {
             "start": {
               "line": 46,
@@ -3140,18 +3477,66 @@
             }
           },
           "metadata": {},
-          "type": "number"
+          "type": "number | null | undefined"
+        },
+        {
+          "name": "month",
+          "description": "The month of the selected date (starts with 1)",
+          "sourceRange": {
+            "start": {
+              "line": 54,
+              "column": 10
+            },
+            "end": {
+              "line": 57,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "number | null | undefined"
+        },
+        {
+          "name": "day",
+          "description": "The day of the selected date",
+          "sourceRange": {
+            "start": {
+              "line": 62,
+              "column": 10
+            },
+            "end": {
+              "line": 65,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "number | null | undefined"
+        },
+        {
+          "name": "hour",
+          "description": "The hour of the selected time",
+          "sourceRange": {
+            "start": {
+              "line": 70,
+              "column": 10
+            },
+            "end": {
+              "line": 73,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "number | null | undefined"
         },
         {
           "name": "hour12",
           "description": "hour in 12-hour-format",
           "sourceRange": {
             "start": {
-              "line": 55,
+              "line": 79,
               "column": 10
             },
             "end": {
-              "line": 59,
+              "line": 83,
               "column": 11
             }
           },
@@ -3163,11 +3548,11 @@
           "description": "true, when A.M. (when `hour` < 12)",
           "sourceRange": {
             "start": {
-              "line": 65,
+              "line": 89,
               "column": 10
             },
             "end": {
-              "line": 69,
+              "line": 93,
               "column": 11
             }
           },
@@ -3179,54 +3564,6 @@
           "description": "The minute of the selected time",
           "sourceRange": {
             "start": {
-              "line": 74,
-              "column": 10
-            },
-            "end": {
-              "line": 77,
-              "column": 11
-            }
-          },
-          "metadata": {},
-          "type": "number"
-        },
-        {
-          "name": "second",
-          "description": "The second of the selected time",
-          "sourceRange": {
-            "start": {
-              "line": 82,
-              "column": 10
-            },
-            "end": {
-              "line": 85,
-              "column": 11
-            }
-          },
-          "metadata": {},
-          "type": "number"
-        },
-        {
-          "name": "millisecond",
-          "description": "The millisecond of the selected time",
-          "sourceRange": {
-            "start": {
-              "line": 90,
-              "column": 10
-            },
-            "end": {
-              "line": 93,
-              "column": 11
-            }
-          },
-          "metadata": {},
-          "type": "number"
-        },
-        {
-          "name": "datetime",
-          "description": "the selected date and time (format: iso8601)",
-          "sourceRange": {
-            "start": {
               "line": 98,
               "column": 10
             },
@@ -3236,11 +3573,11 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "number | null | undefined"
         },
         {
-          "name": "date",
-          "description": "the selected date (format: iso8601)",
+          "name": "second",
+          "description": "The second of the selected time",
           "sourceRange": {
             "start": {
               "line": 106,
@@ -3252,11 +3589,11 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "number | null | undefined"
         },
         {
-          "name": "time",
-          "description": "the selected time (format: iso8601)",
+          "name": "millisecond",
+          "description": "The millisecond of the selected time",
           "sourceRange": {
             "start": {
               "line": 114,
@@ -3268,98 +3605,146 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "number | null | undefined"
         },
         {
-          "name": "value-as-date",
-          "description": "The date-object of the selected date",
+          "name": "datetime",
+          "description": "the selected date and time (format: iso8601)",
           "sourceRange": {
             "start": {
               "line": 122,
               "column": 10
             },
             "end": {
-              "line": 126,
+              "line": 125,
               "column": 11
             }
           },
           "metadata": {},
-          "type": "Date"
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "date",
+          "description": "the selected date (format: iso8601)",
+          "sourceRange": {
+            "start": {
+              "line": 130,
+              "column": 10
+            },
+            "end": {
+              "line": 133,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "time",
+          "description": "the selected time (format: iso8601)",
+          "sourceRange": {
+            "start": {
+              "line": 138,
+              "column": 10
+            },
+            "end": {
+              "line": 141,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "value-as-date",
+          "description": "The date-object of the selected date",
+          "sourceRange": {
+            "start": {
+              "line": 146,
+              "column": 10
+            },
+            "end": {
+              "line": 150,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "Date | null | undefined"
         },
         {
           "name": "value-as-number",
           "description": "The value of the selected date",
           "sourceRange": {
             "start": {
-              "line": 131,
+              "line": 155,
               "column": 10
             },
             "end": {
-              "line": 135,
+              "line": 159,
               "column": 11
             }
           },
           "metadata": {},
-          "type": "number"
+          "type": "number | null | undefined"
         },
         {
           "name": "default",
           "description": "The default value of the input, could be a number, a date-object or an iso-string in time, date or datetime-notation",
           "sourceRange": {
             "start": {
-              "line": 140,
+              "line": 164,
               "column": 10
             },
             "end": {
-              "line": 142,
+              "line": 167,
               "column": 11
             }
           },
           "metadata": {},
-          "type": "Object"
+          "type": "Object | null | undefined"
         },
         {
           "name": "min",
           "description": "The minimal date, could be a number, a date-object or an iso-string in time, date or datetime-notation",
           "sourceRange": {
             "start": {
-              "line": 147,
+              "line": 172,
               "column": 10
             },
             "end": {
-              "line": 151,
+              "line": 176,
               "column": 11
             }
           },
           "metadata": {},
-          "type": "Object"
+          "type": "Object | null | undefined"
         },
         {
           "name": "max",
           "description": "The maximal date, could be a number, a date-object or an iso-string in time, date or datetime-notation",
           "sourceRange": {
             "start": {
-              "line": 156,
+              "line": 188,
               "column": 10
             },
             "end": {
-              "line": 160,
+              "line": 192,
               "column": 11
             }
           },
           "metadata": {},
-          "type": "Object"
+          "type": "Object | null | undefined"
         },
         {
           "name": "hour12-format",
           "description": "when true, 12-hour time format, else 24-hour",
           "sourceRange": {
             "start": {
-              "line": 166,
+              "line": 205,
               "column": 10
             },
             "end": {
-              "line": 170,
+              "line": 209,
               "column": 11
             }
           },
@@ -3371,48 +3756,48 @@
           "description": "Clamp datetime to a property\npossible values:'month', 'day', 'hour', 'minute', 'second', 'millisecond'",
           "sourceRange": {
             "start": {
-              "line": 176,
+              "line": 215,
               "column": 10
             },
             "end": {
-              "line": 179,
+              "line": 219,
               "column": 11
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         },
         {
           "name": "timezone",
           "description": "The timezone offset in '±hh:mm' format",
           "sourceRange": {
             "start": {
-              "line": 184,
+              "line": 224,
               "column": 10
             },
             "end": {
-              "line": 188,
+              "line": 228,
               "column": 11
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         },
         {
-          "name": "date-order",
-          "description": "order of date-parts",
+          "name": "offset-minutes",
+          "description": "The offset minutes of the set timezone",
           "sourceRange": {
             "start": {
-              "line": 258,
+              "line": 233,
               "column": 10
             },
             "end": {
-              "line": 270,
+              "line": 237,
               "column": 11
             }
           },
           "metadata": {},
-          "type": "Object"
+          "type": "number | null | undefined"
         }
       ],
       "events": [],
@@ -3432,103 +3817,110 @@
       "properties": [
         {
           "name": "start",
-          "type": "Object",
+          "type": "Object | null | undefined",
           "description": "start of the time period",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 19,
+              "line": 20,
               "column": 10
             },
             "end": {
-              "line": 21,
-              "column": 11
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          }
-        },
-        {
-          "name": "end",
-          "type": "Object",
-          "description": "end of the time period",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 26,
-              "column": 10
-            },
-            "end": {
-              "line": 28,
-              "column": 11
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          }
-        },
-        {
-          "name": "valueAsString",
-          "type": "string",
-          "description": "string representation of the time period",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 33,
-              "column": 10
-            },
-            "end": {
-              "line": 36,
+              "line": 22,
               "column": 11
             }
           },
           "metadata": {
             "polymer": {
-              "observer": "\"_valueAsStringChanged\""
+              "attributeType": "Object"
+            }
+          }
+        },
+        {
+          "name": "end",
+          "type": "Object | null | undefined",
+          "description": "end of the time period",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 27,
+              "column": 10
+            },
+            "end": {
+              "line": 29,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Object"
+            }
+          }
+        },
+        {
+          "name": "valueAsString",
+          "type": "string | null | undefined",
+          "description": "string representation of the time period",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 34,
+              "column": 10
+            },
+            "end": {
+              "line": 37,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "observer": "\"_valueAsStringChanged\"",
+              "attributeType": "String"
             }
           }
         },
         {
           "name": "valueAsNumber",
-          "type": "number",
+          "type": "number | null | undefined",
           "description": "value of the time period in milliseconds",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 41,
+              "line": 42,
               "column": 10
             },
             "end": {
-              "line": 44,
+              "line": 45,
               "column": 11
             }
           },
           "metadata": {
             "polymer": {
-              "observer": "\"_valueAsNumberChanged\""
+              "observer": "\"_valueAsNumberChanged\"",
+              "attributeType": "Number"
             }
           }
         },
         {
           "name": "_regExpValueString",
-          "type": "RegExp",
+          "type": "RegExp | null | undefined",
           "description": "RegExp of a valueString",
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 49,
+              "line": 50,
               "column": 10
             },
             "end": {
-              "line": 52,
+              "line": 53,
               "column": 11
             }
           },
           "metadata": {
-            "polymer": {}
-          },
-          "defaultValue": "{}"
+            "polymer": {
+              "attributeType": "RegExp"
+            }
+          }
         }
       ],
       "methods": [
@@ -3538,11 +3930,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 62,
+              "line": 63,
               "column": 6
             },
             "end": {
-              "line": 91,
+              "line": 92,
               "column": 7
             }
           },
@@ -3554,7 +3946,10 @@
             {
               "name": "end"
             }
-          ]
+          ],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_valueAsNumberChanged",
@@ -3562,11 +3957,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 93,
+              "line": 94,
               "column": 6
             },
             "end": {
-              "line": 129,
+              "line": 130,
               "column": 7
             }
           },
@@ -3575,7 +3970,10 @@
             {
               "name": "value"
             }
-          ]
+          ],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_valueAsStringChanged",
@@ -3583,11 +3981,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 131,
+              "line": 132,
               "column": 6
             },
             "end": {
-              "line": 133,
+              "line": 134,
               "column": 7
             }
           },
@@ -3596,7 +3994,10 @@
             {
               "name": "valueAsString"
             }
-          ]
+          ],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_computeDurationString",
@@ -3604,11 +4005,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 135,
+              "line": 136,
               "column": 6
             },
             "end": {
-              "line": 168,
+              "line": 169,
               "column": 7
             }
           },
@@ -3625,11 +4026,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 170,
+              "line": 171,
               "column": 6
             },
             "end": {
-              "line": 178,
+              "line": 179,
               "column": 7
             }
           },
@@ -3646,11 +4047,11 @@
       "metadata": {},
       "sourceRange": {
         "start": {
-          "line": 10,
+          "line": 11,
           "column": 2
         },
         "end": {
-          "line": 180,
+          "line": 181,
           "column": 3
         }
       },
@@ -3662,607 +4063,64 @@
           "description": "start of the time period",
           "sourceRange": {
             "start": {
-              "line": 19,
+              "line": 20,
               "column": 10
             },
             "end": {
-              "line": 21,
+              "line": 22,
               "column": 11
             }
           },
           "metadata": {},
-          "type": "Object"
+          "type": "Object | null | undefined"
         },
         {
           "name": "end",
           "description": "end of the time period",
           "sourceRange": {
             "start": {
-              "line": 26,
+              "line": 27,
               "column": 10
             },
             "end": {
-              "line": 28,
+              "line": 29,
               "column": 11
             }
           },
           "metadata": {},
-          "type": "Object"
+          "type": "Object | null | undefined"
         },
         {
           "name": "value-as-string",
           "description": "string representation of the time period",
           "sourceRange": {
             "start": {
-              "line": 33,
+              "line": 34,
               "column": 10
             },
             "end": {
-              "line": 36,
+              "line": 37,
               "column": 11
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         },
         {
           "name": "value-as-number",
           "description": "value of the time period in milliseconds",
           "sourceRange": {
             "start": {
-              "line": 41,
+              "line": 42,
               "column": 10
             },
             "end": {
-              "line": 44,
+              "line": 45,
               "column": 11
             }
           },
           "metadata": {},
-          "type": "number"
-        }
-      ],
-      "events": [],
-      "styling": {
-        "cssVariables": [],
-        "selectors": []
-      },
-      "slots": []
-    },
-    {
-      "description": "mixin to provide a range behavior for a given value",
-      "summary": "",
-      "path": "range-mixin.html",
-      "properties": [
-        {
-          "name": "min",
-          "type": "number",
-          "description": "minimal input",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 76,
-              "column": 10
-            },
-            "end": {
-              "line": 78,
-              "column": 11
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          }
-        },
-        {
-          "name": "max",
-          "type": "number",
-          "description": "maximal input",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 83,
-              "column": 10
-            },
-            "end": {
-              "line": 85,
-              "column": 11
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          }
-        },
-        {
-          "name": "step",
-          "type": "number",
-          "description": "step for changing the input (referencing to `min` or `0`)",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 91,
-              "column": 10
-            },
-            "end": {
-              "line": 94,
-              "column": 11
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          },
-          "defaultValue": "1"
-        },
-        {
-          "name": "stepMod",
-          "type": "number",
-          "description": "a step modifier. this is useful if you are having one step for multible elements that represent parts of numbers, like when you are having one input for the decimal part and one for the integer part.\nFor example:\n  * if `step` is `0.002` and the `step-mod` is `1000`, `2` will be used\n  * if `step` is `10` and the `step-mod` is `0.02`, `0.2` will be used",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 102,
-              "column": 10
-            },
-            "end": {
-              "line": 105,
-              "column": 11
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          },
-          "defaultValue": "1"
-        },
-        {
-          "name": "_step",
-          "type": "number",
-          "description": "the used step, product of stepMod and step",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 111,
-              "column": 10
-            },
-            "end": {
-              "line": 114,
-              "column": 11
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          },
-          "defaultValue": "1"
-        },
-        {
-          "name": "valueAsNumber",
-          "type": "number",
-          "description": "value of the input",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 120,
-              "column": 10
-            },
-            "end": {
-              "line": 124,
-              "column": 11
-            }
-          },
-          "metadata": {
-            "polymer": {
-              "notify": true,
-              "observer": "\"_valueAsNumberChanged\""
-            }
-          }
-        },
-        {
-          "name": "default",
-          "type": "number",
-          "description": "default-value of the input",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 129,
-              "column": 10
-            },
-            "end": {
-              "line": 131,
-              "column": 11
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          }
-        },
-        {
-          "name": "saturate",
-          "type": "boolean",
-          "description": "if true, the value does not revolve the range according to the maximum or the minimum",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 136,
-              "column": 10
-            },
-            "end": {
-              "line": 139,
-              "column": 11
-            }
-          },
-          "metadata": {
-            "polymer": {
-              "observer": "\"_updateValue\""
-            }
-          }
-        },
-        {
-          "name": "noClamp",
-          "type": "boolean",
-          "description": "if true, the value does not clamp according to the given step",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 144,
-              "column": 10
-            },
-            "end": {
-              "line": 147,
-              "column": 11
-            }
-          },
-          "metadata": {
-            "polymer": {
-              "observer": "\"_updateValue\""
-            }
-          }
-        }
-      ],
-      "methods": [
-        {
-          "name": "connectedCallback",
-          "description": "",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 158,
-              "column": 6
-            },
-            "end": {
-              "line": 163,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "params": []
-        },
-        {
-          "name": "_minMaxChanged",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 165,
-              "column": 6
-            },
-            "end": {
-              "line": 174,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "min"
-            },
-            {
-              "name": "max"
-            }
-          ]
-        },
-        {
-          "name": "_valueAsNumberChanged",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 176,
-              "column": 6
-            },
-            "end": {
-              "line": 185,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "value"
-            },
-            {
-              "name": "oldValue"
-            }
-          ]
-        },
-        {
-          "name": "_checkValue",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 187,
-              "column": 6
-            },
-            "end": {
-              "line": 219,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "value"
-            },
-            {
-              "name": "oldValue"
-            }
-          ]
-        },
-        {
-          "name": "_updateValue",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 221,
-              "column": 6
-            },
-            "end": {
-              "line": 225,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "params": []
-        },
-        {
-          "name": "_checkStep",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 227,
-              "column": 6
-            },
-            "end": {
-              "line": 241,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "value"
-            },
-            {
-              "name": "step"
-            }
-          ]
-        },
-        {
-          "name": "_safeMult",
-          "description": "emulating handwritten multiplication to keep precision",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 246,
-              "column": 6
-            },
-            "end": {
-              "line": 248,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "a"
-            },
-            {
-              "name": "b"
-            }
-          ]
-        },
-        {
-          "name": "_safeAdd",
-          "description": "emulating handwritten addition to keep precision",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 253,
-              "column": 6
-            },
-            "end": {
-              "line": 255,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "a"
-            },
-            {
-              "name": "b"
-            }
-          ]
-        },
-        {
-          "name": "_stepChanged",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 257,
-              "column": 6
-            },
-            "end": {
-              "line": 265,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "step"
-            },
-            {
-              "name": "stepMod"
-            }
-          ]
-        }
-      ],
-      "staticMethods": [],
-      "demos": [],
-      "metadata": {},
-      "sourceRange": {
-        "start": {
-          "line": 66,
-          "column": 2
-        },
-        "end": {
-          "line": 267,
-          "column": 3
-        }
-      },
-      "privacy": "public",
-      "name": "RangeMixin",
-      "attributes": [
-        {
-          "name": "min",
-          "description": "minimal input",
-          "sourceRange": {
-            "start": {
-              "line": 76,
-              "column": 10
-            },
-            "end": {
-              "line": 78,
-              "column": 11
-            }
-          },
-          "metadata": {},
-          "type": "number"
-        },
-        {
-          "name": "max",
-          "description": "maximal input",
-          "sourceRange": {
-            "start": {
-              "line": 83,
-              "column": 10
-            },
-            "end": {
-              "line": 85,
-              "column": 11
-            }
-          },
-          "metadata": {},
-          "type": "number"
-        },
-        {
-          "name": "step",
-          "description": "step for changing the input (referencing to `min` or `0`)",
-          "sourceRange": {
-            "start": {
-              "line": 91,
-              "column": 10
-            },
-            "end": {
-              "line": 94,
-              "column": 11
-            }
-          },
-          "metadata": {},
-          "type": "number"
-        },
-        {
-          "name": "step-mod",
-          "description": "a step modifier. this is useful if you are having one step for multible elements that represent parts of numbers, like when you are having one input for the decimal part and one for the integer part.\nFor example:\n  * if `step` is `0.002` and the `step-mod` is `1000`, `2` will be used\n  * if `step` is `10` and the `step-mod` is `0.02`, `0.2` will be used",
-          "sourceRange": {
-            "start": {
-              "line": 102,
-              "column": 10
-            },
-            "end": {
-              "line": 105,
-              "column": 11
-            }
-          },
-          "metadata": {},
-          "type": "number"
-        },
-        {
-          "name": "value-as-number",
-          "description": "value of the input",
-          "sourceRange": {
-            "start": {
-              "line": 120,
-              "column": 10
-            },
-            "end": {
-              "line": 124,
-              "column": 11
-            }
-          },
-          "metadata": {},
-          "type": "number"
-        },
-        {
-          "name": "default",
-          "description": "default-value of the input",
-          "sourceRange": {
-            "start": {
-              "line": 129,
-              "column": 10
-            },
-            "end": {
-              "line": 131,
-              "column": 11
-            }
-          },
-          "metadata": {},
-          "type": "number"
-        },
-        {
-          "name": "saturate",
-          "description": "if true, the value does not revolve the range according to the maximum or the minimum",
-          "sourceRange": {
-            "start": {
-              "line": 136,
-              "column": 10
-            },
-            "end": {
-              "line": 139,
-              "column": 11
-            }
-          },
-          "metadata": {},
-          "type": "boolean"
-        },
-        {
-          "name": "no-clamp",
-          "description": "if true, the value does not clamp according to the given step",
-          "sourceRange": {
-            "start": {
-              "line": 144,
-              "column": 10
-            },
-            "end": {
-              "line": 147,
-              "column": 11
-            }
-          },
-          "metadata": {},
-          "type": "boolean"
+          "type": "number | null | undefined"
         }
       ],
       "events": [],
@@ -4279,55 +4137,33 @@
       "properties": [
         {
           "name": "locale",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "The current locale",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 21,
+              "line": 32,
               "column": 10
             },
             "end": {
-              "line": 25,
+              "line": 35,
               "column": 11
             }
           },
           "metadata": {
             "polymer": {
-              "notify": true
+              "attributeType": "String"
             }
           }
         },
         {
           "name": "decimalSeparator",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "locale separator for local decimal values",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 30,
-              "column": 10
-            },
-            "end": {
-              "line": 34,
-              "column": 11
-            }
-          },
-          "metadata": {
-            "polymer": {
-              "notify": true,
-              "readOnly": true
-            }
-          }
-        },
-        {
-          "name": "groupingSeparator",
-          "type": "string",
-          "description": "locale separator for grouping decimal values",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 39,
+              "line": 40,
               "column": 10
             },
             "end": {
@@ -4337,15 +4173,15 @@
           },
           "metadata": {
             "polymer": {
-              "notify": true,
-              "readOnly": true
+              "readOnly": true,
+              "attributeType": "String"
             }
           }
         },
         {
-          "name": "minimumFractionDigits",
-          "type": "number",
-          "description": "The minimum number of fraction digits to use. Possible values are from 0 to 20; the default for plain number and percent formatting is 0; the default for currency formatting is the number of minor unit digits provided by the ISO 4217 currency code list (2 if the list doesn't provide that information).",
+          "name": "groupingSeparator",
+          "type": "string | null | undefined",
+          "description": "locale separator for grouping decimal values",
           "privacy": "public",
           "sourceRange": {
             "start": {
@@ -4353,117 +4189,130 @@
               "column": 10
             },
             "end": {
-              "line": 50,
+              "line": 51,
               "column": 11
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "readOnly": true,
+              "attributeType": "String"
+            }
+          }
+        },
+        {
+          "name": "minimumFractionDigits",
+          "type": "number | null | undefined",
+          "description": "The minimum number of fraction digits to use. Possible values are from 0 to 20; the default for plain number and percent formatting is 0; the default for currency formatting is the number of minor unit digits provided by the ISO 4217 currency code list (2 if the list doesn't provide that information).",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 56,
+              "column": 10
+            },
+            "end": {
+              "line": 58,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Number"
+            }
           }
         },
         {
           "name": "maximumFractionDigits",
-          "type": "number",
+          "type": "number | null | undefined",
           "description": "The maximum number of fraction digits to use. Possible values are from 0 to 20; the default for plain number formatting is the larger of minimumFractionDigits and 3; the default for currency formatting is the larger of minimumFractionDigits and the number of minor unit digits provided by the ISO 4217 currency code list (2 if the list doesn't provide that information); the default for percent formatting is the larger of minimumFractionDigits and 0.",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 55,
+              "line": 63,
               "column": 10
             },
             "end": {
-              "line": 57,
+              "line": 65,
               "column": 11
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Number"
+            }
           }
         },
         {
           "name": "minimumIntegerDigits",
-          "type": "number",
+          "type": "number | null | undefined",
           "description": "The minimum number of integer digits to use. Possible values are from 1 to 21; the default is 1.",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 62,
+              "line": 70,
               "column": 10
             },
             "end": {
-              "line": 64,
+              "line": 72,
               "column": 11
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Number"
+            }
           }
         },
         {
           "name": "minimumSignificantDigits",
-          "type": "number",
+          "type": "number | null | undefined",
           "description": "The minimum number of significant digits to use. Possible values are from 1 to 21; the default is 1.",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 69,
+              "line": 77,
               "column": 10
             },
             "end": {
-              "line": 71,
+              "line": 79,
               "column": 11
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Number"
+            }
           }
         },
         {
           "name": "maximumSignificantDigits",
-          "type": "number",
+          "type": "number | null | undefined",
           "description": "The maximum number of significant digits to use. Possible values are from 1 to 21; the default is minimumSignificantDigits.",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 76,
+              "line": 84,
               "column": 10
             },
             "end": {
-              "line": 78,
+              "line": 86,
               "column": 11
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Number"
+            }
           }
         },
         {
           "name": "unit",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "unit of the output (only used when `number-style=\"decimal\"`)",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 83,
-              "column": 10
-            },
-            "end": {
-              "line": 85,
-              "column": 11
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          }
-        },
-        {
-          "name": "unitSeparator",
-          "type": "string",
-          "description": "the separator to separate value and unit",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 90,
+              "line": 91,
               "column": 10
             },
             "end": {
@@ -4472,14 +4321,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
-          },
-          "defaultValue": "\" \""
+            "polymer": {
+              "attributeType": "String"
+            }
+          }
         },
         {
-          "name": "alwaysSign",
-          "type": "boolean",
-          "description": "always put the sign at the beginning",
+          "name": "unitSeparator",
+          "type": "string | null | undefined",
+          "description": "the separator to separate value and unit (default: '\\u202F')",
           "privacy": "public",
           "sourceRange": {
             "start": {
@@ -4487,18 +4337,21 @@
               "column": 10
             },
             "end": {
-              "line": 100,
+              "line": 101,
               "column": 11
             }
           },
           "metadata": {
-            "polymer": {}
-          }
+            "polymer": {
+              "attributeType": "String"
+            }
+          },
+          "defaultValue": "\" \""
         },
         {
-          "name": "numberStyle",
-          "type": "string",
-          "description": "The formatting style to use. Possible values are \"decimal\" for plain number formatting, \"currency\" for currency formatting, and \"percent\" for percent formatting; the default is \"decimal\".\nnotice: min, max and step are not in percent (so e.g. if step is 0.01, it means that the step is 1%)",
+          "name": "alwaysSign",
+          "type": "boolean | null | undefined",
+          "description": "always put the sign at the beginning",
           "privacy": "public",
           "sourceRange": {
             "start": {
@@ -4506,25 +4359,24 @@
               "column": 10
             },
             "end": {
-              "line": 110,
+              "line": 108,
               "column": 11
             }
           },
           "metadata": {
             "polymer": {
-              "notify": true
+              "attributeType": "Boolean"
             }
-          },
-          "defaultValue": "\"decimal\""
+          }
         },
         {
-          "name": "useGrouping",
-          "type": "boolean",
-          "description": "if true the number will be grouped according to the locale.",
+          "name": "numberStyle",
+          "type": "string | null | undefined",
+          "description": "The formatting style to use. Possible values are \"decimal\" for plain number formatting, \"currency\" for currency formatting, and \"percent\" for percent formatting; the default is \"decimal\".\nnotice: min, max and step are not in percent (so e.g. if step is 0.01, it means that the step is 1%)",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 115,
+              "line": 114,
               "column": 10
             },
             "end": {
@@ -4533,13 +4385,16 @@
             }
           },
           "metadata": {
-            "polymer": {}
-          }
+            "polymer": {
+              "attributeType": "String"
+            }
+          },
+          "defaultValue": "\"decimal\""
         },
         {
-          "name": "currency",
-          "type": "string",
-          "description": "The currency to use in currency formatting. Possible values are the ISO 4217 currency codes, such as \"USD\" for the US dollar, \"EUR\" for the euro, or \"CNY\" for the Chinese RMB — see http://www.currency-iso.org/en/home/tables/table-a1.html. There is no default value; if the style is \"currency\", the currency property must be provided.",
+          "name": "useGrouping",
+          "type": "boolean | null | undefined",
+          "description": "if true the number will be grouped according to the locale.",
           "privacy": "public",
           "sourceRange": {
             "start": {
@@ -4552,13 +4407,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           }
         },
         {
-          "name": "currencyDisplay",
-          "type": "string",
-          "description": "How to display the currency in currency formatting. Possible values are \"symbol\" to use a localized currency symbol such as €, \"code\" to use the ISO currency code, \"name\" to use a localized currency name such as \"dollar\"; the default is \"symbol\".",
+          "name": "currency",
+          "type": "string | null | undefined",
+          "description": "The currency to use in currency formatting. Possible values are the ISO 4217 currency codes, such as \"USD\" for the US dollar, \"EUR\" for the euro, or \"CNY\" for the Chinese RMB — see http://www.currency-iso.org/en/home/tables/table-a1.html. There is no default value; if the style is \"currency\", the currency property must be provided.",
           "privacy": "public",
           "sourceRange": {
             "start": {
@@ -4571,95 +4428,99 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "String"
+            }
           }
         },
         {
-          "name": "_numberOptions",
-          "type": "number",
-          "description": "number format options",
-          "privacy": "protected",
+          "name": "currencyDisplay",
+          "type": "string | null | undefined",
+          "description": "How to display the currency in currency formatting. Possible values are \"symbol\" to use a localized currency symbol such as €, \"code\" to use the ISO currency code, \"name\" to use a localized currency name such as \"dollar\"; the default is \"symbol\".",
+          "privacy": "public",
           "sourceRange": {
             "start": {
               "line": 136,
               "column": 10
             },
             "end": {
-              "line": 139,
+              "line": 138,
               "column": 11
             }
           },
           "metadata": {
             "polymer": {
-              "readOnly": true
+              "attributeType": "String"
+            }
+          }
+        },
+        {
+          "name": "_numberOptions",
+          "type": "number | null | undefined",
+          "description": "number format options",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 143,
+              "column": 10
+            },
+            "end": {
+              "line": 146,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true,
+              "attributeType": "Number"
             }
           }
         },
         {
           "name": "formatNumber",
-          "type": "Function",
+          "type": "Function | null | undefined",
           "description": "number format function",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 144,
+              "line": 151,
               "column": 10
             },
             "end": {
-              "line": 148,
+              "line": 155,
               "column": 11
             }
           },
           "metadata": {
             "polymer": {
               "notify": true,
-              "readOnly": true
+              "readOnly": true,
+              "attributeType": "Function"
             }
           }
         },
         {
           "name": "parseNumber",
-          "type": "Function",
+          "type": "Function | null | undefined",
           "description": "function to parse the input",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 153,
+              "line": 160,
               "column": 10
             },
             "end": {
-              "line": 157,
+              "line": 164,
               "column": 11
             }
           },
           "metadata": {
             "polymer": {
               "notify": true,
-              "readOnly": true
+              "readOnly": true,
+              "attributeType": "Function"
             }
           }
-        },
-        {
-          "name": "_regExpNotInNumber",
-          "type": "RegExp",
-          "description": "Regular Expression for non numeric signs",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 162,
-              "column": 10
-            },
-            "end": {
-              "line": 166,
-              "column": 11
-            }
-          },
-          "metadata": {
-            "polymer": {
-              "readOnly": true
-            }
-          },
-          "defaultValue": "{}"
         }
       ],
       "methods": [
@@ -4669,11 +4530,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 176,
+              "line": 174,
               "column": 6
             },
             "end": {
-              "line": 234,
+              "line": 236,
               "column": 7
             }
           },
@@ -4682,7 +4543,10 @@
             {
               "name": "locale"
             }
-          ]
+          ],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_computeNumberOptions",
@@ -4690,11 +4554,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 236,
+              "line": 238,
               "column": 6
             },
             "end": {
-              "line": 259,
+              "line": 281,
               "column": 7
             }
           },
@@ -4735,11 +4599,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 261,
+              "line": 283,
               "column": 6
             },
             "end": {
-              "line": 278,
+              "line": 310,
               "column": 7
             }
           },
@@ -4753,6 +4617,12 @@
             },
             {
               "name": "unit"
+            },
+            {
+              "name": "unitSeparator"
+            },
+            {
+              "name": "alwaysSign"
             }
           ]
         },
@@ -4762,11 +4632,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 280,
+              "line": 312,
               "column": 6
             },
             "end": {
-              "line": 302,
+              "line": 398,
               "column": 7
             }
           },
@@ -4776,10 +4646,10 @@
               "name": "decimalSeparator"
             },
             {
-              "name": "numberStyle"
+              "name": "groupingSeparator"
             },
             {
-              "name": "useGrouping"
+              "name": "numberOptions"
             }
           ]
         }
@@ -4789,11 +4659,11 @@
       "metadata": {},
       "sourceRange": {
         "start": {
-          "line": 12,
+          "line": 15,
           "column": 2
         },
         "end": {
-          "line": 304,
+          "line": 400,
           "column": 3
         }
       },
@@ -4805,39 +4675,23 @@
           "description": "The current locale",
           "sourceRange": {
             "start": {
-              "line": 21,
+              "line": 32,
               "column": 10
             },
             "end": {
-              "line": 25,
+              "line": 35,
               "column": 11
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         },
         {
           "name": "decimal-separator",
           "description": "locale separator for local decimal values",
           "sourceRange": {
             "start": {
-              "line": 30,
-              "column": 10
-            },
-            "end": {
-              "line": 34,
-              "column": 11
-            }
-          },
-          "metadata": {},
-          "type": "string"
-        },
-        {
-          "name": "grouping-separator",
-          "description": "locale separator for grouping decimal values",
-          "sourceRange": {
-            "start": {
-              "line": 39,
+              "line": 40,
               "column": 10
             },
             "end": {
@@ -4846,110 +4700,110 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         },
         {
-          "name": "minimum-fraction-digits",
-          "description": "The minimum number of fraction digits to use. Possible values are from 0 to 20; the default for plain number and percent formatting is 0; the default for currency formatting is the number of minor unit digits provided by the ISO 4217 currency code list (2 if the list doesn't provide that information).",
+          "name": "grouping-separator",
+          "description": "locale separator for grouping decimal values",
           "sourceRange": {
             "start": {
               "line": 48,
               "column": 10
             },
             "end": {
-              "line": 50,
+              "line": 51,
               "column": 11
             }
           },
           "metadata": {},
-          "type": "number"
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "minimum-fraction-digits",
+          "description": "The minimum number of fraction digits to use. Possible values are from 0 to 20; the default for plain number and percent formatting is 0; the default for currency formatting is the number of minor unit digits provided by the ISO 4217 currency code list (2 if the list doesn't provide that information).",
+          "sourceRange": {
+            "start": {
+              "line": 56,
+              "column": 10
+            },
+            "end": {
+              "line": 58,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "number | null | undefined"
         },
         {
           "name": "maximum-fraction-digits",
           "description": "The maximum number of fraction digits to use. Possible values are from 0 to 20; the default for plain number formatting is the larger of minimumFractionDigits and 3; the default for currency formatting is the larger of minimumFractionDigits and the number of minor unit digits provided by the ISO 4217 currency code list (2 if the list doesn't provide that information); the default for percent formatting is the larger of minimumFractionDigits and 0.",
           "sourceRange": {
             "start": {
-              "line": 55,
+              "line": 63,
               "column": 10
             },
             "end": {
-              "line": 57,
+              "line": 65,
               "column": 11
             }
           },
           "metadata": {},
-          "type": "number"
+          "type": "number | null | undefined"
         },
         {
           "name": "minimum-integer-digits",
           "description": "The minimum number of integer digits to use. Possible values are from 1 to 21; the default is 1.",
           "sourceRange": {
             "start": {
-              "line": 62,
+              "line": 70,
               "column": 10
             },
             "end": {
-              "line": 64,
+              "line": 72,
               "column": 11
             }
           },
           "metadata": {},
-          "type": "number"
+          "type": "number | null | undefined"
         },
         {
           "name": "minimum-significant-digits",
           "description": "The minimum number of significant digits to use. Possible values are from 1 to 21; the default is 1.",
           "sourceRange": {
             "start": {
-              "line": 69,
+              "line": 77,
               "column": 10
             },
             "end": {
-              "line": 71,
+              "line": 79,
               "column": 11
             }
           },
           "metadata": {},
-          "type": "number"
+          "type": "number | null | undefined"
         },
         {
           "name": "maximum-significant-digits",
           "description": "The maximum number of significant digits to use. Possible values are from 1 to 21; the default is minimumSignificantDigits.",
           "sourceRange": {
             "start": {
-              "line": 76,
+              "line": 84,
               "column": 10
             },
             "end": {
-              "line": 78,
+              "line": 86,
               "column": 11
             }
           },
           "metadata": {},
-          "type": "number"
+          "type": "number | null | undefined"
         },
         {
           "name": "unit",
           "description": "unit of the output (only used when `number-style=\"decimal\"`)",
           "sourceRange": {
             "start": {
-              "line": 83,
-              "column": 10
-            },
-            "end": {
-              "line": 85,
-              "column": 11
-            }
-          },
-          "metadata": {},
-          "type": "string"
-        },
-        {
-          "name": "unit-separator",
-          "description": "the separator to separate value and unit",
-          "sourceRange": {
-            "start": {
-              "line": 90,
+              "line": 91,
               "column": 10
             },
             "end": {
@@ -4958,46 +4812,46 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         },
         {
-          "name": "always-sign",
-          "description": "always put the sign at the beginning",
+          "name": "unit-separator",
+          "description": "the separator to separate value and unit (default: '\\u202F')",
           "sourceRange": {
             "start": {
               "line": 98,
               "column": 10
             },
             "end": {
-              "line": 100,
+              "line": 101,
               "column": 11
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "string | null | undefined"
         },
         {
-          "name": "number-style",
-          "description": "The formatting style to use. Possible values are \"decimal\" for plain number formatting, \"currency\" for currency formatting, and \"percent\" for percent formatting; the default is \"decimal\".\nnotice: min, max and step are not in percent (so e.g. if step is 0.01, it means that the step is 1%)",
+          "name": "always-sign",
+          "description": "always put the sign at the beginning",
           "sourceRange": {
             "start": {
               "line": 106,
               "column": 10
             },
             "end": {
-              "line": 110,
+              "line": 108,
               "column": 11
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "boolean | null | undefined"
         },
         {
-          "name": "use-grouping",
-          "description": "if true the number will be grouped according to the locale.",
+          "name": "number-style",
+          "description": "The formatting style to use. Possible values are \"decimal\" for plain number formatting, \"currency\" for currency formatting, and \"percent\" for percent formatting; the default is \"decimal\".\nnotice: min, max and step are not in percent (so e.g. if step is 0.01, it means that the step is 1%)",
           "sourceRange": {
             "start": {
-              "line": 115,
+              "line": 114,
               "column": 10
             },
             "end": {
@@ -5006,11 +4860,11 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "string | null | undefined"
         },
         {
-          "name": "currency",
-          "description": "The currency to use in currency formatting. Possible values are the ISO 4217 currency codes, such as \"USD\" for the US dollar, \"EUR\" for the euro, or \"CNY\" for the Chinese RMB — see http://www.currency-iso.org/en/home/tables/table-a1.html. There is no default value; if the style is \"currency\", the currency property must be provided.",
+          "name": "use-grouping",
+          "description": "if true the number will be grouped according to the locale.",
           "sourceRange": {
             "start": {
               "line": 122,
@@ -5022,11 +4876,11 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "boolean | null | undefined"
         },
         {
-          "name": "currency-display",
-          "description": "How to display the currency in currency formatting. Possible values are \"symbol\" to use a localized currency symbol such as €, \"code\" to use the ISO currency code, \"name\" to use a localized currency name such as \"dollar\"; the default is \"symbol\".",
+          "name": "currency",
+          "description": "The currency to use in currency formatting. Possible values are the ISO 4217 currency codes, such as \"USD\" for the US dollar, \"EUR\" for the euro, or \"CNY\" for the Chinese RMB — see http://www.currency-iso.org/en/home/tables/table-a1.html. There is no default value; if the style is \"currency\", the currency property must be provided.",
           "sourceRange": {
             "start": {
               "line": 129,
@@ -5038,39 +4892,773 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "currency-display",
+          "description": "How to display the currency in currency formatting. Possible values are \"symbol\" to use a localized currency symbol such as €, \"code\" to use the ISO currency code, \"name\" to use a localized currency name such as \"dollar\"; the default is \"symbol\".",
+          "sourceRange": {
+            "start": {
+              "line": 136,
+              "column": 10
+            },
+            "end": {
+              "line": 138,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "string | null | undefined"
         },
         {
           "name": "format-number",
           "description": "number format function",
           "sourceRange": {
             "start": {
-              "line": 144,
+              "line": 151,
               "column": 10
             },
             "end": {
-              "line": 148,
+              "line": 155,
               "column": 11
             }
           },
           "metadata": {},
-          "type": "Function"
+          "type": "Function | null | undefined"
         },
         {
           "name": "parse-number",
           "description": "function to parse the input",
           "sourceRange": {
             "start": {
-              "line": 153,
+              "line": 160,
               "column": 10
             },
             "end": {
-              "line": 157,
+              "line": 164,
               "column": 11
             }
           },
           "metadata": {},
-          "type": "Function"
+          "type": "Function | null | undefined"
+        }
+      ],
+      "events": [],
+      "styling": {
+        "cssVariables": [],
+        "selectors": []
+      },
+      "slots": []
+    },
+    {
+      "description": "mixin to provide a range behavior for a given value",
+      "summary": "",
+      "path": "range-mixin.html",
+      "properties": [
+        {
+          "name": "min",
+          "type": "number",
+          "description": "minimal input",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 19,
+              "column": 10
+            },
+            "end": {
+              "line": 21,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Number"
+            }
+          }
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "description": "maximal input",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 26,
+              "column": 10
+            },
+            "end": {
+              "line": 28,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Number"
+            }
+          }
+        },
+        {
+          "name": "step",
+          "type": "number",
+          "description": "step for changing the input (referencing to `min` or `0`)",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 34,
+              "column": 10
+            },
+            "end": {
+              "line": 37,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "observer": "\"_stepChanged\"",
+              "attributeType": "Number"
+            }
+          }
+        },
+        {
+          "name": "startAt",
+          "type": "number",
+          "description": "start where to increment the value",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 43,
+              "column": 10
+            },
+            "end": {
+              "line": 45,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "attributeType": "Number"
+            }
+          }
+        },
+        {
+          "name": "valueAsNumber",
+          "type": "number",
+          "description": "value of the input",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 50,
+              "column": 10
+            },
+            "end": {
+              "line": 54,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true,
+              "observer": "\"_valueAsNumberChanged\"",
+              "attributeType": "Number"
+            }
+          }
+        },
+        {
+          "name": "default",
+          "type": "number",
+          "description": "default-value of the input",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 59,
+              "column": 10
+            },
+            "end": {
+              "line": 62,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "observer": "\"_defaultChanged\"",
+              "attributeType": "Number"
+            }
+          }
+        },
+        {
+          "name": "saturate",
+          "type": "boolean",
+          "description": "if true, the value does not revolve the range according to the maximum or the minimum",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 67,
+              "column": 10
+            },
+            "end": {
+              "line": 70,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "observer": "\"_updateValueAsNumber\"",
+              "attributeType": "Boolean"
+            }
+          }
+        },
+        {
+          "name": "useNegativeZero",
+          "type": "boolean",
+          "description": "if true, the value will break on 0 to -0",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 75,
+              "column": 10
+            },
+            "end": {
+              "line": 78,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "observer": "\"_updateValueAsNumber\"",
+              "attributeType": "Boolean"
+            }
+          }
+        },
+        {
+          "name": "noClamp",
+          "type": "boolean",
+          "description": "if true, the value does not clamp according to the given step",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 83,
+              "column": 10
+            },
+            "end": {
+              "line": 86,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "observer": "\"_updateValueAsNumber\"",
+              "attributeType": "Boolean"
+            }
+          }
+        }
+      ],
+      "methods": [
+        {
+          "name": "_minMaxChanged",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 96,
+              "column": 6
+            },
+            "end": {
+              "line": 105,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "min"
+            },
+            {
+              "name": "max"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_valueAsNumberChanged",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 107,
+              "column": 6
+            },
+            "end": {
+              "line": 119,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "valueAsNumber"
+            },
+            {
+              "name": "oldValue"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_defaultChanged",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 121,
+              "column": 6
+            },
+            "end": {
+              "line": 127,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "def"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_computeDefaultValue",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 129,
+              "column": 6
+            },
+            "end": {
+              "line": 134,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "value"
+            }
+          ]
+        },
+        {
+          "name": "_checkValueAsNumber",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 136,
+              "column": 6
+            },
+            "end": {
+              "line": 161,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "value"
+            },
+            {
+              "name": "oldValue"
+            }
+          ]
+        },
+        {
+          "name": "_updateValueAsNumber",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 163,
+              "column": 6
+            },
+            "end": {
+              "line": 168,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_checkStep",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 170,
+              "column": 6
+            },
+            "end": {
+              "line": 187,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "value"
+            },
+            {
+              "name": "step"
+            }
+          ]
+        },
+        {
+          "name": "_safeMult",
+          "description": "Emulating handwritten multiplication to keep precision",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 195,
+              "column": 6
+            },
+            "end": {
+              "line": 197,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "a",
+              "type": "?number",
+              "description": "First summand"
+            },
+            {
+              "name": "b",
+              "type": "?number",
+              "description": "Second summand"
+            }
+          ],
+          "return": {
+            "type": "number",
+            "desc": "Sum"
+          }
+        },
+        {
+          "name": "_safeAdd",
+          "description": "Emulating handwritten addition to keep precision",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 205,
+              "column": 6
+            },
+            "end": {
+              "line": 207,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "a",
+              "type": "?number",
+              "description": "First factor"
+            },
+            {
+              "name": "b",
+              "type": "?number",
+              "description": "Second factor"
+            }
+          ],
+          "return": {
+            "type": "number",
+            "desc": "Product"
+          }
+        },
+        {
+          "name": "_stepChanged",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 209,
+              "column": 6
+            },
+            "end": {
+              "line": 217,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "step"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "increase",
+          "description": "Increase value by step",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 222,
+              "column": 6
+            },
+            "end": {
+              "line": 224,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "decrease",
+          "description": "Decrease value by step",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 229,
+              "column": 6
+            },
+            "end": {
+              "line": 231,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_increm",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 233,
+              "column": 6
+            },
+            "end": {
+              "line": 265,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "step"
+            }
+          ],
+          "return": {
+            "type": "void"
+          }
+        },
+        {
+          "name": "_shouldPropertyChange",
+          "description": "overwritten of polymer to handle -0",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 270,
+              "column": 6
+            },
+            "end": {
+              "line": 276,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "property"
+            },
+            {
+              "name": "value"
+            },
+            {
+              "name": "old"
+            }
+          ]
+        }
+      ],
+      "staticMethods": [],
+      "demos": [],
+      "metadata": {},
+      "sourceRange": {
+        "start": {
+          "line": 9,
+          "column": 2
+        },
+        "end": {
+          "line": 278,
+          "column": 3
+        }
+      },
+      "privacy": "public",
+      "name": "RangeMixin",
+      "attributes": [
+        {
+          "name": "min",
+          "description": "minimal input",
+          "sourceRange": {
+            "start": {
+              "line": 19,
+              "column": 10
+            },
+            "end": {
+              "line": 21,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "number"
+        },
+        {
+          "name": "max",
+          "description": "maximal input",
+          "sourceRange": {
+            "start": {
+              "line": 26,
+              "column": 10
+            },
+            "end": {
+              "line": 28,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "number"
+        },
+        {
+          "name": "step",
+          "description": "step for changing the input (referencing to `min` or `0`)",
+          "sourceRange": {
+            "start": {
+              "line": 34,
+              "column": 10
+            },
+            "end": {
+              "line": 37,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "number"
+        },
+        {
+          "name": "start-at",
+          "description": "start where to increment the value",
+          "sourceRange": {
+            "start": {
+              "line": 43,
+              "column": 10
+            },
+            "end": {
+              "line": 45,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "number"
+        },
+        {
+          "name": "value-as-number",
+          "description": "value of the input",
+          "sourceRange": {
+            "start": {
+              "line": 50,
+              "column": 10
+            },
+            "end": {
+              "line": 54,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "number"
+        },
+        {
+          "name": "default",
+          "description": "default-value of the input",
+          "sourceRange": {
+            "start": {
+              "line": 59,
+              "column": 10
+            },
+            "end": {
+              "line": 62,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "number"
+        },
+        {
+          "name": "saturate",
+          "description": "if true, the value does not revolve the range according to the maximum or the minimum",
+          "sourceRange": {
+            "start": {
+              "line": 67,
+              "column": 10
+            },
+            "end": {
+              "line": 70,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "use-negative-zero",
+          "description": "if true, the value will break on 0 to -0",
+          "sourceRange": {
+            "start": {
+              "line": 75,
+              "column": 10
+            },
+            "end": {
+              "line": 78,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "no-clamp",
+          "description": "if true, the value does not clamp according to the given step",
+          "sourceRange": {
+            "start": {
+              "line": 83,
+              "column": 10
+            },
+            "end": {
+              "line": 86,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
         }
       ],
       "events": [],

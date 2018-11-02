@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>overlay-picker-mixin test</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+    <script src="../../iron-test-helpers/mock-interactions.js"></script>
+    <script src="../utils/wct-mixin-test-helper.js"></script>
+
+    <link rel="import" href="elements/basic-overlay-picker-element.html">
+  </head>
+  <body>
+
+    <test-fixture id="Basic">
+      <template>
+        <basic-overlay-picker-element></basic-overlay-picker-element>
+      </template>
+    </test-fixture>
+
+    <script>
+      WCT.helpers.mixinSuite('basic-overlay-picker-element');
+
+      suite('basic', function() {
+        let element;
+
+        setup(function() {
+          element = fixture('Basic');
+        });
+
+        test('instantiating the element with default properties works', done => {
+          // properties to propagate to IronOverlayBehavior|OverlayElement
+          assert.isFalse(element.noOverlap);
+          assert.isFalse(element.withBackdrop);
+          assert.isFalse(element.noCancelOnOutsideClick);
+          assert.isFalse(element.autoFitOnAttach);
+          assert.isUndefined(element.alwaysOnTop);
+          assert.isUndefined(element.dynamicAlign);
+          assert.isUndefined(element.fitInto);
+          done();
+        });
+      });
+    </script>
+
+  </body>
+</html>

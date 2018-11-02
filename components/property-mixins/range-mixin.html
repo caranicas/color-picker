@@ -1,70 +1,13 @@
+<link rel="import" href="../polymer/lib/utils/mixin.html">
+<link rel="import" href="number-utilities.html">
 <script>
-  /**
-   * Utilities for number operations
-   */
-  window._numberUtilities = window._numberUtilities || {};
-  /**
-   * emulating handwritten multiplication to keep precision
-   * @param  {[number]} a [factor]
-   * @param  {[number]} b [factor]
-   * @return {[type]}   [product]
-   */
-  window._numberUtilities._safeMult = function(a, b) {
-    a = '' + (a || 0);
-    b = '' + (b || 0);
-
-    const decimal = a.slice(a.indexOf('.')).length + b.slice(b.indexOf('.')).length - 2;
-
-    if (decimal === 0) {
-      return a * b;
-    }
-    const sign = (a[0] === '-' ? b[0] !== '-' : b[0] === '-') ? '-' : '';
-
-    a = +a.replace(/\D/g, '');
-    b = b.replace(/\D/g, '');
-
-    let whole = 0;
-    for (let i = 0; i < b.length; i++) {
-      whole += Math.pow(10, b.length - 1 - i) * a * (+b[i]);
-    }
-    whole = '' + whole;
-    for (let i = whole.length; i < decimal; i++) {
-      whole = '0' + whole;
-    }
-    return +(sign + whole.slice(0, whole.length - decimal) + '.' + whole.slice(whole.length - decimal));
-  }
-  /**
-   * emulating handwritten addition to keep precision
-   * @param  {[number]} a [summand]
-   * @param  {[number]} b [summand]
-   * @return {[type]}   [sum]
-   */
-  window._numberUtilities._safeAdd = function(a, b) {
-    const _a = '' + (a || 0),
-      _b = '' + (b || 0),
-      decimal = Math.max(_a.slice(_a.indexOf('.')).length, _b.slice(_b.indexOf('.')).length) - 1;
-
-    if (decimal === 0) {
-      return a + b;
-    }
-
-    let whole = Math.round(Math.pow(10, decimal) * a + Math.pow(10, decimal) * b);
-
-    const sign = whole < 0 ? '-' : '';
-    whole = '' + Math.abs(whole);
-    for (let i = whole.length; i < decimal; i++) {
-      whole = '0' + whole;
-    }
-    return +(sign + whole.slice(0, whole.length - decimal) + '.' + whole.slice(whole.length - decimal));
-  }
-
   /**
    * mixin to provide a range behavior for a given value
    *
    * @mixinFunction
    * @polymer
    */
-  const RangeMixin = (superClass) => { // eslint-disable-line no-unused-vars
+  const RangeMixin = function(superClass) { // eslint-disable-line no-unused-vars
 
     return class extends superClass {
 
@@ -91,29 +34,16 @@
            */
           step: {
             type: Number,
-            value: 1
+            observer: '_stepChanged'
           },
 
           /**
-           * a step modifier. this is useful if you are having one step for multible elements that represent parts of numbers, like when you are having one input for the decimal part and one for the integer part.
-           * For example:
-           *   * if `step` is `0.002` and the `step-mod` is `1000`, `2` will be used
-           *   * if `step` is `10` and the `step-mod` is `0.02`, `0.2` will be used
-           */
-          stepMod: {
-            type: Number,
-            value: 1
-          },
-
-          /**
-           * the used step, product of stepMod and step
+           * start where to increment the value
            * @type {number}
            */
-          _step: {
-            type: Number,
-            value: 1
+          startAt: {
+            type: Number
           },
-
           /**
            * value of the input
            * @type {number}
@@ -128,7 +58,8 @@
            * @type {number}
            */
           default: {
-            type: Number
+            type: Number,
+            observer: '_defaultChanged'
           },
           /**
            * if true, the value does not revolve the range according to the maximum or the minimum
@@ -136,7 +67,15 @@
            */
           saturate: {
             type: Boolean,
-            observer: '_updateValue'
+            observer: '_updateValueAsNumber'
+          },
+          /**
+           * if true, the value will break on 0 to -0
+           * @type {boolean}
+           */
+          useNegativeZero: {
+            type: Boolean,
+            observer: '_updateValueAsNumber'
           },
           /**
            * if true, the value does not clamp according to the given step
@@ -144,23 +83,15 @@
            */
           noClamp: {
             type: Boolean,
-            observer: '_updateValue'
+            observer: '_updateValueAsNumber'
           }
         }
       }
 
       static get observers() {
         return [
-          '_minMaxChanged(min, max)',
-          '_stepChanged(step, stepMod)'
+          '_minMaxChanged(min, max)'
         ]
-      }
-
-      connectedCallback() {
-        super.connectedCallback();
-        if (this.valueAsNumber === undefined && !isNaN(this.default)) {
-          this.valueAsNumber = this.default;
-        }
       }
 
       _minMaxChanged(min, max) {
@@ -170,102 +101,182 @@
             max: +min
           })
         } else {
-          this._updateValue();
+          this._updateValueAsNumber();
         }
       }
 
-      _valueAsNumberChanged(value, oldValue) {
-        if (value === undefined) return;
-
-        value = this._checkValue(value, oldValue);
-
-        if (value !== this.valueAsNumber) {
-          this.valueAsNumber = value;
+      _valueAsNumberChanged(valueAsNumber, oldValue) {
+        if (this.__resettingValueAsNumber === true) return;
+        if (this.useNegativeZero && valueAsNumber === 0 && oldValue === 0 && (1/valueAsNumber !== 1/oldValue)) { // negative to positive zero switch
+          // intended switch to undefined for data-binding outside this element to be propagated
+          // WARNING: might cause unexpected behaviour
+          this.__resettingValueAsNumber = true;
+          this.valueAsNumber = undefined; // enshure the value is reset so that data-change can take replace
+          this.__resettingValueAsNumber = false;
+          this.valueAsNumber = valueAsNumber;
           return;
         }
+        this.valueAsNumber = this._checkValueAsNumber(valueAsNumber, oldValue);
       }
 
-      _checkValue(value, oldValue) {
+      _defaultChanged(def) {
+        if (isNaN(def)) return;
+
+        if (isNaN(this.valueAsNumber)) {
+          this.valueAsNumber = def;
+        }
+      }
+
+      _computeDefaultValue(value) {
+        if (!isNaN(this.default)) {
+          return +this.default;
+        }
+        return value;
+      }
+
+      _checkValueAsNumber(value, oldValue) {
         if (isNaN(value)) {
-          if (!isNaN(oldValue)) {
-            return oldValue;
-          } else if (!isNaN(this.default)) {
-            return this.default;
-          } else if (!isNaN(this.min)) {
-            return this.min;
-          } else if (!isNaN(this.max)) {
-            return this.max;
-          }
-          return 0;
+          return this._computeDefaultValue(value);
         }
 
         const saturate = this.saturate,
           min = this.min,
           max = this.max;
 
-        if (min !== undefined && value <= min) {
-          if (saturate || value === min || max === undefined || oldValue !== min) {
+        if (!isNaN(min) && value <= min) {
+          if (saturate || value === min || isNaN(max) || oldValue !== min) {
             return min;
           }
           return max;
-        } else if (max !== undefined && value >= max) {
-          if (saturate || value === max || min === undefined || max !== oldValue) {
+        }
+        if (!isNaN(max) && value >= max) {
+          if (saturate || value === max || isNaN(min) || max !== oldValue) {
             return max;
           }
           return min;
-        } else if (this.noClamp) {
+        }
+        if (this.noClamp) {
           return value;
         }
-        return this._checkStep(value, this._step);
+        return this._checkStep(value, this.step);
       }
 
-      _updateValue() {
-        if (this.valueAsNumber !== undefined) {
-          this._valueAsNumberChanged(this.valueAsNumber, this.valueAsNumber);
+      _updateValueAsNumber() {
+        if (isNaN(this.valueAsNumber) && isNaN(this.default) && isNaN(this.min) && isNaN(this.max)) {
+          return;
         }
+        this._valueAsNumberChanged(this.valueAsNumber, this.valueAsNumber);
       }
 
       _checkStep(value, step) {
         if (!step) {
           return value;
         }
-        if (this.default !== undefined) {
-          return this._safeAdd(this._safeMult(Math.round((value - this.default) / step), step), this.default);
+        const safeAdd = this._safeAdd,
+          safeMult = this._safeMult;
+        const isNegative0 = (this.useNegativeZero && numberUtilities.isNegative0(value));
+        if (!isNaN(this.default)) {
+          value = safeAdd(safeMult(Math.round((value - this.default) / step), step), this.default);
+        } else if (!isNaN(this.min)) {
+          value = safeAdd(safeMult(Math.round((value - this.min) / step), step), this.min);
+        } else if (!isNaN(this.max)) {
+          value = safeAdd(safeMult(-Math.round((this.max - value) / step), step), this.max);
+        } else {
+          value = safeMult(Math.round(value / step), step);
         }
-        if (this.min !== undefined) {
-          return this._safeAdd(this._safeMult(Math.round((value - this.min) / step), step), this.min);
-        }
-        if (this.max !== undefined) {
-          return this._safeAdd(this._safeMult(-Math.round((this.max - value) / step), step), this.max);
-        }
-        return this._safeMult(Math.round(value / step), step);
+        return (isNegative0 && value === 0) ? -0 : value;
       }
 
       /**
-       * emulating handwritten multiplication to keep precision
+       * Emulating handwritten multiplication to keep precision
+       * @param {?number} a First summand
+       * @param {?number} b Second summand
+       * @return {number} Sum
        */
       _safeMult(a, b) {
-        return window._numberUtilities._safeMult(a, b);
+        return window.numberUtilities.safeMult(a, b);
       }
 
       /**
-       * emulating handwritten addition to keep precision
+       * Emulating handwritten addition to keep precision
+       * @param {?number} a First factor
+       * @param {?number} b Second factor
+       * @return {number} Product
        */
       _safeAdd(a, b) {
-        return window._numberUtilities._safeAdd(a, b);
+        return window.numberUtilities.safeAdd(a, b);
       }
 
-      _stepChanged(step, stepMod) {
+      _stepChanged(step) {
         step = step || 0;
+        // step should be positive
         if (step !== Math.abs(step)) {
           this.step = Math.abs(step);
           return;
         }
-        this._step = this._safeMult(step, stepMod || 1);
-        this._updateValue();
+        this._updateValueAsNumber();
+      }
+
+      /**
+       * Increase value by step
+       */
+      increase() {
+        this._increm(this.step || 1);
+      }
+
+      /**
+       * Decrease value by step
+       */
+      decrease() {
+        this._increm(-(this.step || 1));
+      }
+
+      _increm(step) {
+        if (this.useNegativeZero && this.valueAsNumber === 0) {
+          if ((1/this.valueAsNumber) === Infinity) { // oldValue is +0
+            if (step < 0) {
+              // switch to -0
+              this.valueAsNumber = -0;
+              return;
+            }
+          } else if (step > 0) {  // oldValue is -0
+            // switch to +0
+            this.valueAsNumber = 0;
+            return;
+          }
+        }
+        const value = +this._safeAdd(this.valueAsNumber, step);
+        if (isNaN(value)) {
+          if (!isNaN(this.startAt)) {
+            this.valueAsNumber = +this.startAt;
+          } else if (!isNaN(this.default)) {
+            this.valueAsNumber = +this.default;
+          } else {
+            this.valueAsNumber = this.min < 0 ? 0 : this.min || 0;
+          }
+        } else if (this.useNegativeZero && value === 0) {
+          if (step < 0) { // coming from positive
+            this.valueAsNumber = 0;
+          } else if (step > 0) {  // coming from negative
+            this.valueAsNumber = -0;
+          }
+        } else {
+          this.valueAsNumber = value;
+        }
+      }
+
+      /**
+       * overwritten of polymer to handle -0
+       */
+      _shouldPropertyChange(property, value, old) {
+        if (this.useNegativeZero && value === 0 && old === 0) {
+          // differs if sign is different
+          return (1/value !== 1/old)
+        }
+        return super._shouldPropertyChange(property, value, old);
       }
     }
   }
 
-  window.RangeMixin = RangeMixin;
+  window.RangeMixin = Polymer.dedupingMixin(RangeMixin);
 </script>

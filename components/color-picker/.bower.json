@@ -19,23 +19,23 @@
   },
   "licence": "https://github.com/fooloomanzoo/color-picker/raw/master/LICENSE.txt",
   "dependencies": {
-    "polymer": "Polymer/polymer#2",
-    "input-picker-pattern": "fooloomanzoo/input-picker-pattern#2",
-    "property-mixins": "fooloomanzoo/property-mixins#2",
-    "color-input": "fooloomanzoo/color-input#2"
+    "polymer": "Polymer/polymer#2.6.1",
+    "color-input": "fooloomanzoo/text-input#2",
+    "input-picker-pattern": "fooloomanzoo/input-picker-pattern#2"
   },
   "devDependencies": {
-    "webcomponentsjs": "webcomponents/webcomponentsjs",
-    "iron-component-page": "PolymerElements/iron-component-page",
-    "iron-flex-layout": "PolymerElements/iron-flex-layout",
-    "iron-demo-helpers": "PolymerElements/iron-demo-helpers",
-    "iron-form": "PolymerElements/iron-form"
+    "web-component-tester": "^6.5.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#1",
+    "iron-test-helpers": "PolymerElements/iron-test-helpers#2",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#2",
+    "iron-form": "PolymerElements/iron-form#2",
+    "iron-component-page": "PolymerElements/iron-component-page#^3.0.1"
   },
-  "_release": "fa8e42e2e0",
+  "_release": "9bd1a5d0a3",
   "_resolution": {
     "type": "branch",
     "branch": "master",
-    "commit": "fa8e42e2e0554222da37effbce6803606ff32c9f"
+    "commit": "9bd1a5d0a35d8fe2a0f6665ca4b40e9d6f5c2e26"
   },
   "_source": "https://github.com/fooloomanzoo/color-picker.git",
   "_target": "master",

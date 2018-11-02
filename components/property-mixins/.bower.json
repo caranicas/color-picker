@@ -23,12 +23,28 @@
     "test",
     "tests"
   ],
-  "version": "2.5.1",
-  "_release": "2.5.1",
+  "dependencies": {
+    "polymer": "Polymer/polymer#2.6.1"
+  },
+  "devDependencies": {
+    "web-component-tester": "^6.5.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#1",
+    "iron-component-page": "PolymerElements/iron-component-page#3",
+    "iron-flex-layout": "PolymerElements/iron-flex-layout#2",
+    "iron-form": "PolymerElements/iron-form#2",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2",
+    "iron-test-helpers": "PolymerElements/iron-test-helpers#2",
+    "input-picker-pattern": "fooloomanzoo/input-picker-pattern#^2"
+  },
+  "resolutions": {
+    "polymer": "^2"
+  },
+  "version": "2.5.4",
+  "_release": "2.5.4",
   "_resolution": {
     "type": "version",
-    "tag": "2.5.1",
-    "commit": "01478cdc5825977b599a5359833d302861ab319e"
+    "tag": "2.5.4",
+    "commit": "a0ef7ac1c7ed7c82d870cd43535f9645856392b7"
   },
   "_source": "https://github.com/fooloomanzoo/property-mixins.git",
   "_target": "2",
