@@ -27,6 +27,6 @@
     "iron-form": "PolymerElements/iron-form#2",
     "iron-component-page": "PolymerElements/iron-component-page#^3.0.1",
     "iron-overlay-behavior": "PolymerElements/iron-overlay-behavior#2",
-    "datetime-picker": "fooloomanzoo/color-picker#2"
+    "color-picker": "fooloomanzoo/color-picker#2"
   }
 }
