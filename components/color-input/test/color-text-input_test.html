@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+  <title>color-text-input test</title>
+
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+  <script src="../../iron-test-helpers/mock-interactions.js"></script>
+  <script src="../../input-picker-pattern/utils/wct-mixin-test-helper.js"></script>
+
+  <link rel="import" href="../color-text-input.html">
+</head>
+
+<body>
+
+  <test-fixture id="Basic">
+    <template>
+      <color-text-input></color-text-input>
+    </template>
+  </test-fixture>
+
+  <script>
+    WCT.helpers.mixinSuite('color-text-input');
+
+    suite('basic', function() {
+
+      let element;
+
+      setup(function() {
+        element = fixture('Basic');
+      });
+
+      test('instantiating the element with default properties should work', done => {
+        assert.isDefined(element.propertyForValue, 'propertyForValue is defined');
+        setTimeout(() => {
+          let button = element.shadowRoot.querySelector('.icon.reset');
+          assert.isOk(button, 'element has an reset icon');
+          done();
+        }, 0);
+      });
+
+      test('compute placeholder strings for differnt formats', done => {
+        assert.isOk(element._computeFormatPlaceholder('auto'), 'auto placeholder');
+        assert.isOk(element._computeFormatPlaceholder('hex'), 'hex placeholder');
+        assert.isOk(element._computeFormatPlaceholder('hsl'), 'hsl placeholder');
+        assert.isOk(element._computeFormatPlaceholder('rgb'), 'rgb placeholder');
+        done();
+      })
+    });
+
+    suite('resetting', () => {
+      let element;
+
+      setup(function() {
+        element = fixture('Basic');
+        element.randomColor();
+      });
+
+      test('resetting by pressing reset icon', done => {
+        setTimeout(() => {
+          let button = element.shadowRoot.querySelector('.icon.reset');
+          MockInteractions.tap(button);
+          if (element.default) {
+            assert.equal(element.value, element.default, 'value is set to default');
+            assert.equal(element.value, element[element.propertyForValue], 'propertyForValue is reflection is happening');
+          } else {
+            assert.isUndefined(element.value, 'value is not defined');
+            assert.isUndefined(element.colorString, 'colorString is not defined');
+            assert.isUndefined(element.r, 'r is not defined');
+            assert.isUndefined(element.g, 'g is not defined');
+            assert.isUndefined(element.b, 'b is not defined');
+            assert.isUndefined(element.h, 'h is not defined');
+            assert.isUndefined(element.s, 's is not defined');
+            assert.isUndefined(element.l, 'l is not defined');
+            assert.isUndefined(element.alpha, 'alpha is not defined');
+            assert.isUndefined(element[element.propertyForValue], 'propertyForValue is reflection is happening');
+          }
+          done();
+        }, 0);
+      });
+    });
+  </script>
+
+</body>
+
+</html>

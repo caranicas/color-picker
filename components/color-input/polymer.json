@@ -1,7 +1,8 @@
 {
-  "moduleResolution": "none",
   "sources": [
-    "text-input.html"
+    "color-badge.html",
+    "color-text-input.html",
+    "color-input.html"
   ],
   "lint": {
     "rules": [

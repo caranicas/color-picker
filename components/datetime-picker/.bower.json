@@ -20,7 +20,7 @@
   "licence": "https://github.com/fooloomanzoo/color-picker/raw/master/LICENSE.txt",
   "dependencies": {
     "polymer": "Polymer/polymer#2.6.1",
-    "color-input": "fooloomanzoo/text-input#2",
+    "color-input": "fooloomanzoo/color-input#2",
     "input-picker-pattern": "fooloomanzoo/input-picker-pattern#2"
   },
   "devDependencies": {
@@ -31,12 +31,12 @@
     "iron-form": "PolymerElements/iron-form#2",
     "iron-component-page": "PolymerElements/iron-component-page#^3.0.1"
   },
-  "version": "2.0.9",
-  "_release": "2.0.9",
+  "version": "2.0.10",
+  "_release": "2.0.10",
   "_resolution": {
     "type": "version",
-    "tag": "2.0.9",
-    "commit": "9bd1a5d0a35d8fe2a0f6665ca4b40e9d6f5c2e26"
+    "tag": "2.0.10",
+    "commit": "b4f587d09962852287d2dc7c86454bfc7fa47f1d"
   },
   "_source": "https://github.com/fooloomanzoo/color-picker.git",
   "_target": "2",

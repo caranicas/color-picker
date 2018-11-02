@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+  <title>color-text-input test</title>
+
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+  <script src="../../iron-test-helpers/mock-interactions.js"></script>
+  <script src="../../input-picker-pattern/utils/wct-mixin-test-helper.js"></script>
+
+  <link rel="import" href="../color-text-input.html">
+</head>
+
+<body>
+
+  <test-fixture id="Basic">
+    <template>
+      <color-text-input></color-text-input>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="ChangingProperties">
+    <template>
+      <color-text-input value="#000"></color-text-input>
+    </template>
+  </test-fixture>
+
+  <script>
+    WCT.helpers.mixinSuite('color-text-input');
+
+    suite('basic', function() {
+
+      let element;
+
+      setup(function() {
+        element = fixture('Basic');
+      });
+
+      test('instantiating the element with default properties should work', done => {
+        assert.isDefined(element.propertyForValue, 'propertyForValue is defined');
+        done();
+      });
+
+      test('propertyForValue="colorString"', done => {
+        element.propertyForValue = 'colorString';
+        assert.notEqual(element._isSet.toString(), element._defaultIsSet.toString(), '_isSet is not equal _defaultIsSet');
+        element.value = 'red';
+        assert.isTrue(element.valueIsSet, 'value is set')
+        element.value = null;
+        assert.isFalse(element.valueIsSet, 'value is not set')
+        done();
+      });
+
+      test('propertyForValue="r"', done => {
+        element.propertyForValue = 'r';
+        assert.notEqual(element._isSet.toString(), element._defaultIsSet.toString(), '_isSet is not equal _defaultIsSet');
+        element.randomColor();
+        element.value = 1;
+        assert.isTrue(element.valueIsSet, 'value is set')
+        element.value = 'red';
+        assert.isFalse(element.valueIsSet, 'value is not set')
+        done();
+      });
+
+      test('propertyForValue="g"', done => {
+        element.propertyForValue = 'g';
+        assert.notEqual(element._isSet.toString(), element._defaultIsSet.toString(), '_isSet is not equal _defaultIsSet');
+        element.randomColor();
+        element.value = 1;
+        assert.isTrue(element.valueIsSet, 'value is set')
+        element.value = 'red';
+        assert.isFalse(element.valueIsSet, 'value is not set')
+        done();
+      });
+
+      test('propertyForValue="b"', done => {
+        element.propertyForValue = 'b';
+        assert.notEqual(element._isSet.toString(), element._defaultIsSet.toString(), '_isSet is not equal _defaultIsSet');
+        element.randomColor();
+        element.value = 1;
+        assert.isTrue(element.valueIsSet, 'value is set')
+        element.value = 'red';
+        assert.isFalse(element.valueIsSet, 'value is not set')
+        done();
+      });
+
+      test('propertyForValue="h"', done => {
+        element.propertyForValue = 'h';
+        assert.notEqual(element._isSet.toString(), element._defaultIsSet.toString(), '_isSet is not equal _defaultIsSet');
+        element.randomColor();
+        element.value = 1;
+        assert.isTrue(element.valueIsSet, 'value is set')
+        element.value = 'red';
+        assert.isFalse(element.valueIsSet, 'value is not set')
+        done();
+      });
+
+      test('propertyForValue="s"', done => {
+        element.propertyForValue = 's';
+        assert.notEqual(element._isSet.toString(), element._defaultIsSet.toString(), '_isSet is not equal _defaultIsSet');
+        element.randomColor();
+        element.value = 1;
+        assert.isTrue(element.valueIsSet, 'value is set')
+        element.value = 'red';
+        assert.isFalse(element.valueIsSet, 'value is not set')
+        done();
+      });
+
+      test('propertyForValue="l"', done => {
+        element.propertyForValue = 'l';
+        assert.notEqual(element._isSet.toString(), element._defaultIsSet.toString(), '_isSet is not equal _defaultIsSet');
+        element.randomColor();
+        element.value = 1;
+        assert.isTrue(element.valueIsSet, 'value is set')
+        element.value = 'red';
+        assert.isFalse(element.valueIsSet, 'value is not set')
+        done();
+      });
+
+      test('propertyForValue="alpha"', done => {
+        element.propertyForValue = 'alpha';
+        assert.notEqual(element._isSet.toString(), element._defaultIsSet.toString(), '_isSet is not equal _defaultIsSet');
+        element.randomColor();
+        element.value = 1;
+        assert.isTrue(element.valueIsSet, 'value is set')
+        element.value = 'red';
+        assert.isFalse(element.valueIsSet, element.value + ' ' + element.alpha + ' value is not set')
+        done();
+      });
+    });
+  </script>
+
+</body>
+
+</html>

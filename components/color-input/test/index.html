@@ -4,17 +4,29 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
 
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
     <script src="../../web-component-tester/browser.js"></script>
-
   </head>
   <body>
     <script>
       // Load and run all tests (.html, .js):
       WCT.loadSuites([
-        'text-input_test.html',
-        '/components/input-picker-pattern/test/form-element-mixin_test.html?specifier=text-input&url=text-input/text-input.html',
-        '/components/input-picker-pattern/test/input-pattern_test.html?specifier=text-input&url=text-input/text-input.html'
+        // color-badge
+        'color-badge_test.html',
+        '/components/property-mixins/test/color-mixin-test.html?specifier=color-badge&url=color-input/color-badge.html',
+        // color-text-input
+        'color-text-input_test.html',
+        'color-badge_test.html?specifier=color-text-input&url=color-input/color-text-input.html',
+        'color-form-mixin_test.html?specifier=color-text-input&url=color-input/color-text-input.html',
+        '/components/property-mixins/test/color-mixin-test.html?specifier=color-text-input&url=color-input/color-text-input.html',
+        '/components/input-picker-pattern/test/form-element-mixin_test.html?specifier=color-text-input&url=color-input/color-text-input.html&isNotSet=red&validValue=#00ff00',
+        // color-input
+        'color-input_test.html',
+        'color-badge_test.html?specifier=color-input&url=color-input/color-input.html',
+        'color-form-mixin_test.html?specifier=color-input&url=color-input/color-input.html',
+        'color-text-input_test.html?specifier=color-input&url=color-input/color-input.html',
+        '/components/property-mixins/test/color-mixin-test.html?specifier=color-input&url=color-input/color-input.html',
+        '/components/input-picker-pattern/test/form-element-mixin_test.html?specifier=color-input&url=color-input/color-input.html&isNotSet=red&validValue=#00ff00'
       ]);
     </script>
 

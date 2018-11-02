@@ -1,43 +1,49 @@
 {
-  "name": "text-input",
+  "name": "color-input",
   "authors": [
     "Johannes Brautzsch <fooloomanzoo>"
   ],
-  "description": "input for text",
-  "homepage": "https://github.com/fooloomanzoo/text-input/",
+  "description": "An input for date and time",
+  "homepage": "https://github.com/fooloomanzoo/color-input/",
   "keywords": [
     "webcomponents",
     "polymer",
-    "number",
-    "input",
-    "text"
+    "color",
+    "rgb",
+    "hsl",
+    "input"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/fooloomanzoo/text-input.git"
+    "url": "https://github.com/fooloomanzoo/color-input.git"
   },
-  "license": "MIT",
+  "licence": "https://github.com/fooloomanzoo/color-input/raw/master/LICENSE.txt",
   "dependencies": {
-    "polymer": "Polymer/polymer#2",
+    "polymer": "Polymer/polymer#2.6.1",
+    "text-input": "fooloomanzoo/text-input#2",
+    "number-input": "fooloomanzoo/number-input#2",
+    "property-mixins": "fooloomanzoo/property-mixins#2",
     "input-picker-pattern": "fooloomanzoo/input-picker-pattern#2"
   },
   "devDependencies": {
+    "web-component-tester": "^6.5.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#1",
-    "iron-component-page": "PolymerElements/iron-component-page#3",
-    "iron-flex-layout": "PolymerElements/iron-flex-layout#2",
-    "iron-form": "PolymerElements/iron-form#2",
-    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",
     "iron-test-helpers": "PolymerElements/iron-test-helpers#2",
-    "web-component-tester": "^6.5.0"
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#2",
+    "iron-form": "PolymerElements/iron-form#2",
+    "iron-component-page": "PolymerElements/iron-component-page#^3.0.1"
   },
-  "version": "2.0.9",
-  "_release": "2.0.9",
+  "resolutions": {
+    "polymer": "^2"
+  },
+  "version": "2.1.6",
+  "_release": "2.1.6",
   "_resolution": {
     "type": "version",
-    "tag": "2.0.9",
-    "commit": "7d94df5e14ea936245f8787dec23b6bfa40a0300"
+    "tag": "2.1.6",
+    "commit": "39d876b1816a24e9f54f79a338371d6964406730"
   },
-  "_source": "https://github.com/fooloomanzoo/text-input.git",
+  "_source": "https://github.com/fooloomanzoo/color-input.git",
   "_target": "2",
-  "_originalSource": "fooloomanzoo/text-input"
+  "_originalSource": "fooloomanzoo/color-input"
 }

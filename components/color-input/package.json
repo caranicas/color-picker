@@ -1,7 +1,7 @@
 {
-  "name": "@fooloomanzoo/text-input",
-  "version": "2.0.9",
-  "description": "input for text",
+  "name": "@fooloomanzoo/color-input",
+  "version": "2.1.6",
+  "description": "an input for color",
   "main": "index.html",
   "directories": {
     "test": "test"
@@ -17,16 +17,21 @@
     "test:p": "polymer test -p --config-file=wct.p.conf.js"
   },
   "keywords": [
+    "color",
     "input",
     "polymer",
     "webcomponents",
-    "text"
+    "rgb",
+    "hsl"
   ],
   "author": "fooloomanzoo",
   "license": "MIT",
   "dependencies": {
     "@polymer/polymer": "^2.6.1",
-    "@fooloomanzoo/input-picker-pattern": "^2"
+    "@fooloomanzoo/input-picker-pattern": "^2",
+    "@fooloomanzoo/number-input": "^2",
+    "@fooloomanzoo/text-input": "^2",
+    "@fooloomanzoo/property-mixins": "^2"
   },
   "devDependencies": {
     "web-component-tester": "^6.5.0",
