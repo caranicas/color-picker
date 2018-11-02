@@ -17,12 +17,8 @@
       static get styleTemplate() {
         return `
           ${super.styleTemplate || ''}
-          #minsize,
-          #size,
           #input {
             @apply --text-input;
-            margin: 0;
-            min-width: 1ch;
           }
           :host(:focus) #input,
           :host(:hover) #input,
@@ -49,11 +45,11 @@
             type="[[type]]"
             value="{{input::input}}"
             placeholder="[[placeholder]]"
-            pattern="[[pattern]]"
             disabled$="[[disabled]]"
             required$="[[required]]"
             maxlength$="[[maxlength]]"
             title$="[[title]]"
+            pattern="[[_computInputValidationPattern(pattern)]]"
             autocomplete$="[[_computeAutocompleteAttribute(autocomplete)]]"
             spellcheck$="[[_computeSpellcheckAttribute(spellcheck)]]">
         `;
@@ -61,7 +57,6 @@
 
       static get properties() {
         return {
-
           /**
            * regular expression pattern of the input
            * @type {string}
@@ -93,77 +88,52 @@
            */
           maxlength: {
             type: Number
-          },
-
-          propertyForValue: {
-            type: String,
-            readOnly: true,
-            value: 'input'
-          },
-
-          /**
-           * the (valid) value of the input
-           */
-          value: {
-            notify: true,
-            observer: '_valueChanged'
           }
         }
       }
 
-      static get observers() {
-        return [
-          '_computeInvalid(required, input)'
-        ]
-      }
-
-      _computeInvalid(req, v) {
-        this.invalid = !this._validate(req, v || '');
-      }
-
-      _validate(req, v) {
-        if (this._validationRegExp) {
-          if ((this._validationRegExp.exec(v) !== null) && !(req && !v)) {
-            return true;
+      _computInputValidationPattern(pattern) {
+        if (typeof pattern === 'string' || pattern instanceof RegExp) {
+          try {
+            const testRegExp = new RegExp(pattern);
+          } catch(err) {
+            console.warn(err);
+            return '';
           }
-          return false;
-        } else {
-          return !(req && !v);
+          if (pattern instanceof RegExp) {
+            // slice leading and following slashes
+            return pattern.toString().slice(1,-1);
+          }
+          return pattern;
         }
+        return '';
       }
 
       _patternChanged(pattern) {
-        if (!pattern) {
-          this._validationRegExp = null;
-          return;
+        let isSet, validate, validationRegExp;
+        if (typeof pattern === 'string' || pattern instanceof RegExp) {
+          try {
+            validationRegExp = new RegExp(pattern);
+          } catch(err) {
+            console.warn(err);
+            validationRegExp = null;
+          }
         }
-        this._validationRegExp = new RegExp(pattern);
-        this._computeInvalid(this.required, this.value || '');
-      }
-
-      _inputChanged(input) {
-        if (input === undefined) {
-          this._debouncedComputeWidth();
-          return;
-        };
-        if (!(this._validationRegExp && this._validationRegExp.exec(input) === null)) {
-          this.value = input;
+        if (validationRegExp) {
+          // set validation function to validate with _validationRegExp and the _defaultValidate function
+          isSet = function(value) {
+            return this._defaultIsSet(value) && !(this._validationRegExp.exec(value) === null);
+          }
+          validate = function(_isSet, value, required) {
+            return _isSet(value);
+          }
+        } else {
+          isSet = this._defaultIsSet;
+          validate = this._defaultValidate;
         }
-      }
-
-      _valueChanged(value, oldValue) {
-        if (value === undefined) {
-          this._debouncedComputeWidth();
-          return;
-        };
-
-        if (!(this._validationRegExp && this._validationRegExp.exec(value) === null)) {
-          this.input = value;
-          this._debouncedComputeWidth();
-        } else if (oldValue !== undefined && this._validationRegExp.exec(oldValue) !== null) {
-          this.value = oldValue;
-          this._debouncedComputeWidth();
-        }
+        this._validationRegExp = validationRegExp;
+        this._isSet = isSet.bind(this);
+        this._validate = validate.bind(this);
       }
 
       _computeSpellcheckAttribute(spellcheck) {
@@ -173,24 +143,6 @@
       _computeAutocompleteAttribute(autocomplete) {
         return autocomplete ? 'on' : 'off';
       }
-
-      _checkInput(e) {
-        if (this.invalid) {
-          this._updateValue(e);
-          return;
-        } else {
-          this._inputChanged(this.input || '');
-        }
-        this._debouncedComputeWidth();
-        e && e.stopPropagation && e.stopPropagation();
-      }
-
-      _reflectPropertyToValue(input) {
-        if (!this.invalid) {
-          this.value = input;
-        }
-      }
-
     }
   }
 

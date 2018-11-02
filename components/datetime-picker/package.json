@@ -1,11 +1,21 @@
 {
-  "name": "@fooloomanzoo/text-input",
+  "name": "@fooloomanzoo/color-picker",
   "version": "2.0.9",
-  "description": "input for text",
+  "authors": [
+    "Johannes Brautzsch <fooloomanzoo>"
+  ],
+  "description": "A picker for color, that can use the native input.",
+  "homepage": "https://github.com/fooloomanzoo/color-picker/",
+  "keywords": [
+    "webcomponents",
+    "polymer",
+    "picker",
+    "color",
+    "range",
+    "input",
+    "polyfill"
+  ],
   "main": "index.html",
-  "directories": {
-    "test": "test"
-  },
   "scripts": {
     "postinstall": "bower install",
     "prepublish": "npm run build && git add . && git commit -m \"publish new version\" && npm version patch && git push",
@@ -16,17 +26,15 @@
     "test": "polymer test",
     "test:p": "polymer test -p --config-file=wct.p.conf.js"
   },
-  "keywords": [
-    "input",
-    "polymer",
-    "webcomponents",
-    "text"
-  ],
-  "author": "fooloomanzoo",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fooloomanzoo/color-picker.git"
+  },
   "license": "MIT",
   "dependencies": {
     "@polymer/polymer": "^2.6.1",
-    "@fooloomanzoo/input-picker-pattern": "^2"
+    "@fooloomanzoo/input-picker-pattern": "^2",
+    "@fooloomanzoo/color-input": "^2"
   },
   "devDependencies": {
     "web-component-tester": "^6.5.0",
