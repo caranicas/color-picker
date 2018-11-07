@@ -161,7 +161,7 @@
                 <canvas id="saturation" prop="color" tabindex="0" width$="[[_saturationWidth]]" height$="[[_saturationHeight]]" on-dblclick="_onDblClick" on-track="_onTrack" on-down="_onDown" on-up="_onUp" on-blur="_onColorElementBlur" on-focus="_onColorElementFocus" on-keydown="_onKeyDown"></canvas>
                 <div id="colorPin" class="selector pin" prop="color" hidden$=[[!valueIsSet]]></div>
               </div>
-              <template is="dom-if" if="[[hasAlphaDisplay]]">
+              <template is="dom-if" if="[[!isWithoutAlpha]]">
                 <div id="alphaBadge" class="transparency">
                   <canvas id="alpha" prop="alpha" tabindex="0" width$="[[_sliderWidth]]" height$="[[_saturationHeight]]" on-track="_onTrack" on-down="_onDown" on-tap="_onUp" on-blur="_onColorElementBlur" on-focus="_onColorElementFocus" on-keydown="_onKeyDown"></canvas>
                   <div id="alphaSlider" class="selector slider" prop="alpha"></div>
@@ -222,9 +222,9 @@
             type: CanvasRenderingContext2D
           },
           
-          hasAlphaDisplay: {
+          isWithoutAlpha: {
             type: Boolean,
-            value: true,
+            value: false,
             reflectToAttribute:true
           }
         };
@@ -342,7 +342,7 @@
       }
 
       _drawColorElement(alphaContext, saturationContext, h, sliderWidth, saturationWidth, saturationHeight) {
-        if ((alphaContext === undefined && this.hasAlphaDisplay) || saturationContext === undefined || sliderWidth === undefined || saturationWidth === undefined || saturationHeight === undefined) {
+        if ((alphaContext === undefined && !this.isWithoutAlpha) || saturationContext === undefined || sliderWidth === undefined || saturationWidth === undefined || saturationHeight === undefined) {
           return;
         }
         let gradient;
