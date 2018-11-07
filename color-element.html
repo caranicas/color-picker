@@ -348,7 +348,7 @@
         let gradient;
         h = Math.round(h || 0);
         // alpha
-        if(this.hasAlphaDisplay) {
+        if(!this.isWithoutAlpha) {
           alphaContext.clearRect(0, 0, sliderWidth, saturationHeight);
           gradient = alphaContext.createLinearGradient(0, 0, 1, saturationHeight);
           gradient.addColorStop(0, `hsla(${h},100%,50%,1)`);
